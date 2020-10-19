@@ -7,6 +7,7 @@
 #include <QDateTime>
 #include <QObject>
 #include <QDebug>
+#include <QSqlDatabase>
 #define  OUT qDebug().noquote()
 enum FileType
 {
@@ -22,6 +23,13 @@ enum LOVE
   OTHERS
 };
 
+
+/**
+ * @brief 创建数据库
+ * @param dbName
+ * @return
+ */
+COMMONSHARED_EXPORT QSqlDatabase Createdb(const QString& dbName);
 
 /**
  * @brief gbk2string

@@ -30,6 +30,11 @@ int main(int argc, char *argv[])
         w.resize(size.width() - size.width()/4, size.height() - size.height()/4);
         w.move((size.width()- w.width())/2, (size.height() - w.height())/2);
         w.show();
+        if(login)
+        {
+            login->deleteLater();
+            login = nullptr;
+        }
         return a.exec();
     }
 
@@ -38,5 +43,5 @@ int main(int argc, char *argv[])
         login->deleteLater();
         login = nullptr;
     }
-    return a.exec();
+    return a.exit();
 }

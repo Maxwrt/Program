@@ -41,7 +41,6 @@ private slots:
 private:
     void opendb();
     void selectdb();
-    QSqlDatabase Createdb();
 
 private:
     Ui::QDialogLogin *ui;

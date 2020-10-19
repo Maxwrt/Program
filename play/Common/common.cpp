@@ -380,6 +380,33 @@ void Sleep(int mesc)
 
 }
 
+QSqlDatabase Createdb(const QString & dbName)
+{
+    QSqlDatabase db;
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+    {
+        db = QSqlDatabase::database("qt_sql_default_connection");
+    }
+    else
+    {
+        db = QSqlDatabase::addDatabase("QSQLITE");
+    }
+
+    QTextStream(stdout) << qApp->applicationDirPath();
+    QString filename = qApp->applicationDirPath() % dbName;
+    if(QFile::exists(filename))
+    {
+        db.setDatabaseName(filename);
+        OUT << u8"获取数据库：LoveDiary.db：内容";
+    }
+    else
+    {
+        db.setDatabaseName(qApp->applicationDirPath() % QStringLiteral("/data.db"));
+        OUT << u8"获取数据库：data.db：内容";
+    }
+    return db;
+}
+
 void CalculateTime(const qint64 lavesecs, qint64 &hours, qint64 &minutes, qint64 &seconds)
 {
     hours = lavesecs / (60 * 60);

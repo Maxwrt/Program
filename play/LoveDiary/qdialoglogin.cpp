@@ -194,33 +194,6 @@ void QDialogLogin::selectdb()
     }
 }
 
-QSqlDatabase QDialogLogin::Createdb()
-{
-    QSqlDatabase db;
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-    {
-        db = QSqlDatabase::database("qt_sql_default_connection");
-    }
-    else
-    {
-        db = QSqlDatabase::addDatabase("QSQLITE");
-    }
-
-    QTextStream(stdout) << qApp->applicationDirPath();
-    QString filename = qApp->applicationDirPath() % QStringLiteral("/config/LoveDiary.db");
-    if(QFile::exists(filename))
-    {
-        db.setDatabaseName(filename);
-        OUT << u8"获取数据库：CustomerManageSystem.db：内容";
-    }
-    else
-    {
-        db.setDatabaseName(qApp->applicationDirPath() % QStringLiteral("/data.db"));
-        OUT << u8"获取数据库：data.db：内容";
-    }
-    return db;
-}
-
 void QDialogLogin::mousePressEvent(QMouseEvent* event)
 {
     if(event->button() == Qt::LeftButton)
@@ -293,13 +266,12 @@ void QDialogLogin::initDialog()
     setWindowFlags(Qt::CustomizeWindowHint);
     QIcon icon(":/config/title.png");
     setWindowIcon(icon);
+    m_db = Createdb(QStringLiteral("/config/LoveDiary.db"));
 }
 
 
 void QDialogLogin::opendb()
 {
-    m_db = Createdb();
-
     if(m_db.isOpen() || m_db.open())
     {
         QString sql = QStringLiteral("create table if not exists users(username varchar(11) not null primary key, \

@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QVariantHash>
 #include <QDateTime>
+#include <QSqlDatabase>
 #include "agreementdialog.h"
 
 namespace Ui {
@@ -23,13 +24,17 @@ public:
 private:
     void Init();
     void InitSignalSlot();
+    void EditUser();
+    void UpdateLoginCount();
 
 private:
     Ui::MainWindow *ui;
-    QVariantHash m_loginUserHash;
+    QVariantHash m_UserHash;
     QDateTime m_loveDateTime;
+    QString m_LoginTime;
     QTimer m_timer;
     const int m_numDigits;
+    QSqlDatabase m_db;
     AgreementDialog *m_AgreementDialog;
 };
 
