@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>config/Award.png</file>
+        <file>config/login.jpg</file>
+        <file>LoveDiary_zh.qm</file>
+    </qresource>
+</RCC>

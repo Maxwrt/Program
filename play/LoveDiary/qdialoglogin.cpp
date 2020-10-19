@@ -205,6 +205,8 @@ QSqlDatabase QDialogLogin::Createdb()
     {
         db = QSqlDatabase::addDatabase("QSQLITE");
     }
+
+    QTextStream(stdout) << qApp->applicationDirPath();
     QString filename = qApp->applicationDirPath() % QStringLiteral("/config/LoveDiary.db");
     if(QFile::exists(filename))
     {
@@ -289,7 +291,7 @@ void QDialogLogin::initDialog()
     setWindowFlags(Qt::FramelessWindowHint);
 #endif
     setWindowFlags(Qt::CustomizeWindowHint);
-    QIcon icon(":/config/Award.png");
+    QIcon icon(":/config/title.png");
     setWindowIcon(icon);
 }
 

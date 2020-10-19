@@ -19,9 +19,9 @@ DEFINES += QT_USE_FAST_OPERATOR_PLUS
 include(../play.pri)
 
 CONFIG(debug, debug|release){
-    LIBS += -L$$PWD/../lib/debug/ -lcommond -lQXlsx
+    LIBS += -L$$PWD/../bin/debug/ -lcommond -lQXlsx
 }else{
-    LIBS += -L$$PWD/../lib/release/ -lcommon
+    LIBS += -L$$PWD/../bin/release/ -lcommon
 }
 
 OBJECTS_DIR = $$PWD/../.object/frmCountCode

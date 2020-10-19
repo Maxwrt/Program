@@ -86,8 +86,9 @@ void MyTextEdit::updateLineNumberArea(const QRect &rect, int dy)
 }
 
 //*********************************************************************************************************
-void MyTextEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
+void MyTextEdit::updateLineNumberAreaWidth(int newBlockCount)
 {
+    Q_UNUSED(newBlockCount);
     setViewportMargins(lineNumberAreaWidth(), lineStatusBarHeight(), 0, 0);
 }
 
@@ -98,7 +99,7 @@ void MyTextEdit::setLabelText()
     QTextLayout *layout = cursor.block().layout();
     int col = cursor.position() - cursor.block().position() + 1;
     int line = layout->lineForTextPosition(col).lineNumber() + cursor.block().firstLineNumber() + 1;
-    label->setText("Line: " + QString::number(line) + " , Col: " + QString::number(col));
+    label->setText(QStringLiteral("行: ") % QString::number(line) % QStringLiteral(" , 列: ") % QString::number(col));
     label->setMinimumSize(100, lineStatusBarHeight());
     label->setAlignment(Qt::AlignCenter);
 }
@@ -159,7 +160,7 @@ void MyTextEdit::lineNumberAreaPaintEvent(QPaintEvent *event)
 void MyTextEdit::lineStatusBarPaintEvent(QPaintEvent *event)
 {
     QPainter painter(statusBar);
-    painter.fillRect(event->rect(),Qt::white);
+    painter.fillRect(event->rect(), Qt::white);
     setLabelText();
     statusBar->addPermanentWidget(label);
 }

@@ -1,6 +1,7 @@
 ﻿#include "luatextedit.h"
 #include <QSyntaxHighlighter>
 #include <QRegularExpression>
+#include <QTextDocument>
 #include <QList>
 
 
@@ -71,7 +72,6 @@ private:
     void highlightBlock(const QString &text)
 	{
 		// 多行处理，如块注释
-
         if (previousBlockState() == 255)
         {
             QTextCharFormat format;

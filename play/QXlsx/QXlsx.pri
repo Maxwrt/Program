@@ -153,9 +153,9 @@ win32-msvc2015 {
     message("compiling for visual studio 2015")
     #INCLUDEPATH += $${QXLSX_HEADERPATH}msvc2015
 	CONFIG(debug, debug|release) {
-            DESTDIR = $$PWD/../lib/debug/
+            DESTDIR = $$PWD/../bin/debug/
         } else {
-            DESTDIR = $$PWD/../lib/release/
+            DESTDIR = $$PWD/../bin/release/
 	}		
 }
 win32-msvc2017 {

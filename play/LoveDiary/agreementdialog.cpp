@@ -37,7 +37,7 @@ void AgreementDialog::Init()
     if (m_file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream read(&m_file);
-        ui->textEdit->setText(read.readAll());
+        ui->plainTextEdit->setPlainText(read.readAll());
         m_file.close();
     }
     else
@@ -49,7 +49,7 @@ void AgreementDialog::Init()
     {
         if (m_file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate))
         {
-            QString content = ui->textEdit->toPlainText();
+            QString content = ui->plainTextEdit->toPlainText();
             QTextStream write(&m_file);
             write << content;
             m_file.close();
