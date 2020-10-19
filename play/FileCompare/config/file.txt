@@ -1,0 +1,10 @@
+ExprParser/ExprParser4.5.csproj;Debug|AnyCPU;..\bin4.9\
+ExprParser/ExprParser4.5.csproj;Debug|AnyCPU;..\wrt\\
+CSCommFunc\CSCommFunc4.5.csproj;release|Any CPU;..\bin4.7\
+CSCommFunc\CSCommFunc4.5.csproj;release|Any CPU;..\wang\\	
+TopoCore\TopoCore140.vcxproj;debug|Win32;..\160liblib\
+ExprParser/ExprParser4.5.csproj;Release|AnyCPU;..\bin4.6\
+CSCommFunc\CSCommFunc4.5.csproj;Debug|AnyCPU;..\bin4.7\
+TopoCore\TopoCore140.vcxproj;Debug|x64;..\d140lib6\
+TopoCore\TopoCore140.vcxproj;Release|Win32;..\lib\
+TopoCore\TopoCore140.vcxproj;Release|x64;..\r140lib\

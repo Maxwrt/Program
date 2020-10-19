@@ -1,0 +1,9 @@
+文件名	目标版本	解析路径	手写路径	结果
+CSCommFunc4.5.csproj	debug|anycpu	..\bin4.6	..\bin4.6	相同
+CSCommFunc4.5.csproj	release|anycpu	..\bin4.6	..\bin4.6	相同
+ExprParser4.5.csproj	release|anycpu	..\bin4.6\	..\bin4.6\	相同
+ExprParser4.5.csproj	release|anycpu	..\bin4.5\	..\bin4.5\	相同
+TopoCore140.vcxproj	debug|x64	..\d140lib66	..\d140lib66	相同
+TopoCore140.vcxproj	release|win32	..\rlib	..\rlib	相同
+TopoCore140.vcxproj	release|x64	..\r140lib65	..\r140lib65	相同
+TopoCore140.vcxproj	debug|win32	..\160lib	..\160lib	相同

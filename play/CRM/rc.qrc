@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>CRM_zh.qm</file>
+        <file>config/Award.png</file>
+        <file>config/login.jpg</file>
+        <file>config/myapp.ico</file>
+    </qresource>
+</RCC>

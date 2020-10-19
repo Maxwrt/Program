@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+    <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"/>
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{E5B6867D-61E6-4501-A487-A61B8AB6C582}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>CSCommFunc</RootNamespace>
+        <AssemblyName>CSCommFunc</AssemblyName>
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <TargetFrameworkProfile/>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>..\bin4.7\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <Prefer32Bit>false</Prefer32Bit>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>..\wang\\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <Prefer32Bit>false</Prefer32Bit>
+    </PropertyGroup>
+    <PropertyGroup>
+        <SignAssembly>true</SignAssembly>
+    </PropertyGroup>
+    <PropertyGroup>
+        <AssemblyOriginatorKeyFile>Topology.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="ExprParser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=73392459a3e14ac2, processorArchitecture=MSIL">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>..\bin4.5\ExprParser.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>..\bin4.5\ICSharpCode.SharpZipLib.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="System"/>
+        <Reference Include="System.Data"/>
+        <Reference Include="System.Drawing"/>
+        <Reference Include="System.Management"/>
+        <Reference Include="System.Windows.Forms"/>
+        <Reference Include="System.Xml"/>
+        <Reference Include="UT.PCPlatForm.DynamicDebugTools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7177d7dd93be242f, processorArchitecture=MSIL">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>..\bin4.5\UT.PCPlatForm.DynamicDebugTools.DLL</HintPath>
+        </Reference>
+        <Reference Include="WFAuthorizer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=295d8d72a2ee79b4, processorArchitecture=MSIL">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>..\bin4.5\WFAuthorizer.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Class1.cs"/>
+        <Compile Include="公用类库\AssertOrWritLog.cs"/>
+        <Compile Include="公用类库\cls数据复颂.cs"/>
+        <Compile Include="公用类库\DataGridView配置和同步类.cs"/>
+        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="公用类库\Form输入激活码.cs">
+            <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="公用类库\Form输入激活码.Designer.cs">
+            <DependentUpon>Form输入激活码.cs</DependentUpon>
+        </Compile>
+        <Compile Include="公用类库\GraphicsExtension.cs"/>
+        <Compile Include="公用类库\inter数据库接口.cs"/>
+        <Compile Include="公用类库\MSCSoundControl.cs"/>
+        <Compile Include="公用类库\二进制文件存取.cs"/>
+        <Compile Include="公用类库\数据库表结构更新.cs"/>
+        <Compile Include="公用类库\文本输入Form.cs">
+            <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="公用类库\文本输入Form.Designer.cs">
+            <DependentUpon>文本输入Form.cs</DependentUpon>
+        </Compile>
+        <Compile Include="公用类库\新旧数据对比.cs"/>
+        <Compile Include="公用类库\注册授权.cs"/>
+        <Compile Include="公用类库\简单数据库管理.cs">
+            <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="公用类库\简单数据库管理.Designer.cs">
+            <DependentUpon>简单数据库管理.cs</DependentUpon>
+        </Compile>
+        <Compile Include="公用类库\讯飞语音接口.cs"/>
+        <Compile Include="文本公式类\I文本公式类.cs"/>
+        <Compile Include="文本公式类\文本公式类.cs"/>
+        <Compile Include="文本公式类\文本公式解析类工具.cs"/>
+        <Compile Include="公用类库\转换文件为拼音字母.cs"/>
+        <Compile Include="表达式公式库\BasicExpressCalulate.cs"/>
+        <Compile Include="表达式公式库\CompositeExpressAnalysis.cs"/>
+        <Compile Include="表达式公式库\StatisticalAnalysis.cs"/>
+        <Compile Include="语句模型\myMatchResult.cs"/>
+        <Compile Include="语句模型\匹配信息统计.cs"/>
+        <Compile Include="语句模型\文本Util.cs"/>
+        <Compile Include="语句模型\模型匹配数据.cs"/>
+        <Compile Include="语句模型\语句匹配结果.cs"/>
+        <Compile Include="语句模型\语句模型元素对应表达式.cs"/>
+        <Compile Include="语句模型\语句模型元素解析.cs"/>
+        <Compile Include="语句模型\语句模型定义.cs"/>
+        <Compile Include="音频分析\WavHelper3.cs"/>
+        <Compile Include="音频分析\分析方法集合.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="Topology.snk"/>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="公用类库\Form输入激活码.resx">
+            <DependentUpon>Form输入激活码.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Include="公用类库\文本输入Form.resx">
+            <DependentUpon>文本输入Form.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Include="公用类库\简单数据库管理.resx">
+            <DependentUpon>简单数据库管理.cs</DependentUpon>
+        </EmbeddedResource>
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+	<Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+</Project>

@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug|Win32">
+            <Configuration>Debug</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|x64">
+            <Configuration>Debug</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|Win32">
+            <Configuration>Release</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|x64">
+            <Configuration>Release</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+    <PropertyGroup Label="Globals">
+        <ProjectGuid>{F47883BB-8AA1-4BD4-82E6-5B21498BF2BD}</ProjectGuid>
+        <RootNamespace>CalledByCS</RootNamespace>
+        <Keyword>MFCDLLProj</Keyword>
+        <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+        <ProjectName>TopoCore</ProjectName>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <UseOfMfc>false</UseOfMfc>
+        <CharacterSet>MultiByte</CharacterSet>
+        <WholeProgramOptimization>true</WholeProgramOptimization>
+        <PlatformToolset>v140_xp</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <UseOfMfc>false</UseOfMfc>
+        <CharacterSet>MultiByte</CharacterSet>
+        <WholeProgramOptimization>true</WholeProgramOptimization>
+        <PlatformToolset>v140_xp</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <UseOfMfc>false</UseOfMfc>
+        <CharacterSet>MultiByte</CharacterSet>
+        <PlatformToolset>v140_xp</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <UseOfMfc>false</UseOfMfc>
+        <CharacterSet>MultiByte</CharacterSet>
+        <PlatformToolset>v140_xp</PlatformToolset>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+    <ImportGroup Label="ExtensionSettings"/>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+        <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+        <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+        <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+        <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <PropertyGroup Label="UserMacros"/>
+    <PropertyGroup>
+        <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\160liblib\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\d140lib6\</OutDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\</IntDir>
+        <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+        <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+        <RunCodeAnalysis Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</RunCodeAnalysis>
+        <RunCodeAnalysis Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</RunCodeAnalysis>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\lib\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\r140lib\</OutDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+        <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+        <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+        <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"/>
+        <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"/>
+        <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"/>
+        <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"/>
+        <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'"/>
+        <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'"/>
+        <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'"/>
+        <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'"/>
+        <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(VC_IncludePath);$(WindowsSdk_71A_IncludePath);..\QT\include;..\QT\include\QtCore;..\..\include;</IncludePath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+        <TargetName>$(ProjectName)</TargetName>
+        <IncludePath>$(VC_IncludePath);$(WindowsSdk_71A_IncludePath);..\QT\include;..\QT\include\QtCore;..\..\include;</IncludePath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+        <IncludePath>$(VC_IncludePath);$(WindowsSdk_71A_IncludePath);..\QT\include;..\QT\include\QtCore;..\..\include;</IncludePath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+        <IncludePath>$(VC_IncludePath);$(WindowsSdk_71A_IncludePath);..\QT\include;..\QT\include\QtCore;..\..\include;</IncludePath>
+        <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSdk_71A_LibraryPath_x86);..\rlib</LibraryPath>
+    </PropertyGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+        <Midl>
+            <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <MkTypLibCompatible>false</MkTypLibCompatible>
+        </Midl>
+        <ClCompile>
+            <Optimization>Disabled</Optimization>
+            <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CODE_ANALYSIS;DKFWSCRIPT_IMPLEMENT;TOPO_LOGY_EXPORT;_CRT_SECURE_NO_WARNINGS;TESTDDD_NO;DKFWDEBUG_NO;_ALLOW_RTCc_IN_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <MinimalRebuild>true</MinimalRebuild>
+            <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+            <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+            <PrecompiledHeader>NotUsing</PrecompiledHeader>
+            <WarningLevel>Level3</WarningLevel>
+            <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+            <EnablePREfast>false</EnablePREfast>
+            <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+            <ExceptionHandling>Sync</ExceptionHandling>
+            <SmallerTypeCheck>true</SmallerTypeCheck>
+        </ClCompile>
+        <ResourceCompile>
+            <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <Culture>0x0804</Culture>
+            <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ResourceCompile>
+        <Link>
+            <AdditionalDependencies>Qt5Cored.lib;Qt5Xmld.lib;utbasecppd.lib;CommFuncCd.lib;Jsond.lib;%(AdditionalDependencies)</AdditionalDependencies>
+            <ModuleDefinitionFile>.\TopoCored.def</ModuleDefinitionFile>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <AssemblyDebug>true</AssemblyDebug>
+            <GenerateMapFile>true</GenerateMapFile>
+            <MapExports>true</MapExports>
+            <SubSystem>Windows</SubSystem>
+            <TargetMachine>MachineX86</TargetMachine>
+            <Profile>true</Profile>
+            <OutputFile>$(OutDir)X86.$(TargetName)d$(TargetExt)</OutputFile>
+            <AdditionalLibraryDirectories>..\140lib;..\QT\lib;F:\Program Files %28x86%29\Visual Leak Detector\lib\Win32</AdditionalLibraryDirectories>
+            <ImportLibrary>..\140lib\$(TargetName)d.lib</ImportLibrary>
+            <MinimumRequiredVersion/>
+            <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+        <Midl>
+            <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <MkTypLibCompatible>false</MkTypLibCompatible>
+        </Midl>
+        <ClCompile>
+            <Optimization>Disabled</Optimization>
+            <PreprocessorDefinitions>_WIN64;_WINDOWS;_DEBUG;_USRDLL;CSDEBUG;LINK_JOYO_J_TEMP;CODE_ANALYSIS;PSSCRIPT_IMPLEMENT;PSTPWF_IMPLEMENT;TOPO_LOGY_EXPORT;FUJIANFANGWU;旧版本数据_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+            <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+            <PrecompiledHeader>NotUsing</PrecompiledHeader>
+            <WarningLevel>Level4</WarningLevel>
+            <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+            <EnablePREfast>false</EnablePREfast>
+            <AdditionalIncludeDirectories>..\QT\include;..\QT\include\QtCore;..\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ClCompile>
+        <ResourceCompile>
+            <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <Culture>0x0804</Culture>
+            <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ResourceCompile>
+        <Link>
+            <AdditionalDependencies>Jsond.lib;Qt5Xmld.lib;Qt5Cored.lib;utbasecppd.lib;CommFuncCd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+            <ModuleDefinitionFile>.\TopoCored.def</ModuleDefinitionFile>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <AssemblyDebug>true</AssemblyDebug>
+            <GenerateMapFile>true</GenerateMapFile>
+            <MapExports>true</MapExports>
+            <SubSystem>Windows</SubSystem>
+            <Profile>true</Profile>
+            <OutputFile>$(OutDir)X64.$(TargetName)d$(TargetExt)</OutputFile>
+            <AdditionalLibraryDirectories>..\d140lib64;..\QT\lib64;</AdditionalLibraryDirectories>
+            <ImportLibrary>$(OutDir)$(TargetName)d.lib</ImportLibrary>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+        <Midl>
+            <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <MkTypLibCompatible>false</MkTypLibCompatible>
+        </Midl>
+        <ClCompile>
+            <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_USRDLL;CSDEBUG;LINK_JOYO_J_TEMP;CODE_ANALYSIS;PSSCRIPT_IMPLEMENT;PSTPWF_IMPLEMENT;TOPO_LOGY_EXPORT;_CRT_SECURE_NO_WARNINGS;TESTDDD_NO;DKFWDEBUG_NO;旧版本数据_NO;JSCRIPTPARSER_EXPORTS_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+            <PrecompiledHeader>NotUsing</PrecompiledHeader>
+            <WarningLevel>Level2</WarningLevel>
+            <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+            <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+            <Optimization>Disabled</Optimization>
+        </ClCompile>
+        <ResourceCompile>
+            <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <Culture>0x0804</Culture>
+            <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ResourceCompile>
+        <Link>
+            <AdditionalDependencies>Json.lib;Qt5Core.lib;Qt5Xml.lib;utbasecpp.lib;CommFuncC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+            <ModuleDefinitionFile>.\TopoCore.def</ModuleDefinitionFile>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <SubSystem>Windows</SubSystem>
+            <OptimizeReferences>true</OptimizeReferences>
+            <EnableCOMDATFolding>true</EnableCOMDATFolding>
+            <TargetMachine>MachineX86</TargetMachine>
+            <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+            <OutputFile>$(OutDir)X86.$(TargetName)$(TargetExt)</OutputFile>
+            <AdditionalLibraryDirectories>..\rlib;..\QT\lib;</AdditionalLibraryDirectories>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+        <Midl>
+            <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <MkTypLibCompatible>false</MkTypLibCompatible>
+        </Midl>
+        <ClCompile>
+            <PreprocessorDefinitions>_WIN64;WIN32;_WINDOWS;NDEBUG;_USRDLL;CSDEBUG;LINK_JOYO_J_TEMP;CODE_ANALYSIS;PSSCRIPT_IMPLEMENT;PSTPWF_IMPLEMENT;TOPO_LOGY_EXPORT;_CRT_SECURE_NO_WARNINGS;TESTDDD_NO;DKFWDEBUG_NO;旧版本数据_NO;JSCRIPTPARSER_EXPORTS_N;FUJIANFANGWU_NO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+            <PrecompiledHeader>NotUsing</PrecompiledHeader>
+            <WarningLevel>Level3</WarningLevel>
+            <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+            <AdditionalIncludeDirectories>..\..\include</AdditionalIncludeDirectories>
+            <Optimization>Disabled</Optimization>
+            <WholeProgramOptimization>true</WholeProgramOptimization>
+            <IntrinsicFunctions>true</IntrinsicFunctions>
+        </ClCompile>
+        <ResourceCompile>
+            <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <Culture>0x0804</Culture>
+            <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ResourceCompile>
+        <Link>
+            <AdditionalDependencies>Json.lib;Qt5Xml.lib;Qt5Core.lib;utbasecpp.lib;CommFuncC.lib;%(AdditionalDependencies)</AdditionalDependencies>
+            <ModuleDefinitionFile>.\TopoCore.def</ModuleDefinitionFile>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <SubSystem>Console</SubSystem>
+            <OptimizeReferences>true</OptimizeReferences>
+            <EnableCOMDATFolding>true</EnableCOMDATFolding>
+            <OutputFile>$(OutDir)X64.$(TargetName)$(TargetExt)</OutputFile>
+            <AdditionalLibraryDirectories>..\r140lib64;..\QT\lib64;</AdditionalLibraryDirectories>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemGroup>
+        <Reference Include="System">
+            <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+            <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+        </Reference>
+        <Reference Include="System.Data">
+            <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+            <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+        </Reference>
+        <Reference Include="System.Drawing">
+            <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+            <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+        </Reference>
+        <Reference Include="System.Windows.Forms">
+            <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+            <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+        </Reference>
+        <Reference Include="System.Xml">
+            <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+            <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <ClCompile Include="access-p.cpp"/>
+        <ClCompile Include="Ameo解析执行.cpp"/>
+        <ClCompile Include="CardOperation.cpp"/>
+        <ClCompile Include="JSJK.cpp"/>
+        <ClCompile Include="p模型检查.cpp"/>
+        <ClCompile Include="任务管理.cpp"/>
+        <ClCompile Include="内部初始化部分属性.cpp"/>
+        <ClCompile Include="动态增加一个搜索.cpp"/>
+        <ClCompile Include="动态设备.cpp"/>
+        <ClCompile Include="增量更新节点表.cpp"/>
+        <ClCompile Include="属性管理.cpp"/>
+        <ClCompile Include="异常入口.cpp"/>
+        <ClCompile Include="拓扑配置读取.cpp"/>
+        <ClCompile Include="搜索功能.cpp"/>
+        <ClCompile Include="搜索结果缓存.cpp"/>
+        <ClCompile Include="搜索集合判断.cpp"/>
+        <ClCompile Include="新设备模拟.cpp"/>
+        <ClCompile Include="版本控制.cpp"/>
+        <ClCompile Include="脚本方式拓扑逻辑判断.cpp"/>
+        <ClCompile Include="节点表.cpp"/>
+        <ClCompile Include="节点表修复类.cpp"/>
+        <ClCompile Include="节点表分割.cpp"/>
+        <ClCompile Include="莆田节点表修复.cpp"/>
+        <ClCompile Include="获取设备信息.cpp"/>
+        <ClCompile Include="设备查找.cpp"/>
+        <ClCompile Include="语言方式拓扑定义.cpp">
+            <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EditAndContinue</DebugInformationFormat>
+            <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ProgramDatabase</DebugInformationFormat>
+        </ClCompile>
+        <ClCompile Include="调试信息.cpp"/>
+        <ClCompile Include="调试信息内存管理.cpp"/>
+        <ClCompile Include="逻辑文件读取.cpp"/>
+        <ClCompile Include="Joyo-M接口.cpp"/>
+        <ClCompile Include="TopRead.cpp"/>
+        <ClCompile Include="拆解复杂设备.cpp"/>
+        <ClCompile Include="descInterface.cpp"/>
+        <ClCompile Include="调防生成节点表.cpp"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="ReadMe.txt"/>
+        <None Include="备忘.txt"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ClInclude Include="..\..\include\BoolResult.h"/>
+        <ClInclude Include="access-p.h"/>
+        <ClInclude Include="Ameo解析执行.h"/>
+        <ClInclude Include="属性管理.h"/>
+        <ClInclude Include="异常入口.h"/>
+        <ClInclude Include="新设备模拟.h"/>
+        <ClInclude Include="版本控制.h"/>
+        <ClInclude Include="脚本方式拓扑逻辑判断.h"/>
+        <ClInclude Include="节点表.h"/>
+        <ClInclude Include="节点表修复类.h"/>
+        <ClInclude Include="语言方式拓扑定义.h"/>
+        <ClInclude Include="Joyo-M接口.h"/>
+        <ClInclude Include="cimDbStruct.h"/>
+        <ClInclude Include="CommStruct.h"/>
+    </ItemGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+    <ImportGroup Label="ExtensionTargets"/>
+</Project>
