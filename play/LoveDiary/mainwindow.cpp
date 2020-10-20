@@ -63,7 +63,7 @@ void MainWindow::InitSignalSlot()
         }
         m_AgreementDialog->Show();
     });
-    connect(ui->actionEdit,, this, [=]()
+    connect(ui->actionEdit,&QAction::triggered, this, [=]()
     {
         DialogUser dlgUser(this);
         dlgUser.exec();

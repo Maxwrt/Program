@@ -248,6 +248,7 @@ void QDialogLogin::initDialog()
     ui->labelPicture->setText("");
     ui->labelUser->setText(tr("username:"));
     ui->labelPassword->setText(tr("password:"));
+    ui->labelVerification->setText(u8"验证码");
     ui->lineEditPassword->setEchoMode(QLineEdit::Password);
 
     //给用户名和密码编辑框安装事件过滤器
@@ -255,7 +256,7 @@ void QDialogLogin::initDialog()
     ui->lineEditPassword->installEventFilter(this);
 
     ui->pushButtonOk->setText(tr("OK"));
-    ui->pushButtonCancel->setText(tr("Cancel"));
+    ui->pushButtonCancel->setText(u8"关闭");
     ui->pushButtonRegister->setText(tr("register"));
     QPixmap pixmap;
     pixmap.load(":/config/login.jpg");

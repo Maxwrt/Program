@@ -42,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_thread, &Thread::finished, this, &MainWindow::ThreadFinishSlot);
     connect(this, &MainWindow::editStartCompare, m_thread, &Thread::editStartCompareSlot);
 
-
     m_compare = new Compare();
     connect(this, &MainWindow::startCompare, m_compare, &Compare::compareSlot);
     connect(&m_compare_thread, &QThread::finished, this, &MainWindow::CompareThreadFinishSlot);

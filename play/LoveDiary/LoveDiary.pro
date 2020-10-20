@@ -34,7 +34,8 @@ SOURCES += main.cpp\
         mytextedit.cpp \
         agreementdialog.cpp \
         imageshow.cpp \
-    dialoguser.cpp
+    dialoguser.cpp \
+    verificationcodelabel.cpp
 
 HEADERS  += mainwindow.h \
             qdialoglogin.h \
@@ -42,7 +43,8 @@ HEADERS  += mainwindow.h \
             mytextedit.h \
             agreementdialog.h \
             imageshow.h \
-    dialoguser.h
+    dialoguser.h \
+    verificationcodelabel.h
 
 FORMS    += mainwindow.ui \
             qdialoglogin.ui \
