@@ -74,6 +74,8 @@ private:
 
     void setRedRow(const QString& key);
     void editUser();
+    void initWidgets();
+    void initSignalSlot();
 private:
     Ui::MainWindow *ui;
     QStandardItemModel* mModel; //tableview的model

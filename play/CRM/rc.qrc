@@ -4,5 +4,8 @@
         <file>config/Award.png</file>
         <file>config/login.jpg</file>
         <file>config/myapp.ico</file>
+        <file>config/data.json</file>
+        <file>config/province.xml</file>
+        <file>config/table.txt</file>
     </qresource>
 </RCC>

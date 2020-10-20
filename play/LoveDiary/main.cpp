@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     QRect rect = a.desktop()->availableGeometry();
     QSize size = rect.size();
 
-    SetAppLogName("LoveDiary");
+    SetAppLogName(QStringLiteral("LoveDiary"));
     qInstallMessageHandler(AppLog);
 
 

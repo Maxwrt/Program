@@ -12,9 +12,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-
-    SetAppLogName("crm");
+    SetAppLogName(QStringLiteral("CRM"));
     qInstallMessageHandler(AppLog);
 
     QTranslator translator(&a);
@@ -32,6 +30,12 @@ int main(int argc, char *argv[])
         MainWindow w(login->m_loginUserHash);
         w.move((a.desktop()->width()-w.width())/2, (a.desktop()->height()-w.height())/2);
         w.ShowWindow();
+
+        if(login)
+        {
+            login->deleteLater();
+            login = nullptr;
+        }
         return a.exec();
     }
 
@@ -43,7 +47,7 @@ int main(int argc, char *argv[])
         QMetaProperty metaproperty = metaobject->property(i);
         const char* name = metaproperty.name();
         QVariant value = login->property(name);
-        qDebug()<<name << " "<<value;
+        qDebug() << name << " "<<value;
     }
 #endif
     if(login)
@@ -52,5 +56,5 @@ int main(int argc, char *argv[])
         login = nullptr;
     }
 
-    return 0;
+    return a.exit();
 }

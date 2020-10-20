@@ -120,7 +120,7 @@ QSqlDatabase BaseFunction::createdb()
     {
         db=QSqlDatabase::addDatabase("QSQLITE");
     }
-    QString filename=qApp->applicationDirPath()+"/./config/CustomerManageSystem.db";
+    QString filename=qApp->applicationDirPath()+"/config/CustomerManageSystem.db";
     if(QFile::exists(filename))
     {
         db.setDatabaseName(filename);

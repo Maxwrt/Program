@@ -28,22 +28,28 @@
 
 MainWindow::MainWindow(QVariantHash userHash,QWidget *parent) :
     QMainWindow(parent),
+    muserHash(userHash),
     ui(new Ui::MainWindow)
 {
+    initWidgets();
+    InitData();
+    OpenDb();
+    InitTable();
+    InitMenu();
+    initSignalSlot();
+    editUser();
+}
+
+void MainWindow::initWidgets()
+{
     ui->setupUi(this);
-    muserHash=userHash;
     setWindowIcon(QIcon(":/config/myapp.ico"));
     setWindowTitle(tr("Client Manage System"));
 
     ui->tabWidget->count();
     ui->tabWidget->removeTab(1);
     ui->tabWidget_2->removeTab(1);
-    mDB=BaseFunction::createdb();
-    InitData();
-    OpenDb();
-    InitTable();
-    InitMenu();
-    ui->comboBox->setView(new QListView());
+    ui->comboBox->setView(new QListView(this));
     ui->comboBox->addItems(mAllType);
     ui->comboBox->setCurrentIndex(0);
     ui->tabWidget->setTabBarAutoHide(true);
@@ -52,19 +58,22 @@ MainWindow::MainWindow(QVariantHash userHash,QWidget *parent) :
     ui->btnExport->setText(tr("Export"));
     ui->btnEditUsers->setText(u8"±à¼­ÓÃ»§");
     //setWindowFlags(Qt::CustomizeWindowHint);
+}
 
-    mfilewatcher.addPath(qApp->applicationDirPath()+"");
+void MainWindow::initSignalSlot()
+{
     connect(&mfilewatcher, SIGNAL(fileChanged(QString)), SLOT(on_fileChanged(QString)));
     connect(ui->actAppend, SIGNAL(triggered(bool)),      SLOT(on_btnAdd_clicked(bool)));
     connect(ui->actDelete, SIGNAL(triggered(bool)),      SLOT(on_btnDelete_clicked(bool)));
     connect(ui->actExport, SIGNAL(triggered(bool)),      SLOT(on_btnExport_clicked(bool)));
     connect(ui->actClose,  SIGNAL(triggered(bool)),      SLOT(close()));
     connect(ui->comboBox,  SIGNAL(currentTextChanged(QString)), SLOT(comboBoxCurrentTextChangedSlot(QString)));
-    editUser();
 }
 
 void MainWindow::InitData()
 {
+    mDB = Createdb(QStringLiteral("/config/CustomerManageSystem.db"));
+    mfilewatcher.addPath(qApp->applicationDirPath() % QStringLiteral(""));
     QString fileName("./config/table.txt");
     if(!QFile::exists(fileName))
     {

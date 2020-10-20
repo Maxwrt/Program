@@ -191,7 +191,7 @@ QString dealString(const QStringList &strList)
     return retStr;
 }
 
-QString appName = QString::null;
+static QString appName = QString::null;
 void SetAppLogName(const QString &appname)
 {
     appName = appname;
@@ -436,8 +436,8 @@ QString CalculateDateTime(const QDateTime & datetime)
         CalculateTime(lavesecs, hours, minutes, seconds);
     }
 
-    return  QString::number(days) % QStringLiteral("ÃÏ") % QString::number(hours) % QStringLiteral(" ±") % \
-            QString::number(minutes) % QStringLiteral("∑÷") % QString::number(seconds) % QStringLiteral("√Î");
+    return  QString::number(days) % QStringLiteral("days") % QString::number(hours) % QStringLiteral("hours") % \
+            QString::number(minutes) % QStringLiteral("minutes") % QString::number(seconds) % QStringLiteral("seconds");
 }
 
 
