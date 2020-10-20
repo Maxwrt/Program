@@ -21,13 +21,37 @@ QDialogLogin::QDialogLogin(QWidget *parent) :
     m_password = QString::null;
     initDialog();
 
+    connect(ui->labelVerificationCode, &QLabel::objectNameChanged, this, [=]()
+    {
+        m_verification = ui->labelVerificationCode->text();
+    });
     connect(ui->pushButtonOk, &QPushButton::clicked, this, [&]() mutable -> void
     {
-        QString user=ui->lineEditUser->text();
-        QString password=ui->lineEditPassword->text();
+        QString user = ui->lineEditUser->text();
+        QString password = ui->lineEditPassword->text();
         //QString encryptPassword=encryptPasswd(password);
+        QString verification = ui->lineEditVerification->text();
         if(!user.isEmpty())
         {
+            if (!password.isEmpty())
+            {
+                QMessageBox::information(this, u8"Info", u8"密码不能为空", tr("OK"));
+                return;
+            }
+
+            if (verification.isEmpty())
+            {
+                QMessageBox::information(this, u8"Info", u8"请输入验证码", tr("OK"));
+                return;
+            }
+            else
+            {
+                if (qstrcmp(verification.toStdString().c_str(), m_verification.toStdString().c_str()) != 0)
+                {
+                    QMessageBox::information(this, u8"Info", u8"输入的验证码不正确", tr("OK"));
+                    return ;
+                }
+            }
             //和数据库中的用户名和密码进行比较
             if(m_hashlist.count()>0)
             {
@@ -48,7 +72,7 @@ QDialogLogin::QDialogLogin(QWidget *parent) :
                             m_trynum++;
                             if(m_trynum>3)
                             {
-                                QMessageBox::critical(this, tr("Error Tip"), tr("Input error number greater than 3,sys close"), tr(u8"OK"));
+                                QMessageBox::critical(this, tr("Error Tip"), tr("Input error number greater than 3,sys close"), tr("OK"));
                                 close();
                                 return;
                             }
@@ -64,7 +88,7 @@ QDialogLogin::QDialogLogin(QWidget *parent) :
             }
             if((m_hashlist.count()<1) || m_user.isEmpty())
             {
-                QMessageBox::information(this, u8"Info", tr(u8"user %1 not exists，please register firstly").arg(user), u8"OK");
+                QMessageBox::information(this, u8"Info", tr(u8"user %1 not exists，please register firstly").arg(user), tr("OK"));
                 return;
             }
         }
@@ -176,15 +200,15 @@ void QDialogLogin::selectdb()
         {
             while(qsql.next())
             {
-              QVariantHash hash;
-              hash.insert("username", qsql.value(0).toString());
-              hash.insert("password", qsql.value(1).toString());
-              hash.insert("isroot", qsql.value(2).toBool());
-              hash.insert("datestring", qsql.value(3).toString());
-              hash.insert("sex", qsql.value(4).toString());
-              hash.insert("loginCount", qsql.value(5).toInt());
-              hash.insert("latestlogintime",qsql.value(6).toString());
-              m_hashlist<<hash;
+                QVariantHash hash;
+                hash.insert("username", qsql.value(0).toString());
+                hash.insert("password", qsql.value(1).toString());
+                hash.insert("isroot", qsql.value(2).toBool());
+                hash.insert("datestring", qsql.value(3).toString());
+                hash.insert("sex", qsql.value(4).toString());
+                hash.insert("loginCount", qsql.value(5).toInt());
+                hash.insert("latestlogintime",qsql.value(6).toString());
+                m_hashlist<<hash;
             }
         }
     }
@@ -276,9 +300,9 @@ void QDialogLogin::opendb()
     if(m_db.isOpen() || m_db.open())
     {
         QString sql = QStringLiteral("create table if not exists users(username varchar(11) not null primary key, \
-                        password varchar(11) not null, isroot boolean, datestring varchar(20), sex varchar(5), loginCount int, latestlogintime varchar(20))");
+                                     password varchar(11) not null, isroot boolean, datestring varchar(20), sex varchar(5), loginCount int, latestlogintime varchar(20))");
 
-        QSqlQuery qsql;
+                QSqlQuery qsql;
         qsql.prepare(sql);
         if(!qsql.exec(sql))
         {

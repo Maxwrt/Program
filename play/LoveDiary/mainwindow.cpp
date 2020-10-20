@@ -55,6 +55,7 @@ void MainWindow::Init()
 void MainWindow::InitSignalSlot()
 {
     connect(&m_timer, &QTimer::timeout, this, [=]() mutable -> void { ui->lcdNumber->display(CalculateDateTime(m_loveDateTime));});
+
     connect(ui->pushButton_agreement, &QPushButton::clicked, this, [&]
     {
         if (!m_AgreementDialog)
@@ -63,6 +64,7 @@ void MainWindow::InitSignalSlot()
         }
         m_AgreementDialog->Show();
     });
+
     connect(ui->actionEdit,&QAction::triggered, this, [=]()
     {
         DialogUser dlgUser(this);

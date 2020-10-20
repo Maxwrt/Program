@@ -90,7 +90,7 @@ void DialogUser::selectdb()
 
 void DialogUser::InitHeadList()
 {
-    QString filename(QStringLiteral("./config/table.txt"));
+    QString filename(QStringLiteral(":/config/table.txt"));
     if(!QFile::exists(filename))
     {
         qDebug().noquote()<<QString(u8"文件%1不存在").arg(filename);

@@ -52,6 +52,7 @@ private:
     QVariantList m_hashlist;
     QString m_user;
     QString m_password;
+    QString m_verification;
     QSqlDatabase  m_db;
 };
 
