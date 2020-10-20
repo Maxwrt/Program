@@ -7,18 +7,18 @@ CONFIG += debug_and_release
 CONFIG(debug, debug|release){
       contains(TEMPLATE, app){
             win32 {
-                DESTDIR = $$PWD/../bin/debug/
+                DESTDIR = $$PWD/bin/debug/
           }
        }
       contains(TEMPLATE, lib){
-        DESTDIR = $$PWD/../bin/debug/
+        DESTDIR = $$PWD/bin/debug/
        }
 }else{
       contains(TEMPLATE, app){
-        DESTDIR = $$PWD/../bin/release/
+        DESTDIR = $$PWD/bin/release/
        }
       contains(TEMPLATE, lib){
-        DESTDIR = $$PWD/../bin/release/
+        DESTDIR = $$PWD/bin/release/
        }
 }
 

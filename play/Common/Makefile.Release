@@ -201,6 +201,9 @@ compiler_clean:
 		G:\software\app\Qt\5.7\msvc2015\include\QtCore\qcontiguouscache.h \
 		G:\software\app\Qt\5.7\msvc2015\include\QtCore\qsharedpointer.h \
 		G:\software\app\Qt\5.7\msvc2015\include\QtCore\qsharedpointer_impl.h \
+		G:\software\app\Qt\5.7\msvc2015\include\QtSql\QSqlDatabase \
+		G:\software\app\Qt\5.7\msvc2015\include\QtSql\qsqldatabase.h \
+		G:\software\app\Qt\5.7\msvc2015\include\QtSql\qsql.h \
 		G:\software\app\Qt\5.7\msvc2015\include\QtCore\QFileInfo \
 		G:\software\app\Qt\5.7\msvc2015\include\QtCore\qfileinfo.h \
 		G:\software\app\Qt\5.7\msvc2015\include\QtCore\qfile.h \
@@ -258,10 +261,7 @@ compiler_clean:
 		G:\software\app\Qt\5.7\msvc2015\include\QtCore\qurl.h \
 		G:\software\app\Qt\5.7\msvc2015\include\QtCore\qurlquery.h \
 		G:\software\app\Qt\5.7\msvc2015\include\QtCore\QDate \
-		G:\software\app\Qt\5.7\msvc2015\include\QtCore\QTime \
-		G:\software\app\Qt\5.7\msvc2015\include\QtSql\QSqlDatabase \
-		G:\software\app\Qt\5.7\msvc2015\include\QtSql\qsqldatabase.h \
-		G:\software\app\Qt\5.7\msvc2015\include\QtSql\qsql.h
+		G:\software\app\Qt\5.7\msvc2015\include\QtCore\QTime
 
 ####### Install
 

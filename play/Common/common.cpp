@@ -24,7 +24,7 @@
 #include <QSqlDatabase>
 #include <QObject>
 #include <cmath>
-
+#include <QFileInfo>
 
 float f(float x, float y, float z)
 {
@@ -392,12 +392,11 @@ QSqlDatabase Createdb(const QString & dbName)
         db = QSqlDatabase::addDatabase("QSQLITE");
     }
 
-    QTextStream(stdout) << qApp->applicationDirPath();
     QString filename = qApp->applicationDirPath() % dbName;
     if(QFile::exists(filename))
     {
         db.setDatabaseName(filename);
-        OUT << u8"获取数据库：LoveDiary.db：内容";
+        OUT << QString(u8"获取数据库：%1.db内容").arg(QFileInfo(filename).baseName());
     }
     else
     {

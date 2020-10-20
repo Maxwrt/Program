@@ -1,6 +1,6 @@
 #include "qdialoglogin.h"
 #include "ui_qdialoglogin.h"
-#include "basefunction.h"
+#include "common.h"
 #include <QSettings>
 #include <QCryptographicHash>
 #include <QByteArray>
@@ -198,7 +198,7 @@ void QDialogLogin::initDialog()
 
 void QDialogLogin::opendb()
 {
-    m_db = BaseFunction::createdb();
+    m_db = Createdb(QStringLiteral("/config/CustomerManageSystem.db"));
 
     if(m_db.isOpen() || m_db.open())
     {
@@ -283,7 +283,7 @@ void QDialogLogin::on_pushButtonRegister_clicked()
 
             ui->pushButtonRegister->setText(u8"×¢²á³É¹¦");
             ui->pushButtonRegister->setStyleSheet("QPushButton{color:red;}");
-            BaseFunction::delay(2);
+            Sleep(2000);
             ui->pushButtonRegister->setText(u8"×¢²á");
             ui->pushButtonRegister->setStyleSheet("QPushButton{color:black;}");
             ui->lineEditUser->clear();

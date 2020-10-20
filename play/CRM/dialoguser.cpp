@@ -1,6 +1,6 @@
 #include "dialoguser.h"
 #include "ui_dialoguser.h"
-#include "basefunction.h"
+#include "common.h"
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -26,7 +26,7 @@ DialogUser::DialogUser(QWidget *parent) :
 
 DialogUser::~DialogUser()
 {
-    qDebug().noquote()<<u8"DialogUser析构调用";
+    OUT << u8"DialogUser析构调用";
     m_db.close();
     delete ui;
 }
@@ -40,7 +40,7 @@ void DialogUser::setText()
 
 void DialogUser::createDB()
 {
-    m_db = BaseFunction::createdb();
+    m_db = Createdb(QStringLiteral("/config/CustomerManageSystem.db"));
     if(m_db.isOpen() || m_db.open())
     {
         QString create_table_sql = QStringLiteral("create table if not exists users(username varchar(11) primary key, \
@@ -51,8 +51,7 @@ void DialogUser::createDB()
         query_sql.prepare(create_table_sql);
         if(!query_sql.exec())
         {
-            qDebug()<<query_sql.lastError();
-            return ;
+            OUT << query_sql.lastError();
         }
     }
 }
@@ -77,20 +76,20 @@ void DialogUser::selectdb()
                 hash.insert("loginCount", qsql.value(5).toInt());
                 hash.insert("latestlogintime",qsql.value(6).toString());
                 hash.insert("remarks", qsql.value(7).toString());
-                m_userList<<hash;
-                m_usernameList<<qsql.value(0).toString();
+                m_userList << hash;
+                m_usernameList << qsql.value(0).toString();
             }
         }
     }
     else
     {
-        qDebug().noquote()<<u8"打开users.db失败"<<m_db.lastError();
+        OUT << u8"打开users.db失败" << m_db.lastError();
     }
 }
 
 void DialogUser::InitHeadList()
 {
-    QString filename=QStringLiteral("../config/table.txt");
+    QString filename(QStringLiteral(":/config/table.txt"));
     if(!QFile::exists(filename))
     {
         qDebug().noquote()<<QString(u8"文件%1不存在").arg(filename);
@@ -224,7 +223,7 @@ void DialogUser::infomation(QPushButton *button, const QString &msg)
 {
     button->setStyleSheet(QStringLiteral("QPushButton{color:red;}"));
     button->setText(msg);
-    BaseFunction::delay(2);
+    Sleep(2000);
     button->setStyleSheet(QStringLiteral("QPushButton{color:black;}"));
 }
 

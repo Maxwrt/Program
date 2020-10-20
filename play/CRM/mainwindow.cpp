@@ -50,13 +50,13 @@ void MainWindow::initWidgets()
     ui->tabWidget->removeTab(1);
     ui->tabWidget_2->removeTab(1);
     ui->comboBox->setView(new QListView(this));
-    ui->comboBox->addItems(mAllType);
     ui->comboBox->setCurrentIndex(0);
     ui->tabWidget->setTabBarAutoHide(true);
     ui->tabWidget->setStyleSheet("border:none");
     ui->tabWidget->setCurrentIndex(0);
     ui->btnExport->setText(tr("Export"));
     ui->btnEditUsers->setText(u8"编辑用户");
+    ui->labelTipInfo_2->adjustSize();
     //setWindowFlags(Qt::CustomizeWindowHint);
 }
 
@@ -74,7 +74,7 @@ void MainWindow::InitData()
 {
     mDB = Createdb(QStringLiteral("/config/CustomerManageSystem.db"));
     mfilewatcher.addPath(qApp->applicationDirPath() % QStringLiteral(""));
-    QString fileName("./config/table.txt");
+    QString fileName(":/config/table.txt");
     if(!QFile::exists(fileName))
     {
         qDebug()<<QString(u8"文件%1不存在").arg(fileName);
@@ -119,6 +119,7 @@ void MainWindow::InitData()
     mFilterType = "";
     mFilterArea = "";
     mFilterProvince = "";
+    ui->comboBox->addItems(mAllType);
 }
 
 void MainWindow::editUser()
@@ -239,7 +240,7 @@ void MainWindow::on_btnExport_clicked(bool checked)
         ui->labelTipInfo->setFont(font);
         ui->labelTipInfo->setStyleSheet("QLabel{color:red;}");
         ui->labelTipInfo->setText(tr("Export Success"));
-        BaseFunction::delay(1);
+        Sleep(1000);
         ui->labelTipInfo->clear();
     }
     else
@@ -250,10 +251,10 @@ void MainWindow::on_btnExport_clicked(bool checked)
 
 void MainWindow::InitTreeWidget()
 {
-    QString filename("./config/province.xml");
+    QString filename(":/config/province.xml");
     if(!QFile::exists(filename))
     {
-        qDebug().noquote()<<QString(u8"%1不存在").arg(filename);
+        qDebug().noquote() << QString(u8"%1不存在").arg(filename);
         return;
     }
     if(!BaseFunction::parseXmlFile(ui->treeWidget, filename))
@@ -384,13 +385,14 @@ void MainWindow::InitModel()
 
 void MainWindow::InitTable()
 {
+    OUT << u8"初始化表格开始";
     QTableView* t=ui->tableView;
     t->setEditTriggers(QAbstractItemView::NoEditTriggers);			//不能编辑
     t->setSelectionBehavior(QAbstractItemView::SelectRows);			//一次选中整行
     t->setAlternatingRowColors(true);
     t->horizontalHeader()->setStretchLastSection(true);
     t->resizeColumnsToContents();
-    QString strTreeStyle = "QTableView::item {height: 25px}";
+    QString strTreeStyle("QTableView::item {height: 25px}");
     t->setStyleSheet(strTreeStyle);
 
     mModel=new QStandardItemModel(this);
@@ -420,6 +422,7 @@ void MainWindow::InitTable()
 
     QModelIndex selIndex = mModel->index(0,0,t->rootIndex());
     t->setCurrentIndex(selIndex);
+    OUT << u8"初始化表格结束";
 }
 
 void MainWindow::AddItem(PCustomer item)
