@@ -33,18 +33,21 @@ SOURCES += main.cpp\
         luatextedit.cpp \
         mytextedit.cpp \
         agreementdialog.cpp \
-        imageshow.cpp
+        imageshow.cpp \
+    dialoguser.cpp
 
 HEADERS  += mainwindow.h \
             qdialoglogin.h \
             luatextedit.h \
             mytextedit.h \
             agreementdialog.h \
-            imageshow.h
+            imageshow.h \
+    dialoguser.h
 
 FORMS    += mainwindow.ui \
             qdialoglogin.ui \
-            agreementdialog.ui
+            agreementdialog.ui \
+    dialoguser.ui
 
 TRANSLATIONS = LoveDiary_en.ts \
                LoveDiary_zh.ts

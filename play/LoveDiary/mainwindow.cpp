@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "dialoguser.h"
 #include "common.h"
 #include <QFile>
 #include <QDateTime>
@@ -10,7 +11,7 @@
 #include <QWidget>
 #include <QFont>
 #include <QSqlQuery>
-
+#include <QIcon>
 
 MainWindow::MainWindow(const QVariantHash& logHash, QWidget *parent) :
     QMainWindow(parent),
@@ -36,6 +37,10 @@ MainWindow::~MainWindow()
 void MainWindow::Init()
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/config/love.jpg"));
+    m_labelTipInfo = new QLabel(this);
+    m_labelTipInfo->adjustSize();
+    statusBar()->addWidget(m_labelTipInfo);
     m_db = Createdb(QStringLiteral("/config/LoveDiary.db"));
     m_loveDateTime = QDateTime(QDate(2020, 9, 4), QTime(21, 9, 9)),
     setWindowTitle(tr("Love Diary About SuSu & GuaGua"));
@@ -44,6 +49,7 @@ void MainWindow::Init()
     ui->lcdNumber->setDigitCount(m_numDigits);
     m_timer.setInterval(1000);
     m_AgreementDialog = nullptr;
+    ui->menu->addAction(ui->actionEdit);
 }
 
 void MainWindow::InitSignalSlot()
@@ -56,6 +62,11 @@ void MainWindow::InitSignalSlot()
             m_AgreementDialog = new AgreementDialog(this);
         }
         m_AgreementDialog->Show();
+    });
+    connect(ui->actionEdit,, this, [=]()
+    {
+        DialogUser dlgUser(this);
+        dlgUser.exec();
     });
 }
 
@@ -71,15 +82,12 @@ void MainWindow::Show()
 void MainWindow::EditUser()
 {
     m_LoginTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    ui->labelTipInfo->setText(QString(u8"管理员:%1,您好！这是您第%2次使用系统").arg(m_UserHash.value("username").toString()).arg(m_UserHash.value("loginCount").toInt()+1));
-    if(m_UserHash.value("isroot").toBool())
+    m_labelTipInfo->setText(QString(u8"管理员:%1,您好！这是您第%2次使用系统").arg(m_UserHash.value("username").toString()).arg(m_UserHash.value("loginCount").toInt()+1));
+    if(!m_UserHash.value("isroot").toBool())
     {
-        ui->btnEditUsers->show();
+        ui->actionEdit->setEnabled(false);
     }
-    else
-    {
-        ui->btnEditUsers->hide();
-    }
+
     //更新数据库中用户的登陆次数
     UpdateLoginCount();
 }

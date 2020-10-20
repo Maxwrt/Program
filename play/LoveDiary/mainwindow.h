@@ -7,6 +7,8 @@
 #include <QVariantHash>
 #include <QDateTime>
 #include <QSqlDatabase>
+#include <QLabel>
+#include <QPushButton>
 #include "agreementdialog.h"
 
 namespace Ui {
@@ -35,6 +37,7 @@ private:
     QTimer m_timer;
     const int m_numDigits;
     QSqlDatabase m_db;
+    QLabel *m_labelTipInfo;
     AgreementDialog *m_AgreementDialog;
 };
 

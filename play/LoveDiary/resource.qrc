@@ -3,5 +3,13 @@
         <file>config/Award.png</file>
         <file>config/login.jpg</file>
         <file>LoveDiary_zh.qm</file>
+        <file>config/loveAgreement.txt</file>
+        <file>config/table.txt</file>
+        <file>config/exit.png</file>
+        <file>config/icon.png</file>
+        <file>config/open.png</file>
+        <file>config/paste.png</file>
+        <file>config/save.png</file>
+        <file>config/love.jpg</file>
     </qresource>
 </RCC>
