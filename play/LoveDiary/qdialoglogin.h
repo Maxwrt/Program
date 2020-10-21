@@ -8,6 +8,7 @@
 #include <QSqlDatabase>
 #include <QObject>
 #include <QEvent>
+#include <QHash>
 
 namespace Ui {
 class QDialogLogin;
@@ -21,6 +22,7 @@ public:
     explicit QDialogLogin(QWidget *parent = 0);
     ~QDialogLogin();
     QVariantHash m_loginUserHash;
+    int ShowLogin();
 
 private slots:
     void readsettings();
@@ -36,17 +38,21 @@ private slots:
      * @param event
      */
     bool eventFilter(QObject *watched, QEvent *event);
-    QString encryptPasswd(const QString& password) ;
+    QString encryptPasswd(const QString& password);
 
 private:
     void opendb();
     void selectdb();
+    void loadImages(const QString& dirpath);
+    void setPicture(QPixmap *pixmap);
+    int  generateDifferentIndex();
 
 private:
     Ui::QDialogLogin *ui;
 
+    int m_imageindex;
     int m_trynum;
-    bool autoWriteUser;
+    bool m_autoWriteUser;
     bool m_moving;
     QPoint m_lastPosition;
     QVariantList m_hashlist;
@@ -54,6 +60,8 @@ private:
     QString m_password;
     QString m_verification;
     QSqlDatabase  m_db;
+    QHash<QString, QString> m_imageHash;
+    QStringList m_keys;
 };
 
 #endif // QDIALOGLOGIN_H

@@ -7,6 +7,20 @@
 #include <QString>
 #include <QChar>
 #include <QColor>
+#include <QPaintEvent>
+#include <QMouseEvent>
+#include <QTextStream>
+
+class ImageLabel : public QLabel
+{
+    Q_OBJECT
+public:
+    ImageLabel(QWidget *parent):QLabel(parent){}
+    virtual void mousePressEvent(QMouseEvent *event);
+
+signals:
+    void clicked();
+};
 
 class VerificationCodeLabel : public QLabel
 {
@@ -18,12 +32,23 @@ public:
     //返回一个字符串（字母一律都按照大写返回）
     QString getVerificationCode() const;
 
+    void slt_reflushVerification();
+    QString Text() const
+    {
+        return code;
+    }
+
 protected:
     //重写绘制事件,以此来生成验证码
     virtual void paintEvent(QPaintEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
 
 private slots:
-    void slt_reflushVerification();
+    void Repaint();
+
+signals:
+    void clicked();
+    void textchanged();
 
 private:
     const int letter_number = 4;
@@ -39,6 +64,8 @@ private:
     void produceRandomColor() const;
 
     QChar *verificationCode;
+    QString code;
     QColor *colorArray;
+    bool ifgenerate;
 };
 #endif // VERIFICATIONCODELABEL_H

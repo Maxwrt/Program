@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
     font.setStyleStrategy(QFont::NoAntialias);
     a.setFont(font);
 
-    QDialogLogin* login = new QDialogLogin();
-    if(login->exec() == QDialog::Accepted)
+    QDialogLogin* login = new QDialogLogin(QApplication::desktop());
+    if(login->ShowLogin() == QDialog::Accepted)
     {
         MainWindow w(login->m_loginUserHash);
         w.resize(size.width() - size.width()/4, size.height() - size.height()/4);

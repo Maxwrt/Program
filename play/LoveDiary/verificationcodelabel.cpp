@@ -3,15 +3,24 @@
 #include <QPainter>
 #include <QTime>
 #include <QTextStream>
+
+void ImageLabel::mousePressEvent(QMouseEvent *event)
+{
+      if (event->button() == Qt::LeftButton)
+      {
+           emit clicked();
+      }
+}
+
 VerificationCodeLabel::VerificationCodeLabel(QWidget *parent)
-    : QLabel(parent)
+    : QLabel(parent),ifgenerate(true)
 {
     qsrand(QTime::currentTime().second() * 1000 + QTime::currentTime().msec());
     colorArray = new QColor[letter_number];
     verificationCode = new QChar[letter_number];
     noice_point_number = this->width();
-    connect(this, &QLabel::linkActivated, this, [=]()->void
-    {slt_reflushVerification();});
+
+    connect(this, SIGNAL(clicked()), this, SLOT(Repaint()));
 }
 
 VerificationCodeLabel::~VerificationCodeLabel()
@@ -29,14 +38,32 @@ VerificationCodeLabel::~VerificationCodeLabel()
     }
 }
 
+void VerificationCodeLabel::Repaint()
+{
+    ifgenerate = true;
+    repaint();
+}
+
+void VerificationCodeLabel::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        emit clicked();
+    }
+}
+
 void VerificationCodeLabel::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
+    code.clear();
     QPainter painter(this);
     QPoint p;
     painter.fillRect(this->rect(), Qt::white);
-    produceVerificationCode();
-    produceRandomColor();
+    if (ifgenerate)
+    {
+        produceVerificationCode();
+        produceRandomColor();
+    }
 
     //绘制验证码
     for (int i = 0; i < letter_number; ++i)
@@ -45,6 +72,7 @@ void VerificationCodeLabel::paintEvent(QPaintEvent *event)
         p.setY(this->height() / 2);
         painter.setPen(colorArray[i]);
         painter.drawText(p, QString(verificationCode[i]));
+        code += verificationCode[i];
     }
 
     //绘制噪点
@@ -54,6 +82,11 @@ void VerificationCodeLabel::paintEvent(QPaintEvent *event)
         p.setY(qrand() % this->height());
         painter.setPen(colorArray[j % 4]);
         painter.drawPoint(p);
+    }
+    if (ifgenerate)
+    {
+        emit textchanged();
+        ifgenerate = false;
     }
     return;
 }
@@ -105,10 +138,4 @@ QString VerificationCodeLabel::getVerificationCode() const
     return s;
 }
 
-//刷新验证码，在用户不确定的时候进行相应刷新
-void VerificationCodeLabel::slt_reflushVerification()
-{
-    QTextStream(stdout) << u8"执行了";
-    repaint();
-}
 
