@@ -95,11 +95,6 @@ registDialog::registDialog(QVariantHash& hash, QSqlDatabase &argdb, const QVaria
         }
     }
     );
-
-//    QPixmap btnImg(":/config/login_remove.png");
-//    ui->pushButtonOk->resize(btnImg.size());
-//    ui->pushButtonOk->setMask(btnImg.mask());
-//    ui->pushButtonOk->setStyleSheet("background: transparent;background-image: url(:/config/login_remove.png);");
 }
 
 registDialog::~registDialog()

@@ -12,27 +12,9 @@ public:
 	LuaHighLighter(QTextDocument* parent) : QSyntaxHighlighter(parent)
 	{
 		QStringList keyword;  // 关键字
-		keyword << "\\bfunction"
-				<< "\\bprint"
-				<< "\\btable"
-				<< "\\blocal\\b"
-				<< "\\breturn\\b"
-				<< "\\bif\\b"
-				<< "\\belseif\\b"
-				<< "\\belse\\b"
-				<< "\\bthen\\b"
-				<< "\\bfor\\b"
-				<< "\\bin\\b"
-				<< "\\bwhile\\b"
-				<< "\\bdo\\b"
-				<< "\\bbreak\\b"
-				<< "\\bend\\b"
-				<< "\\band\\b"
-				<< "\\bor\\b"
-				<< "\\bnot\\b"
-				<< "\\bnil\\b"
-				<< "\\btrue\\b"
-				<< "\\bfalse\\b";
+        keyword << u8"瓜瓜"
+                << u8"苏苏"
+                << u8"我们";
 		for (auto key : keyword)
 		{
 			HighlightRule rule;
