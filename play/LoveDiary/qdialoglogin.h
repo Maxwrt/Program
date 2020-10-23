@@ -9,6 +9,9 @@
 #include <QObject>
 #include <QEvent>
 #include <QHash>
+#include <QPaintEvent>
+#include <QPixmap>
+#include <QSize>
 
 namespace Ui {
 class QDialogLogin;
@@ -19,10 +22,12 @@ class QDialogLogin : public QDialog
     Q_OBJECT
 
 public:
-    explicit QDialogLogin(QWidget *parent = 0);
+    explicit QDialogLogin(const QSize& argsize, QWidget *parent = 0);
     ~QDialogLogin();
-    QVariantHash m_loginUserHash;
     int ShowLogin();
+    QVariantHash GetUserHash() {return m_loginUserHash;}
+    QSqlDatabase GetDB() {return m_db;}
+
 
 private slots:
     void readsettings();
@@ -31,6 +36,7 @@ private slots:
     void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *evnet);
 
     /**
      * @brief 利用事件过滤器来捕捉控件事件
@@ -59,9 +65,11 @@ private:
     QString m_user;
     QString m_password;
     QString m_verification;
-    QSqlDatabase  m_db;
     QHash<QString, QString> m_imageHash;
     QStringList m_keys;
+    QPixmap m_pixmap;
+    QSqlDatabase  m_db;
+    QVariantHash m_loginUserHash;
 };
 
 #endif // QDIALOGLOGIN_H

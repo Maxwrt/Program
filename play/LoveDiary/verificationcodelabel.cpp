@@ -3,6 +3,9 @@
 #include <QPainter>
 #include <QTime>
 #include <QTextStream>
+#include <QPixmap>
+#include <QPainter>
+
 
 void ImageLabel::mousePressEvent(QMouseEvent *event)
 {
@@ -10,6 +13,17 @@ void ImageLabel::mousePressEvent(QMouseEvent *event)
       {
            emit clicked();
       }
+}
+
+
+void SignInButton::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+    QPixmap map(":/config/login_remove.png");
+    resize(map.size());
+    QPainter painter;
+    painter.setRenderHints(QPainter::SmoothPixmapTransform, true);
+    painter.drawPixmap(rect(), map);
 }
 
 VerificationCodeLabel::VerificationCodeLabel(QWidget *parent)

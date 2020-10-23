@@ -9,6 +9,7 @@
 #include <QSqlDatabase>
 #include <QLabel>
 #include <QPushButton>
+#include <QSqlDatabase>
 #include "agreementdialog.h"
 
 namespace Ui {
@@ -20,7 +21,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(const QVariantHash& logHash, QWidget *parent = 0);
+    explicit MainWindow(QSqlDatabase& db, const QVariantHash& logHash, QWidget *parent = 0);
     ~MainWindow();
     void Show();
 private:

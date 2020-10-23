@@ -6,197 +6,56 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>868</width>
-    <height>787</height>
+    <width>617</width>
+    <height>567</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0">
-    <widget class="ImageLabel" name="labelPicture">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+   <item row="0" column="1">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-     <property name="text">
-      <string>TextLabel</string>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>213</height>
+      </size>
      </property>
-    </widget>
+    </spacer>
    </item>
    <item row="1" column="0">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>150</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="1">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QLabel" name="labelUser">
        <property name="text">
-        <string>TextLabel</string>
+        <string>用户名：</string>
        </property>
        <property name="buddy">
         <cstring>lineEditUser</cstring>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" colspan="2">
+     <item row="0" column="1">
       <widget class="QLineEdit" name="lineEditUser"/>
      </item>
-     <item row="0" column="3">
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>46</width>
-         <height>17</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="4">
-      <widget class="QLabel" name="labelPassword">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-       <property name="buddy">
-        <cstring>lineEditPassword</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="5" colspan="2">
-      <widget class="QLineEdit" name="lineEditPassword"/>
-     </item>
-     <item row="0" column="7">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>46</width>
-         <height>17</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="8">
-      <widget class="QLabel" name="labelVerification">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-       <property name="buddy">
-        <cstring>lineEditPassword</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="9">
-      <widget class="QLineEdit" name="lineEditVerification"/>
-     </item>
-     <item row="0" column="10">
-      <widget class="VerificationCodeLabel" name="labelVerificationCode">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-       <property name="buddy">
-        <cstring>lineEditPassword</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QCheckBox" name="checkBox">
-       <property name="text">
-        <string>管理员</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <spacer name="horizontalSpacer_7">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>68</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="2">
-      <widget class="QRadioButton" name="radioButton">
-       <property name="text">
-        <string>男</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>48</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="4" colspan="2">
-      <widget class="QPushButton" name="pushButtonOk">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="6" colspan="2">
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>128</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="8">
-      <widget class="QPushButton" name="pushButtonCancel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="9">
-      <spacer name="horizontalSpacer_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>108</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="10">
+     <item row="0" column="2">
       <widget class="QPushButton" name="pushButtonRegister">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -205,22 +64,118 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>新用户注册</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelPassword">
+       <property name="text">
+        <string>密  码：</string>
+       </property>
+       <property name="buddy">
+        <cstring>lineEditPassword</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEditPassword"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelVerification">
+       <property name="text">
+        <string>验证码：</string>
+       </property>
+       <property name="buddy">
+        <cstring>lineEditPassword</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEditVerification"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="VerificationCodeLabel" name="labelVerificationCode">
+       <property name="text">
+        <string>验   证   码</string>
+       </property>
+       <property name="buddy">
+        <cstring>lineEditPassword</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="pushButtonOk">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>登录</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="pushButtonCancel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>关闭</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="pushButtonForgetPassword">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>忘记密码</string>
        </property>
       </widget>
      </item>
     </layout>
+   </item>
+   <item row="1" column="2">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>149</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="1">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>212</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
    <class>VerificationCodeLabel</class>
-   <extends>QLabel</extends>
-   <header location="global">verificationcodelabel.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ImageLabel</class>
    <extends>QLabel</extends>
    <header location="global">verificationcodelabel.h</header>
   </customwidget>

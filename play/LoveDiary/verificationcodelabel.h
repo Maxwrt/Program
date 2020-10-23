@@ -10,6 +10,19 @@
 #include <QPaintEvent>
 #include <QMouseEvent>
 #include <QTextStream>
+#include <QPushButton>
+#include <QBitmap>
+class SignInButton: public QPushButton
+{
+    Q_OBJECT
+public:
+    SignInButton(QWidget *parent):QPushButton(parent)
+    {
+        setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+        setAttribute(Qt::WA_TranslucentBackground, true);
+    }
+    virtual void paintEvent(QPaintEvent *event);
+};
 
 class ImageLabel : public QLabel
 {

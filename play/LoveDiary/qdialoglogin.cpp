@@ -2,6 +2,7 @@
 #include "ui_qdialoglogin.h"
 #include "common.h"
 #include "verificationcodelabel.h"
+#include "registdialog.h"
 #include <QSettings>
 #include <QCryptographicHash>
 #include <QByteArray>
@@ -15,28 +16,32 @@
 #include <QFileInfo>
 #include <QStringList>
 #include <QFileInfoList>
-QDialogLogin::QDialogLogin(QWidget *parent) :
+#include <QBitmap>
+
+QDialogLogin::QDialogLogin(const QSize& argsize,QWidget *parent) :
     QDialog(parent),
     m_trynum(0),
     m_imageindex(0),
     ui(new Ui::QDialogLogin)
 {
-    qsrand(QTime::currentTime().second() * 1000 + QTime::currentTime().msec());
     ui->setupUi(this);
+    move((argsize.width()- width())/2, (argsize.height() - height())/2);
+    qsrand(QTime::currentTime().second() * 1000 + QTime::currentTime().msec());
     m_user = QString::null;
     m_password = QString::null;
     initDialog();
-
+    opendb();
+    selectdb();
     connect(ui->labelVerificationCode, &VerificationCodeLabel::textchanged, this, [=]()
     {
         m_verification = ui->labelVerificationCode->Text();
     });
 
-    connect(ui->labelPicture, &ImageLabel::clicked, this, [=]()
-    {
-        QPixmap picture;
-        setPicture(&picture);
-    });
+//    connect(ui->labelPicture, &ImageLabel::clicked, this, [=]()
+//    {
+//        QPixmap picture;
+//        setPicture(&picture);
+//    });
     connect(ui->pushButtonOk, &QPushButton::clicked, this, [&]() mutable -> void
     {
         QString user = ui->lineEditUser->text();
@@ -111,93 +116,29 @@ QDialogLogin::QDialogLogin(QWidget *parent) :
     }
     );
 
-    connect(ui->pushButtonRegister, &QPushButton::clicked, this, [&]() mutable -> void
+    connect(ui->pushButtonRegister, &QPushButton::clicked, this, [=]
     {
-        QString username = ui->lineEditUser->text();
-        QString userpassword = ui->lineEditPassword->text();
-        if(username.isEmpty() || userpassword.isEmpty())
+        QVariantHash hash;
+        registDialog *ptRegister = new registDialog(hash, m_db, m_hashlist, argsize, this);
+        if (ptRegister->exec() == QDialog::Accepted)
         {
-            QMessageBox::information(this, tr("Info"), u8"username or password is empty, please check", u8"确定");
-            return;
+            m_hashlist << hash;
         }
-        bool isroot = ui->checkBox->isChecked();
-        bool isboy = ui->radioButton->isChecked();
-
-        if(m_db.isOpen() || m_db.open())
-        {
-            QSqlQuery qsql;
-
-            if(m_hashlist.count()>0)
-            {
-                for(int i=0; i < m_hashlist.size(); i++)
-                {
-                    QVariantHash hash=m_hashlist.at(i).toHash();
-                    if(hash.value("username").toString() == username)
-                    {
-                        QMessageBox::information(this, tr("Info"), tr(u8"user %1 existed").arg(username), u8"确定");
-                        return;
-                    }
-                }
-            }
-            QString sex = QString::null;
-            if(isboy)
-            {
-                sex = tr("MAN");
-            }
-            else
-            {
-                sex = tr("WOMAN");
-            }
-            QDateTime dateTime=QDateTime::currentDateTime();
-            QString insert_sql = QStringLiteral("insert into users(username, password, isroot, datestring, sex, loginCount) values('%1', '%2', '%3', '%4', '%5', '%6')");
-            insert_sql=insert_sql.arg(username).arg(userpassword).arg(isroot).arg(dateTime.toString("yyyy-MM-dd hh:mm:ss")).arg(sex).arg(0);
-
-            qsql.prepare(insert_sql);
-            if(!qsql.exec(insert_sql))
-            {
-                OUT << qsql.lastError();
-            }
-            else
-            {
-                OUT << u8"注册成功";
-                QVariantHash hash;
-                hash.insert("username", username);
-                hash.insert("password", userpassword);
-                hash.insert("isroot", isroot);
-                hash.insert("datestring", dateTime.toString());
-                hash.insert("sex", tr("MAN"));
-                hash.insert("loginCount", QString("0").toInt());
-                m_hashlist << hash;
-
-                ui->pushButtonRegister->setText(tr("register success"));
-                ui->pushButtonRegister->setStyleSheet("QPushButton{color:red;}");
-                Sleep(2000);
-                ui->pushButtonRegister->setText(tr("register"));
-                ui->pushButtonRegister->setStyleSheet("QPushButton{color:black;}");
-                ui->lineEditUser->clear();
-                ui->lineEditPassword->clear();
-            }
-        }
-        else
-        {
-            OUT << u8"打开user.db数据库失败***" << m_db.lastError();
-        }
-    }
-    );
+    });
 
     connect(ui->pushButtonCancel, &QPushButton::clicked, this, [=]{close();});
+    connect(ui->pushButtonForgetPassword, &QPushButton::clicked, this, [=]{});
 #if 0
     readsettings();
 #endif
-    opendb();
-    selectdb();
 }
 
 void QDialogLogin::setPicture(QPixmap *pixmap)
 {
-    pixmap->load(m_imageHash.value(m_keys.at(generateDifferentIndex())));
-    pixmap->scaled(ui->labelPicture->size(), Qt::KeepAspectRatio);
-    ui->labelPicture->setPixmap(*pixmap);
+    Q_UNUSED(pixmap);
+//    pixmap->load(m_imageHash.value(m_keys.at(generateDifferentIndex())));
+//    pixmap->scaled(ui->labelPicture->size(), Qt::KeepAspectRatio);
+//    ui->labelPicture->setPixmap(*pixmap);
 }
 
 int  QDialogLogin::generateDifferentIndex()
@@ -217,7 +158,7 @@ int  QDialogLogin::generateDifferentIndex()
 QDialogLogin::~QDialogLogin()
 {
     m_db.close();
-    qDebug() << QStringLiteral("~QDialogLogin");
+    OUT << "~QDialogLogin";
     delete ui;
 }
 
@@ -323,33 +264,33 @@ void QDialogLogin::writesettings()
     QSettings settings(organization, application);
     settings.setValue("User", m_user);
     settings.setValue("Password", encryptPasswd("Sn_11210318"));
-    settings.setValue("flag", ui->checkBox->isChecked());
+//    settings.setValue("flag", ui->checkBox->isChecked());
+}
+#include <QPainter>
+void QDialogLogin::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+    resize(m_pixmap.size());
+    QPainter painter(this);
+    painter.setRenderHints(QPainter::SmoothPixmapTransform, true);
+    painter.drawPixmap(rect(), m_pixmap);
 }
 
 void QDialogLogin::initDialog()
 {
+    m_db = Createdb("/config/LoveDiary.db");
     loadImages(":/config/");
-    ui->labelPicture->setText("");
-    ui->labelPicture->setScaledContents(true);
-    ui->labelUser->setText(tr("username:"));
-    ui->labelPassword->setText(tr("password:"));
-    ui->labelVerification->setText(u8"验证码");
-    ui->labelVerificationCode->installEventFilter(this);
+    setWindowIcon(QIcon(m_imageHash.value(m_keys.at(generateDifferentIndex()))));
     ui->lineEditPassword->setEchoMode(QLineEdit::Password);
 
     //给用户名和密码编辑框安装事件过滤器
     ui->lineEditUser->installEventFilter(this);
     ui->lineEditPassword->installEventFilter(this);
+    ui->labelVerificationCode->installEventFilter(this);
 
-    ui->pushButtonOk->setText(tr("OK"));
-    ui->pushButtonCancel->setText(u8"关闭");
-    ui->pushButtonRegister->setText(tr("register"));
-    QPixmap pixmap;
-    setPicture(&pixmap);
-    setWindowIcon(QIcon(m_imageHash.value(m_keys.at(generateDifferentIndex()))));
-    setWindowFlags(Qt::CustomizeWindowHint);
-
-    m_db = Createdb(QStringLiteral("/config/LoveDiary.db"));
+    setWindowFlags(Qt::FramelessWindowHint);
+    setAttribute(Qt::WA_TranslucentBackground, true);
+    m_pixmap = QPixmap(":/config/heart_remove.png");
 }
 
 int QDialogLogin::ShowLogin()

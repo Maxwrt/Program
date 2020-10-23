@@ -11,10 +11,17 @@
         <file>config/paste.png</file>
         <file>config/save.png</file>
         <file>config/love.jpg</file>
-        <file>config/love1.jpg</file>
         <file>config/LoveDiary.db</file>
         <file>config/title.ico</file>
         <file>config/title1.ico</file>
         <file>config/title2.ico</file>
+        <file>config/readme.txt</file>
+        <file>config/heart.jpg</file>
+        <file>config/hand.png</file>
+        <file>config/dog.jpg</file>
+        <file>config/dog_remove.png</file>
+        <file>config/heart_remove_7.png</file>
+        <file>config/heart_remove.png</file>
+        <file>config/login_remove.png</file>
     </qresource>
 </RCC>

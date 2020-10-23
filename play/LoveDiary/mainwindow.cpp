@@ -13,9 +13,10 @@
 #include <QSqlQuery>
 #include <QIcon>
 
-MainWindow::MainWindow(const QVariantHash& logHash, QWidget *parent) :
+MainWindow::MainWindow(QSqlDatabase& db, const QVariantHash& logHash, QWidget *parent) :
     QMainWindow(parent),
     m_numDigits(99),
+    m_db(db),
     m_UserHash(logHash),
     ui(new Ui::MainWindow)
 {
@@ -41,7 +42,6 @@ void MainWindow::Init()
     m_labelTipInfo = new QLabel(this);
     m_labelTipInfo->adjustSize();
     statusBar()->addWidget(m_labelTipInfo);
-    m_db = Createdb(QStringLiteral("/config/LoveDiary.db"));
     m_loveDateTime = QDateTime(QDate(2020, 9, 4), QTime(21, 9, 9)),
     setWindowTitle(tr("Love Diary About SuSu & GuaGua"));
     ui->label_together->setText(tr("%1 SuSu & GuaGua were together. We have been together:") \
@@ -110,7 +110,6 @@ void MainWindow::UpdateLoginCount()
         {
             qDebug().noquote()<<u8"¸üÐÂloginCountÊ§°Ü";
         }
-
         m_db.close();
     }
 }
