@@ -32,7 +32,6 @@ public:
     //返回一个字符串（字母一律都按照大写返回）
     QString getVerificationCode() const;
 
-    void slt_reflushVerification();
     QString Text() const
     {
         return code;

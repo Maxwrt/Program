@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QSqlDatabase>
 #define  OUT qDebug().noquote()
+
 enum FileType
 {
   signaltable,
