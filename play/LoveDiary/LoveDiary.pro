@@ -36,7 +36,8 @@ SOURCES += main.cpp\
         imageshow.cpp \
     dialoguser.cpp \
     verificationcodelabel.cpp \
-    registdialog.cpp
+    registdialog.cpp \
+    picture.cpp
 
 HEADERS  += mainwindow.h \
             qdialoglogin.h \
@@ -46,13 +47,15 @@ HEADERS  += mainwindow.h \
             imageshow.h \
     dialoguser.h \
     verificationcodelabel.h \
-    registdialog.h
+    registdialog.h \
+    picture.h
 
 FORMS    += mainwindow.ui \
             qdialoglogin.ui \
             agreementdialog.ui \
     dialoguser.ui \
-    registdialog.ui
+    registdialog.ui \
+    picture.ui
 
 TRANSLATIONS = LoveDiary_en.ts \
                LoveDiary_zh.ts

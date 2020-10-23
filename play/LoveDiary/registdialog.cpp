@@ -16,7 +16,7 @@ registDialog::registDialog(QVariantHash& hash, QSqlDatabase &argdb, const QVaria
     move((size.width() - width())/4, (size.height()-height())/4);
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground, true);
-    m_pixmap = QPixmap(":/config/heart_remove_7.png");
+    m_pixmap = QPixmap(":/config/dog_remove.png");
     connect(ui->pushButtonOk, &QPushButton::clicked, this, [&]() mutable -> void
     {
         QString username(ui->lineEditUser->text());
