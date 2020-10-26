@@ -2,6 +2,9 @@
 #define PICTURE_H
 
 #include <QDialog>
+#include <QMouseEvent>
+#include <QHash>
+#include <QString>
 
 namespace Ui {
 class Picture;
@@ -16,7 +19,12 @@ public:
     ~Picture();
 
 private:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseDoubleClickEvent(QMouseEvent *event);
+
+private:
     Ui::Picture *ui;
+    QHash<int, QString> m_imageHash;
 };
 
 #endif // PICTURE_H

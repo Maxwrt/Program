@@ -11,6 +11,8 @@
 #include <QPushButton>
 #include <QSqlDatabase>
 #include "agreementdialog.h"
+#include "picture.h"
+#include "dialoguser.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +42,8 @@ private:
     QSqlDatabase m_db;
     QLabel *m_labelTipInfo;
     AgreementDialog *m_AgreementDialog;
+    Picture *m_picture;
+    DialogUser *m_dlgUser;
 };
 
 #endif // MAINWINDOW_H

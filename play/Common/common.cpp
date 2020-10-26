@@ -63,6 +63,44 @@ void ReplaceHeart(QString * line, const QString &keywords, int linenum)
     }
 }
 
+QHash<int, QString> LoadImage(const QString& imagepath, const QStringList& filter)
+{
+    QHash<int, QString> hash;
+    if (imagepath.isEmpty())
+    {
+        OUT << u8"图片路径为空";
+        return hash;
+    }
+
+    QDir dir(imagepath);
+    for (auto item: dir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot))
+    {
+        if (item.isFile())
+        {
+            if (filter.contains(QStringLiteral("*.") % item.suffix()))
+            {
+                hash.insert(hash.size(), item.filePath());
+            }
+        }
+        else if (item.isDir())
+        {
+            QHash<int, QString> hashnext;
+            hashnext = LoadImage(item.absoluteFilePath(), filter);
+            if (hashnext.size() > 0)
+            {
+                int inext = 0;
+                QHash<int, QString>::const_iterator iter = hashnext.begin();
+                while(iter != hashnext.end())
+                {
+                    hash.insert(hash.size(), hashnext.value(inext++));
+                    iter++;
+                }
+            }
+        }
+    }
+    OUT << u8"加载图片完成" << hash.size();
+    return hash;
+}
 QString gbk2string(const char* gbkData)
 {
     QTextCodec* codec = QTextCodec::codecForName("GBK");

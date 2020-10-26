@@ -51,6 +51,14 @@ COMMONSHARED_EXPORT QString gbk2string(const char* gbkData);
 
 COMMONSHARED_EXPORT QString DrawHeart(const QString& keywords, LOVE type = SUSU_GUAGUA, const QDateTime& datetime = QDateTime(), \
                                       bool isReplace = false, const QStringList& wordslist = QStringList());
+
+/**
+ * @brief 加载图片
+ * @param imagepath 图片路径
+ * @param filter    过滤条件
+ * @return
+ */
+COMMONSHARED_EXPORT QHash<int, QString> LoadImage(const QString& imagepath, const QStringList& filter);
 /**
  * @brief checkString
  * @param str

@@ -18,6 +18,8 @@ MainWindow::MainWindow(QSqlDatabase& db, const QVariantHash& logHash, QWidget *p
     m_numDigits(99),
     m_db(db),
     m_UserHash(logHash),
+    m_picture(nullptr),
+    m_dlgUser(nullptr),
     ui(new Ui::MainWindow)
 {
     Init();
@@ -65,11 +67,24 @@ void MainWindow::InitSignalSlot()
         m_AgreementDialog->Show();
     });
 
-    connect(ui->actionEdit,&QAction::triggered, this, [=]()
+    connect(ui->actionEdit, &QAction::triggered, this, [=]()
     {
-        DialogUser dlgUser(this);
-        dlgUser.exec();
+        if (nullptr == m_dlgUser)
+        {
+            m_dlgUser = new DialogUser(this);
+        }
+        m_dlgUser->exec();
     });
+
+    connect(ui->pushButton_us, &QPushButton::clicked, this, [=]()
+    {
+        if (nullptr == m_picture)
+        {
+            m_picture = new Picture(this);
+        }
+        m_picture->exec();
+    }
+    );
 }
 
 void MainWindow::Show()
