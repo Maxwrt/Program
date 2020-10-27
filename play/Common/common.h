@@ -90,7 +90,7 @@ COMMONSHARED_EXPORT void AppLog(QtMsgType type, const QMessageLogContext & conte
  * @param datetime
  * @return
  */
-COMMONSHARED_EXPORT QString CalculateDateTime(const QDateTime & datetime);
+COMMONSHARED_EXPORT QString CalculateDateTime(const QDateTime & datetime, bool isString = true);
 /**
  * @brief 设置日志文件名
  * @param appname

@@ -7,13 +7,14 @@
 #include <QPainter>
 #include <QTextStream>
 #include <QBitmap>
+#include <QRegExp>
 
 registDialog::registDialog(QVariantHash& hash, QSqlDatabase &argdb, const QVariantList& arguserlist, const QSize& size, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::registDialog)
 {
     ui->setupUi(this);
-    move((size.width() - width())/4, (size.height()-height())/4);
+    move((size.width() - width())/2, (size.height()-height())/2);
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground, true);
     m_pixmap = QPixmap(":/config/dog_remove.png");
@@ -24,13 +25,30 @@ registDialog::registDialog(QVariantHash& hash, QSqlDatabase &argdb, const QVaria
         QString userpasswordok(ui->lineEditOkPassword->text());
         if(username.isEmpty() || userpassword.isEmpty() || userpasswordok.isEmpty())
         {
-            QMessageBox::information(this, tr("Info"), u8"用户名、密码、确认密码不能为空", u8"确定");
+            QMessageBox::information(this, u8"提示信息", u8"用户名、密码、确认密码不能为空", u8"确定");
+            return;
+        }
+        if (username.indexOf(QRegExp("^[\u4e00-\u9fa5]{2,}$")))
+        {
+            QMessageBox::information(this, u8"提示信息", u8"用户名必须是两个以上的汉字", u8"确定");
+            return;
+        }
+
+        if (userpassword.indexOf(QRegExp("^[A-Z][a-zA-Z0-9]{5,17}")))
+        {
+            QMessageBox::information(this, u8"提示信息", u8"密码长度不小6且以大写字母开头必须包含小写字母和数字", u8"确定");
             return;
         }
 
         if (qstrcmp(userpassword.toStdString().c_str(), userpasswordok.toStdString().c_str()) != 0)
         {
             QMessageBox::information(this, u8"提示信息", u8"两次输入密码不一致", u8"确定");
+            return;
+        }
+
+        if (qstrcmp(username.toStdString().c_str(), userpassword.toStdString().c_str()) == 0)
+        {
+            QMessageBox::information(this, u8"提示信息", u8"用户名和密码不能相同", u8"确定");
             return;
         }
 
@@ -56,11 +74,11 @@ registDialog::registDialog(QVariantHash& hash, QSqlDatabase &argdb, const QVaria
                 QString sex = QString::null;
                 if(isboy)
                 {
-                    sex = tr("MAN");
+                    sex = u8"男";
                 }
                 else
                 {
-                    sex = tr("WOMAN");
+                    sex = u8"女";
                 }
                 QDateTime dateTime = QDateTime::currentDateTime();
                 QString insert_sql("insert into users(username, password, isroot, datestring, sex, loginCount) values('%1', '%2', '%3', '%4', '%5', '%6')");
@@ -79,7 +97,7 @@ registDialog::registDialog(QVariantHash& hash, QSqlDatabase &argdb, const QVaria
                     hash.insert("password", userpassword);
                     hash.insert("isroot", isroot);
                     hash.insert("datestring", dateTime.toString());
-                    hash.insert("sex", tr("MAN"));
+                    hash.insert("sex", u8"男");
                     hash.insert("loginCount", QString("0").toInt());
                     ui->lineEditUser->clear();
                     ui->lineEditPassword->clear();

@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
         MainWindow w(login->GetDB(), login->GetUserHash());
         w.resize(size.width() - size.width()/4, size.height() - size.height()/4);
         w.move((size.width()- w.width())/2, (size.height() - w.height())/2);
-        w.show();
+        w.Show();
         if(login)
         {
             login->deleteLater();

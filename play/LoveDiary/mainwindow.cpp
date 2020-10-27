@@ -15,15 +15,17 @@
 
 MainWindow::MainWindow(QSqlDatabase& db, const QVariantHash& logHash, QWidget *parent) :
     QMainWindow(parent),
-    m_numDigits(99),
+    m_numDigits(11),
     m_db(db),
     m_UserHash(logHash),
     m_picture(nullptr),
     m_dlgUser(nullptr),
+    m_AgreementDialog(nullptr),
     ui(new Ui::MainWindow)
 {
-    Init();
+    ui->setupUi(this);
     InitSignalSlot();
+    Init();
     EditUser();
 }
 
@@ -39,24 +41,40 @@ MainWindow::~MainWindow()
 
 void MainWindow::Init()
 {
-    ui->setupUi(this);
+    m_timer.setInterval(1000);
     setWindowIcon(QIcon(":/config/love.jpg"));
     m_labelTipInfo = new QLabel(this);
     m_labelTipInfo->adjustSize();
     statusBar()->addWidget(m_labelTipInfo);
     m_loveDateTime = QDateTime(QDate(2020, 9, 4), QTime(21, 9, 9)),
     setWindowTitle(tr("Love Diary About SuSu & GuaGua"));
-    ui->label_together->setText(tr("%1 SuSu & GuaGua were together. We have been together:") \
-                                .arg(m_loveDateTime.toString(u8"yyyy年MM月dd日 hh点mm分ss秒")));
+    ui->label_together->setText(QString(u8"%1 苏苏&瓜瓜在一起. 我们在一起:%2了") \
+                                .arg(m_loveDateTime.toString(u8"yyyy年MM月dd日 hh点mm分ss秒"))
+                                .arg(CalculateDateTime(m_loveDateTime)));
     ui->lcdNumber->setDigitCount(m_numDigits);
-    m_timer.setInterval(1000);
-    m_AgreementDialog = nullptr;
+    ui->lcdNumber->setSegmentStyle(QLCDNumber::Flat);
+    ui->lcdNumber->setFrameShape(QFrame::NoFrame);
+    ui->lcdNumber->setFrameShadow(QFrame::Sunken);
+    ui->lcdNumber->display(CalculateDateTime(m_loveDateTime, false));
+    ui->lcdNumber->hide();
     ui->menu->addAction(ui->actionEdit);
+    if (!m_timer.isActive())
+    {
+        m_timer.start();
+    }
 }
 
 void MainWindow::InitSignalSlot()
 {
-    connect(&m_timer, &QTimer::timeout, this, [=]() mutable -> void { ui->lcdNumber->display(CalculateDateTime(m_loveDateTime));});
+    connect(&m_timer, &QTimer::timeout, this, [=]() mutable -> void
+    {
+#if 0
+        ui->lcdNumber->display(CalculateDateTime(m_loveDateTime, false));
+#endif
+        ui->label_together->setText(QString(u8"%1 苏苏&瓜瓜在一起. 我们在一起:%2了") \
+                                    .arg(m_loveDateTime.toString(u8"yyyy年MM月dd日 hh点mm分ss秒"))
+                                    .arg(CalculateDateTime(m_loveDateTime)));
+    });
 
     connect(ui->pushButton_agreement, &QPushButton::clicked, this, [&]
     {
@@ -89,10 +107,6 @@ void MainWindow::InitSignalSlot()
 
 void MainWindow::Show()
 {
-    if (!m_timer.isActive())
-    {
-        m_timer.start();
-    }
     show();
 }
 

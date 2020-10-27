@@ -451,7 +451,18 @@ void CalculateTime(const qint64 lavesecs, qint64 &hours, qint64 &minutes, qint64
     seconds = lavesecs - hours * 60 * 60 - minutes * 60;
 }
 
-QString CalculateDateTime(const QDateTime & datetime)
+void EditQString(QString &dest, const int num)
+{
+    if (num < 10)
+    {
+        dest = QStringLiteral("0") % QString::number(num);
+    }
+    else
+    {
+        dest = QString::number(num);
+    }
+}
+QString CalculateDateTime(const QDateTime & datetime, bool isString)
 {
     QDateTime currentDateTime = QDateTime::currentDateTime();
     qint64 days = datetime.daysTo(currentDateTime);
@@ -472,9 +483,21 @@ QString CalculateDateTime(const QDateTime & datetime)
         lavesecs = secs - days * 24 * 60 * 60;
         CalculateTime(lavesecs, hours, minutes, seconds);
     }
-
-    return  QString::number(days) % QStringLiteral("days") % QString::number(hours) % QStringLiteral("hours") % \
-            QString::number(minutes) % QStringLiteral("minutes") % QString::number(seconds) % QStringLiteral("seconds");
+    QString dayss;
+    QString hourss;
+    QString minutess;
+    QString secondss;
+    EditQString(dayss, days);
+    EditQString(hourss, hours);
+    EditQString(minutess, minutes);
+    EditQString(secondss, seconds);
+    if (isString)
+    {
+    return  dayss % QStringLiteral("Ìì") % hourss % QStringLiteral("Ê±") % \
+            minutess % QStringLiteral("·Ö") % secondss % QStringLiteral("Ãë");
+    }
+    return dayss % QStringLiteral("-") % hourss % QStringLiteral(":") % \
+            minutess % QStringLiteral(":") % secondss;;
 }
 
 

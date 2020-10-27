@@ -12,6 +12,7 @@ AgreementDialog::AgreementDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle(tr("Love Protocal"));
+    setWindowFlags(Qt::FramelessWindowHint);
     Init();
 }
 

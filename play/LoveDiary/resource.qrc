@@ -23,5 +23,6 @@
         <file>config/heart_remove_7.png</file>
         <file>config/heart_remove.png</file>
         <file>config/login_remove.png</file>
+        <file>config/heart_4_remove.png</file>
     </qresource>
 </RCC>

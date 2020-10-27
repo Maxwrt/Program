@@ -3,6 +3,7 @@
 #include "common.h"
 #include "verificationcodelabel.h"
 #include "registdialog.h"
+#include "forgetpassword.h"
 #include <QSettings>
 #include <QCryptographicHash>
 #include <QByteArray>
@@ -119,27 +120,35 @@ QDialogLogin::QDialogLogin(const QSize& argsize,QWidget *parent) :
     connect(ui->pushButtonRegister, &QPushButton::clicked, this, [=]
     {
         QVariantHash hash;
-        registDialog *ptRegister = new registDialog(hash, m_db, m_hashlist, argsize, this);
-        if (ptRegister->exec() == QDialog::Accepted)
+        registDialog ptRegister(hash, m_db, m_hashlist, argsize, this);
+
+        ptRegister.move((width() - ptRegister.width())/2, (height() - ptRegister.height())/2);
+        if (ptRegister.exec() == QDialog::Accepted)
         {
             m_hashlist << hash;
         }
     });
 
     connect(ui->pushButtonCancel, &QPushButton::clicked, this, [=]{close();});
-    connect(ui->pushButtonForgetPassword, &QPushButton::clicked, this, [=]{});
+    connect(ui->pushButtonForgetPassword, &QPushButton::clicked, this, [=]()->void
+    {
+        QString username = ui->lineEditUser->text();
+        if (username.isEmpty())
+        {
+            QMessageBox::information(this, u8"提示信息", u8"请输入用户名", u8"确定");
+            return;
+        }
+        ForgetPassword ftd(username, m_db, argsize, this);
+        if (ftd.exec() == QDialog::Accepted)
+        {
+            OUT << u8"找回密码成功";
+        }
+    });
 #if 0
     readsettings();
 #endif
 }
 
-void QDialogLogin::setPicture(QPixmap *pixmap)
-{
-    Q_UNUSED(pixmap);
-//    pixmap->load(m_imageHash.value(m_keys.at(generateDifferentIndex())));
-//    pixmap->scaled(ui->labelPicture->size(), Qt::KeepAspectRatio);
-//    ui->labelPicture->setPixmap(*pixmap);
-}
 
 int  QDialogLogin::generateDifferentIndex()
 {
