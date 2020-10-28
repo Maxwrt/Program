@@ -279,7 +279,6 @@ void QDialogLogin::writesettings()
 void QDialogLogin::initDialog()
 {
     m_db = Createdb("/config/LoveDiary.db");
-//    loadImages(":/config/");
     setWindowIcon(QIcon(":/config/title.ico"));
     ui->lineEditPassword->setEchoMode(QLineEdit::Password);
 

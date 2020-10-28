@@ -110,7 +110,7 @@ border-image: url(:/config/close.png);</string>
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 85, 0);</string>
+        <string notr="true">color: rgb(255, 170, 0);</string>
        </property>
        <property name="text">
         <string>密  码：</string>
@@ -166,8 +166,7 @@ border-image: url(:/config/close.png);</string>
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 170, 0);
-background-color: rgb(200, 94, 145);</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
