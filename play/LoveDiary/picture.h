@@ -1,16 +1,17 @@
 #ifndef PICTURE_H
 #define PICTURE_H
-
+#include "basedialog.h"
 #include <QDialog>
 #include <QMouseEvent>
 #include <QHash>
 #include <QString>
+#include <QKeyEvent>
 
 namespace Ui {
 class Picture;
 }
 
-class Picture : public QDialog
+class Picture : public BaseDialog
 {
     Q_OBJECT
 
@@ -18,9 +19,9 @@ public:
     explicit Picture(QWidget *parent = 0);
     ~Picture();
 
-private:
-    void mousePressEvent(QMouseEvent *event);
-    void mouseDoubleClickEvent(QMouseEvent *event);
+protected:
+    virtual void keyPressEvent(QKeyEvent *event);
+    virtual void paintEvent(QPaintEvent *event);
 
 private:
     Ui::Picture *ui;

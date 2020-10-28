@@ -19,15 +19,15 @@ using arrtype = std::array<T, 12>;
 std::vector<int> arrI(10);
 
 
-arrtype<double> gallons;
-arrtype<int> days;
-arrtype<std::string> months;
+//arrtype<double> gallons;
+//arrtype<int> days;
+//arrtype<std::string> months;
 
 //下面这两种写法是等价的
 typedef int I;
 using I = int;
 
-template <class T>
+template <typename T>
 class TYPE
 {
 public:
@@ -37,8 +37,8 @@ private:
 };
 
 //模板具体化
-TYPE<int> type1; //隐式实例化
-template class TYPE<double> type2; //显示实例化
+//TYPE<int> type1; //隐式实例化
+//template class TYPE<double> type2; //显示实例化
 
 //显示具体化
 template <> class TYPE<char*>;
@@ -73,7 +73,7 @@ public:
 
     void Diaplay() const
     {
-        std::cout << *pt->item << std::endl;
+        std::cout << pt->item << std::endl;
     }
     iterator & operator++() //for ++it  先加后使用
     {
@@ -106,9 +106,9 @@ public:
 
 double dub(double x) {return 2.0 * x;}
 
-typedef function<double(double)> fdd;
-//包装器(适配器adapter)
-function<double(double)> ef1 = dub;
+//typedef function<double(double)> fdd;
+////包装器(适配器adapter)
+//function<double(double)> ef1 = dub;
 
 //可变参数模板 meta-operator(元运算符)
 //1. 模板参数包(类型列表-Args)
@@ -154,10 +154,12 @@ typename Bag::value_type min(const Bag & b)
 class Point
 {
 public:
-    Ponit(float xval);
+    Point(float xval);
     virtual ~Point();
     virtual Point& mult(float) = 0;
-    virtual float x() const;
+    virtual float x() const {}
+    virtual float y() const {}
+    virtual float z() const {}
     static int PonitCount();
 
 protected:
@@ -188,26 +190,26 @@ protected:
 class Point2d: public Point
 {
 public :
-    Point2d(float x = 0.0, float y = 0.0) : _x(x), _y(y) {}
+    Point2d(float x = 0.0, float y = 0.0) : Point(x), _y(y) {}
     ~Point2d() {}
 
     Point2d& mult(float);
-    float x() {return _x;}
-    float y() {return _y;}
+    float x() const {return _x;}
+    float y() const {return _y;}
 
     void  x(float newX) {_x = newX;}
     void  y(float newY) {_y = newY;}
 
-    virtual float z() {return 0.0;}
-    virtual void z(float) {}
-    void  operator += (const Point2d& rhs)
+    virtual float z() const {return 0.0;}
+    virtual void  z(float) {}
+    virtual void  operator+=(const Point2d& rhs)
     {
         _x += rhs.x();
         _y += rhs.y();
     }
 
 protected:
-    float _x, _y;
+    float _y;
 };
 
 //polymorphically(多态)
@@ -219,7 +221,7 @@ public :
         :Point2d(x, y), _z(z)
     {}
 
-    virtual float z() {return _z;}
+    virtual float z() const {return _z;}
     virtual void  z(float newZ) {_z = newZ;}
 
 #if 0
@@ -230,15 +232,15 @@ public :
     }
 #endif
 
-    virtual void operator += (const Point2d& rhs)
+    virtual void operator+=(const Point2d& rhs)
     {
-        Point2d::operator +=(rhs);
+        Point2d::operator+=(rhs);
         _z += rhs.z();
     }
 
     static unsigned int objectCount();
 
-protected:
+public:
     float _z;
     static Point3d origin;
 
@@ -246,12 +248,12 @@ protected:
 
 /**
 unsigned int (*)(); //normal函数指针
-unsigned int (Point3d::*)(); //类陈成员函数指针
+unsigned int (Point3d::*)(); //类成员函数指针
 */
 
 
-//下属操作得到z坐标再calss object中的偏移量
-float Point3d::*p2 = & Point3d::_z;
+//下属操作得到z坐标再class object中的偏移量
+float Point3d::*p2 = &Point3d::_z;
 float Point3d::*p1 = 0;
 
 class Vertex : public virtual Point2d
@@ -322,6 +324,36 @@ protected:
 
 
 
+class Animal
+{
+public:
+    Animal(std::string name)
+    {
+        m_name = name;
+    }
+    virtual const char* getname()
+    {
+        return m_name.c_str();
+    }
+
+    virtual void say()
+    {
+        std::cout << "this is Animal, name is " << m_name << std::endl;
+    }
+
+protected:
+    std::string m_name;
+};
+
+class Cat: public Animal
+{
+  public:
+    Cat(std::string name):Animal(name)
+    {
+
+    }
+
+};
 
 
 

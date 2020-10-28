@@ -268,6 +268,7 @@ private:
 //*********************************************************************************************************
 LuaTextEdit::LuaTextEdit(QWidget* parent) : MyTextEdit(parent)
 {
+
 	new LuaHighLighter(this->document());
     intellisense = new Intellisense(this, "");
     model = new QStandardItemModel(this);

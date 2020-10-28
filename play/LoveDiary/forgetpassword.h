@@ -1,6 +1,7 @@
 #ifndef FORGETPASSWORD_H
 #define FORGETPASSWORD_H
 
+#include "basedialog.h"
 #include <QDialog>
 #include <QString>
 #include <QSqlDatabase>
@@ -11,7 +12,7 @@ namespace Ui {
 class ForgetPassword;
 }
 
-class ForgetPassword : public QDialog
+class ForgetPassword : public BaseDialog
 {
     Q_OBJECT
 
@@ -19,14 +20,11 @@ public:
     explicit ForgetPassword(const QString &username, QSqlDatabase& db, const QSize& size, QWidget *parent = 0);
     ~ForgetPassword();
 
-private:
-    void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
-    void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+protected:
     void paintEvent(QPaintEvent *event);
+
 private:
     Ui::ForgetPassword *ui;
-    QPixmap m_pixmap;
     QPoint m_lastPosition;
     bool m_moving;
 };

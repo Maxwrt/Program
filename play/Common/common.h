@@ -39,6 +39,14 @@ COMMONSHARED_EXPORT QSqlDatabase Createdb(const QString& dbName);
  */
 
 COMMONSHARED_EXPORT QString gbk2string(const char* gbkData);
+
+/**
+ * @brief string2gbk
+ * @param qtext
+ * @return
+ */
+COMMONSHARED_EXPORT QByteArray string2gbk(QString qtext);
+
 /**
  * @brief »­ÐÄ
  * @param keywords

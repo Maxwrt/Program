@@ -1,28 +1,18 @@
 <RCC>
     <qresource prefix="/">
-        <file>config/Award.png</file>
-        <file>config/login.jpg</file>
         <file>LoveDiary_zh.qm</file>
-        <file>config/loveAgreement.txt</file>
-        <file>config/table.txt</file>
-        <file>config/exit.png</file>
-        <file>config/icon.png</file>
-        <file>config/open.png</file>
-        <file>config/paste.png</file>
-        <file>config/save.png</file>
-        <file>config/love.jpg</file>
-        <file>config/LoveDiary.db</file>
         <file>config/title.ico</file>
-        <file>config/title1.ico</file>
-        <file>config/title2.ico</file>
-        <file>config/readme.txt</file>
-        <file>config/heart.jpg</file>
-        <file>config/hand.png</file>
-        <file>config/dog.jpg</file>
-        <file>config/dog_remove.png</file>
-        <file>config/heart_remove_7.png</file>
-        <file>config/heart_remove.png</file>
-        <file>config/login_remove.png</file>
-        <file>config/heart_4_remove.png</file>
+        <file>config/close.png</file>
+        <file>config/delete.png</file>
+        <file>config/find.png</file>
+        <file>config/forgetPassword.png</file>
+        <file>config/insert.png</file>
+        <file>config/login.png</file>
+        <file>config/loveprotocol.png</file>
+        <file>config/register.png</file>
+        <file>config/reset.png</file>
+        <file>config/update.png</file>
+        <file>config/us.png</file>
+        <file>config/table.txt</file>
     </qresource>
 </RCC>

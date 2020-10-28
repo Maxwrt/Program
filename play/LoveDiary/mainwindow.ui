@@ -121,8 +121,15 @@ color:red;
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;爱情书&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-image: url(:/config/loveprotocol.png);
+color: rgb(255, 170, 0);</string>
+            </property>
             <property name="text">
-             <string>爱情书</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -133,6 +140,10 @@ color:red;
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-image: url(:/config/us.png);
+color: rgb(255, 170, 0);</string>
             </property>
             <property name="text">
              <string>我们</string>
@@ -192,7 +203,7 @@ color:red;
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="resource.qrc">
+    <iconset>
      <normaloff>:/config/icon.png</normaloff>:/config/icon.png</iconset>
    </property>
    <property name="text">
@@ -204,8 +215,6 @@ color:red;
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

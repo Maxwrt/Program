@@ -1,6 +1,7 @@
 #ifndef QDIALOGLOGIN_H
 #define QDIALOGLOGIN_H
 
+#include "basedialog.h"
 #include <QDialog>
 #include <QMouseEvent>
 #include <QVariantList>
@@ -17,7 +18,7 @@ namespace Ui {
 class QDialogLogin;
 }
 
-class QDialogLogin : public QDialog
+class QDialogLogin : public BaseDialog
 {
     Q_OBJECT
 
@@ -29,22 +30,16 @@ public:
     QSqlDatabase GetDB() {return m_db;}
 
 
-private slots:
+protected :
     void readsettings();
     void writesettings();
     void initDialog();
-    void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
-    void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
-    void paintEvent(QPaintEvent *evnet);
-
-    /**
-     * @brief 利用事件过滤器来捕捉控件事件
-     * @param obejct
-     * @param event
-     */
-    bool eventFilter(QObject *watched, QEvent *event);
+    virtual bool eventFilter(QObject *watched, QEvent *event);
     QString encryptPasswd(const QString& password);
+    virtual void paintEvent(QPaintEvent *event);
+
+private slots:
+    void loginSystem();
 
 private:
     void opendb();
@@ -52,6 +47,7 @@ private:
     void loadImages(const QString& dirpath);
     void setPicture(QPixmap *pixmap);
     int  generateDifferentIndex();
+    bool isUser(const QString &username);
 
 private:
     Ui::QDialogLogin *ui;
@@ -59,15 +55,12 @@ private:
     int m_imageindex;
     int m_trynum;
     bool m_autoWriteUser;
-    bool m_moving;
-    QPoint m_lastPosition;
     QVariantList m_hashlist;
     QString m_user;
     QString m_password;
     QString m_verification;
     QHash<QString, QString> m_imageHash;
     QStringList m_keys;
-    QPixmap m_pixmap;
     QSqlDatabase  m_db;
     QVariantHash m_loginUserHash;
 };

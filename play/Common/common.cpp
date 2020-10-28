@@ -101,6 +101,7 @@ QHash<int, QString> LoadImage(const QString& imagepath, const QStringList& filte
     OUT << u8"¼ÓÔØÍ¼Æ¬Íê³É" << hash.size();
     return hash;
 }
+
 QString gbk2string(const char* gbkData)
 {
     QTextCodec* codec = QTextCodec::codecForName("GBK");
@@ -109,6 +110,16 @@ QString gbk2string(const char* gbkData)
         return codec->toUnicode(gbkData);
     }
     return QString::fromLocal8Bit(gbkData);
+}
+
+QByteArray string2gbk(QString qtext)
+{
+    QTextCodec* codec = QTextCodec::codecForName("utf-8");
+    if (codec)
+    {
+        return codec->fromUnicode(qtext);
+    }
+    return qtext.toLocal8Bit();
 }
 
 QString DrawHeart(const QString& keywords, LOVE type,  const QDateTime& datetime, bool isReplace, const QStringList& wordlist)

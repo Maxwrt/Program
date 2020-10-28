@@ -42,7 +42,7 @@ MainWindow::~MainWindow()
 void MainWindow::Init()
 {
     m_timer.setInterval(1000);
-    setWindowIcon(QIcon(":/config/love.jpg"));
+    setWindowIcon(QIcon(":/config/title.ico"));
     m_labelTipInfo = new QLabel(this);
     m_labelTipInfo->adjustSize();
     statusBar()->addWidget(m_labelTipInfo);
@@ -64,6 +64,7 @@ void MainWindow::Init()
     }
 }
 
+
 void MainWindow::InitSignalSlot()
 {
     connect(&m_timer, &QTimer::timeout, this, [=]() mutable -> void
@@ -80,7 +81,7 @@ void MainWindow::InitSignalSlot()
     {
         if (!m_AgreementDialog)
         {
-            m_AgreementDialog = new AgreementDialog(this);
+            m_AgreementDialog = new AgreementDialog(size(), this);
         }
         m_AgreementDialog->Show();
     });
@@ -89,7 +90,7 @@ void MainWindow::InitSignalSlot()
     {
         if (nullptr == m_dlgUser)
         {
-            m_dlgUser = new DialogUser(this);
+            m_dlgUser = new DialogUser(m_db, this);
         }
         m_dlgUser->exec();
     });
@@ -118,8 +119,6 @@ void MainWindow::EditUser()
     {
         ui->actionEdit->setEnabled(false);
     }
-
-    //更新数据库中用户的登陆次数
     UpdateLoginCount();
 }
 
@@ -133,11 +132,11 @@ void MainWindow::UpdateLoginCount()
         query.prepare(update_sql);
         if(query.exec())
         {
-            qDebug().noquote()<<u8"更新loginCount成功";
+            OUT << u8"更新loginCount成功";
         }
         else
         {
-            qDebug().noquote()<<u8"更新loginCount失败";
+            OUT << u8"更新loginCount失败";
         }
         m_db.close();
     }

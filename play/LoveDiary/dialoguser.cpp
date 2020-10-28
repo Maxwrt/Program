@@ -13,12 +13,13 @@
 #include <QFile>
 #include <QTextStream>
 #include <QIODevice>
-DialogUser::DialogUser(QWidget *parent) :
-    QDialog(parent),
+DialogUser::DialogUser(const QSqlDatabase& db,QWidget *parent) :
+    BaseDialog(parent),
+    m_db(db),
     ui(new Ui::DialogUser)
 {
     ui->setupUi(this);
-    createDB();
+    setWindowFlags(Qt::FramelessWindowHint);
     InitHeadList();
     setText();
     updateTable();
@@ -36,25 +37,6 @@ void DialogUser::setText()
     ui->btnDelete->setText(u8"É¾³ý");
     ui->btnInsert->setText(u8"Ìí¼Ó");
     ui->btnUpdate->setText(u8"¸üÐÂ");
-}
-
-void DialogUser::createDB()
-{
-    m_db = Createdb(QStringLiteral("/config/LoveDiary.db"));
-    if(m_db.isOpen() || m_db.open())
-    {
-        QString create_table_sql = QStringLiteral("create table if not exists users(username varchar(11) primary key, \
-                                    password varchar(11) not null, \
-                                    isroot boolean, datestring varchar(20), \
-                                    sex varchar(5), loginCount int, latestlogintime varchar(20), remarks varchar(20))");
-        QSqlQuery query_sql;
-        query_sql.prepare(create_table_sql);
-        if(!query_sql.exec())
-        {
-            qDebug()<<query_sql.lastError();
-            return ;
-        }
-    }
 }
 
 void DialogUser::selectdb()
@@ -81,6 +63,7 @@ void DialogUser::selectdb()
                 m_usernameList<<qsql.value(0).toString();
             }
         }
+        m_db.close();
     }
     else
     {

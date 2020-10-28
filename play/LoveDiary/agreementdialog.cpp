@@ -6,11 +6,13 @@
 #include <QTextStream>
 #include <QIODevice>
 
-AgreementDialog::AgreementDialog(QWidget *parent) :
-    QDialog(parent),
+AgreementDialog::AgreementDialog(const QSize& argsize, QWidget *parent) :
+    BaseDialog(parent),
     ui(new Ui::AgreementDialog)
 {
     ui->setupUi(this);
+    ui->pushButton->hide();
+    move((argsize.width() - width())/2, (argsize.height() - height())/2);
     setWindowTitle(tr("Love Protocal"));
     setWindowFlags(Qt::FramelessWindowHint);
     Init();
@@ -38,7 +40,7 @@ void AgreementDialog::Init()
     if (m_file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream read(&m_file);
-        ui->plainTextEdit->setPlainText(read.readAll());
+        ui->plainTextEdit->setPlainText(string2gbk(read.readAll()));
         m_file.close();
     }
     else

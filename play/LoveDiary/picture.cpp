@@ -7,7 +7,7 @@
 #include <QStringList>
 #include <QTextStream>
 Picture::Picture(QWidget *parent) :
-    QDialog(parent),
+    BaseDialog(parent),
     ui(new Ui::Picture)
 {
     ui->setupUi(this);
@@ -22,11 +22,11 @@ Picture::~Picture()
     delete ui;
 }
 
-void Picture::mousePressEvent(QMouseEvent *event)
+void Picture::keyPressEvent(QKeyEvent *event)
 {
-    if (event->button() == Qt::LeftButton)
+    static int next = 1;
+    if(event->key() == Qt::Key_Right)
     {
-        static int next = 1;
         if (next > m_imageHash.size())
         {
             next = 0;
@@ -40,13 +40,21 @@ void Picture::mousePressEvent(QMouseEvent *event)
         setPalette(pal);
 #endif
     }
-    else if (event->button() == Qt::RightButton)
+    else if(event->key() == Qt::Key_Left)
+    {
+        if (next < 0)
+        {
+            next = m_imageHash.size();
+        }
+        setStyleSheet(QString("QDialog{border-image:url(%1);}").arg(m_imageHash.value(next--)));
+    }
+    else if(event->key() == Qt::Key_Escape)
     {
         close();
     }
 }
 
-void Picture::mouseDoubleClickEvent(QMouseEvent *event)
+void Picture::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
 }

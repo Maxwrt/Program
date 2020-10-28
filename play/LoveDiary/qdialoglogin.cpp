@@ -18,9 +18,10 @@
 #include <QStringList>
 #include <QFileInfoList>
 #include <QBitmap>
+#include <QPainter>
 
 QDialogLogin::QDialogLogin(const QSize& argsize,QWidget *parent) :
-    QDialog(parent),
+    BaseDialog(parent),
     m_trynum(0),
     m_imageindex(0),
     ui(new Ui::QDialogLogin)
@@ -38,82 +39,9 @@ QDialogLogin::QDialogLogin(const QSize& argsize,QWidget *parent) :
         m_verification = ui->labelVerificationCode->Text();
     });
 
-//    connect(ui->labelPicture, &ImageLabel::clicked, this, [=]()
-//    {
-//        QPixmap picture;
-//        setPicture(&picture);
-//    });
     connect(ui->pushButtonOk, &QPushButton::clicked, this, [&]() mutable -> void
     {
-        QString user = ui->lineEditUser->text();
-        QString password = ui->lineEditPassword->text();
-        //QString encryptPassword=encryptPasswd(password);
-        QString verification = ui->lineEditVerification->text();
-        if(!user.isEmpty())
-        {
-            if (password.isEmpty())
-            {
-                QMessageBox::information(this, tr("Info"), u8"密码不能为空", u8"确定");
-                return;
-            }
-
-            if (verification.isEmpty())
-            {
-                QMessageBox::information(this, tr("Info"), u8"请输入验证码", u8"确定");
-                return;
-            }
-            else
-            {
-                if (qstrcmp(verification.toStdString().c_str(), m_verification.toStdString().c_str()) != 0)
-                {
-                    QMessageBox::information(this, tr("Info"), u8"输入的验证码不正确", u8"确定");
-                    return ;
-                }
-            }
-            //和数据库中的用户名和密码进行比较
-            if(m_hashlist.count()>0)
-            {
-                for(int i=0; i<m_hashlist.count(); i++)
-                {
-                    QVariantHash hash = m_hashlist.at(i).toHash();
-                    if(hash.value("username") == user)
-                    {
-                        if(hash.value("password") == password)
-                        {
-                            m_user=user;
-                            m_loginUserHash=m_hashlist.at(i).toHash();
-                            accept();
-                            qDebug() << tr("Login Sys");
-                        }
-                        else
-                        {
-                            m_trynum++;
-                            if(m_trynum>3)
-                            {
-                                QMessageBox::critical(this, tr("Error Tip"), tr("Input error number greater than 3,sys close"), u8"确定");
-                                close();
-                                return;
-                            }
-                            else
-                            {
-                                QMessageBox::information(this, tr("Info"), tr("the username or password error, please check"));
-                                ui->lineEditPassword->clear();
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            if((m_hashlist.count()<1) || m_user.isEmpty())
-            {
-                QMessageBox::information(this, tr("Info"), tr(u8"user %1 not exists，please register firstly").arg(user), u8"确定");
-                return;
-            }
-        }
-        else
-        {
-            QMessageBox::information(this, tr("Info"), tr("please input username"));
-        }
+        loginSystem();
     }
     );
 
@@ -121,8 +49,6 @@ QDialogLogin::QDialogLogin(const QSize& argsize,QWidget *parent) :
     {
         QVariantHash hash;
         registDialog ptRegister(hash, m_db, m_hashlist, argsize, this);
-
-        ptRegister.move((width() - ptRegister.width())/2, (height() - ptRegister.height())/2);
         if (ptRegister.exec() == QDialog::Accepted)
         {
             m_hashlist << hash;
@@ -137,6 +63,12 @@ QDialogLogin::QDialogLogin(const QSize& argsize,QWidget *parent) :
         {
             QMessageBox::information(this, u8"提示信息", u8"请输入用户名", u8"确定");
             return;
+        }
+
+        if (!isUser(username))
+        {
+             QMessageBox::information(this, u8"提示信息", QString(u8"用户%1不存在，无法找回密码，请先注册").arg(username), u8"确定");
+             return;
         }
         ForgetPassword ftd(username, m_db, argsize, this);
         if (ftd.exec() == QDialog::Accepted)
@@ -171,6 +103,96 @@ QDialogLogin::~QDialogLogin()
     delete ui;
 }
 
+void QDialogLogin::loginSystem()
+{
+    QString user = ui->lineEditUser->text();
+    QString password = ui->lineEditPassword->text();
+    //QString encryptPassword=encryptPasswd(password);
+    QString verification = ui->lineEditVerification->text();
+    if(!user.isEmpty())
+    {
+        if (password.isEmpty())
+        {
+            QMessageBox::information(this, tr("Info"), u8"密码不能为空", u8"确定");
+            return;
+        }
+
+        if (verification.isEmpty())
+        {
+            QMessageBox::information(this, tr("Info"), u8"请输入验证码", u8"确定");
+            return;
+        }
+        else
+        {
+            if (qstrcmp(verification.toStdString().c_str(), m_verification.toStdString().c_str()) != 0)
+            {
+                QMessageBox::information(this, tr("Info"), u8"输入的验证码不正确", u8"确定");
+                return ;
+            }
+        }
+        //和数据库中的用户名和密码进行比较
+        if(m_hashlist.count()>0)
+        {
+            for(int i=0; i<m_hashlist.count(); i++)
+            {
+                QVariantHash hash = m_hashlist.at(i).toHash();
+                if(hash.value("username") == user)
+                {
+                    if(hash.value("password") == password)
+                    {
+                        m_user=user;
+                        m_loginUserHash=m_hashlist.at(i).toHash();
+                        accept();
+                        qDebug() << tr("Login Sys");
+                    }
+                    else
+                    {
+                        m_trynum++;
+                        if(m_trynum>3)
+                        {
+                            QMessageBox::critical(this, tr("Error Tip"), tr("Input error number greater than 3,sys close"), u8"确定");
+                            close();
+                            return;
+                        }
+                        else
+                        {
+                            QMessageBox::information(this, tr("Info"), tr("the username or password error, please check"));
+                            ui->lineEditPassword->clear();
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        if((m_hashlist.count()<1) || m_user.isEmpty())
+        {
+            QMessageBox::information(this, tr("Info"), tr(u8"user %1 not exists，please register firstly").arg(user), u8"确定");
+            return;
+        }
+    }
+    else
+    {
+        QMessageBox::information(this, tr("Info"), tr("please input username"));
+    }
+}
+
+bool QDialogLogin::isUser(const QString &username)
+{
+    if (m_hashlist.size() > 0)
+    {
+        for (auto hash : m_hashlist)
+        {
+            if (0 == qstrcmp(username.toStdString().c_str(), hash.toHash().value("username").toString().toStdString().c_str()))
+            {
+                return true;
+            }
+        }
+
+        return true;
+    }
+    return false;
+}
+
 void QDialogLogin::selectdb()
 {
     if(m_db.isOpen() || m_db.open())
@@ -193,37 +215,13 @@ void QDialogLogin::selectdb()
                 m_hashlist<<hash;
             }
         }
+        m_db.close();
     }
+
     else
     {
         OUT << u8"打开users.db失败";
     }
-}
-
-void QDialogLogin::mousePressEvent(QMouseEvent* event)
-{
-    if(event->button() == Qt::LeftButton)
-    {
-        m_moving = true;
-        m_lastPosition = event->globalPos()-pos();
-    }
-    QDialog::mousePressEvent(event);
-}
-
-void QDialogLogin::mouseMoveEvent(QMouseEvent *event)
-{
-    if(m_moving && (event->buttons() == Qt::LeftButton) && ((event->globalPos() - m_lastPosition).manhattanLength() > QApplication::startDragDistance()))
-    {
-        move(event->globalPos()-m_lastPosition);
-        m_lastPosition = event->globalPos()-pos();
-    }
-    QDialog::mouseMoveEvent(event);
-}
-
-void QDialogLogin::mouseReleaseEvent(QMouseEvent* event)
-{
-    m_moving=false;
-    QDialog::mouseReleaseEvent(event);
 }
 
 void QDialogLogin::loadImages(const QString& dirpath)
@@ -275,21 +273,14 @@ void QDialogLogin::writesettings()
     settings.setValue("Password", encryptPasswd("Sn_11210318"));
 //    settings.setValue("flag", ui->checkBox->isChecked());
 }
-#include <QPainter>
-void QDialogLogin::paintEvent(QPaintEvent *event)
-{
-    Q_UNUSED(event);
-    resize(m_pixmap.size());
-    QPainter painter(this);
-    painter.setRenderHints(QPainter::SmoothPixmapTransform, true);
-    painter.drawPixmap(rect(), m_pixmap);
-}
+
+
 
 void QDialogLogin::initDialog()
 {
     m_db = Createdb("/config/LoveDiary.db");
-    loadImages(":/config/");
-    setWindowIcon(QIcon(m_imageHash.value(m_keys.at(generateDifferentIndex()))));
+//    loadImages(":/config/");
+    setWindowIcon(QIcon(":/config/title.ico"));
     ui->lineEditPassword->setEchoMode(QLineEdit::Password);
 
     //给用户名和密码编辑框安装事件过滤器
@@ -299,7 +290,16 @@ void QDialogLogin::initDialog()
 
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground, true);
-    m_pixmap = QPixmap(":/config/heart_remove.png");
+    m_pixmap = QPixmap(":/config/login.png");
+}
+
+void QDialogLogin::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+    resize(m_pixmap.size());
+    QPainter painter(this);
+    painter.setRenderHints(QPainter::SmoothPixmapTransform, true);
+    painter.drawPixmap(rect(), m_pixmap);
 }
 
 int QDialogLogin::ShowLogin()

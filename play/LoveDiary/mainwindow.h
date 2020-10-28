@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QSqlDatabase>
+#include <QKeyEvent>
 #include "agreementdialog.h"
 #include "picture.h"
 #include "dialoguser.h"
@@ -26,6 +27,7 @@ public:
     explicit MainWindow(QSqlDatabase& db, const QVariantHash& logHash, QWidget *parent = 0);
     ~MainWindow();
     void Show();
+
 private:
     void Init();
     void InitSignalSlot();

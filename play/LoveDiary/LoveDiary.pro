@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     verificationcodelabel.cpp \
     registdialog.cpp \
     picture.cpp \
-    forgetpassword.cpp
+    forgetpassword.cpp \
+    basedialog.cpp
 
 HEADERS  += mainwindow.h \
             qdialoglogin.h \
@@ -50,7 +51,8 @@ HEADERS  += mainwindow.h \
     verificationcodelabel.h \
     registdialog.h \
     picture.h \
-    forgetpassword.h
+    forgetpassword.h \
+    basedialog.h
 
 FORMS    += mainwindow.ui \
             qdialoglogin.ui \

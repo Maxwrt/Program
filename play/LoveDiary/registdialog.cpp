@@ -10,14 +10,14 @@
 #include <QRegExp>
 
 registDialog::registDialog(QVariantHash& hash, QSqlDatabase &argdb, const QVariantList& arguserlist, const QSize& size, QWidget *parent) :
-    QDialog(parent),
+    BaseDialog(parent),
     ui(new Ui::registDialog)
 {
     ui->setupUi(this);
     move((size.width() - width())/2, (size.height()-height())/2);
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground, true);
-    m_pixmap = QPixmap(":/config/dog_remove.png");
+    m_pixmap = QPixmap(":/config/register.png");
     connect(ui->pushButtonOk, &QPushButton::clicked, this, [&]() mutable -> void
     {
         QString username(ui->lineEditUser->text());
@@ -104,7 +104,6 @@ registDialog::registDialog(QVariantHash& hash, QSqlDatabase &argdb, const QVaria
                     ui->lineEditOkPassword->clear();
                 }
                 argdb.close();
-                accept();
             }
             else
             {
@@ -127,30 +126,4 @@ void registDialog::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHints(QPainter::SmoothPixmapTransform, true);
     painter.drawPixmap(rect(), m_pixmap);
-}
-
-void registDialog::mousePressEvent(QMouseEvent* event)
-{
-    if(event->button() == Qt::LeftButton)
-    {
-        m_moving = true;
-        m_lastPosition = event->globalPos()-pos();
-    }
-    QDialog::mousePressEvent(event);
-}
-
-void registDialog::mouseMoveEvent(QMouseEvent *event)
-{
-    if(m_moving && (event->buttons() == Qt::LeftButton) && ((event->globalPos() - m_lastPosition).manhattanLength() > QApplication::startDragDistance()))
-    {
-        move(event->globalPos()-m_lastPosition);
-        m_lastPosition = event->globalPos()-pos();
-    }
-    QDialog::mouseMoveEvent(event);
-}
-
-void registDialog::mouseReleaseEvent(QMouseEvent* event)
-{
-    m_moving=false;
-    QDialog::mouseReleaseEvent(event);
 }

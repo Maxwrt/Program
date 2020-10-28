@@ -1,4 +1,5 @@
 #include "common.h"
+#include "test.cpp"
 #include <QCoreApplication>
 #include <QString>
 #include <QFile>
@@ -119,6 +120,15 @@ int main(int argc, char *argv[])
 
     std::vector<int> ivector(10);
     ivector.emplace_back(1);
+
+    /****************************************²âÊÔÐéº¯Êý************************************************/
+    Animal animal("¶¯Îï");
+    Cat    cat("Ã¨");
+    animal.say();
+    cat.say();
+    OUT << gbk2string(animal.getname());
+    OUT << gbk2string(cat.getname());
+    /****************************************²âÊÔÐéº¯Êý************************************************/
 
     return a.exec();
 }

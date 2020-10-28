@@ -1,20 +1,22 @@
 #ifndef DIALOGUSER_H
 #define DIALOGUSER_H
 
+#include "basedialog.h"
 #include <QDialog>
 #include <QVariantList>
 #include <QStringList>
 #include <QSqlDatabase>
+#include <QKeyEvent>
 namespace Ui {
 class DialogUser;
 }
 
-class DialogUser : public QDialog
+class DialogUser : public BaseDialog
 {
     Q_OBJECT
 
 public:
-    explicit DialogUser(QWidget *parent = 0);
+    explicit DialogUser(const QSqlDatabase& db, QWidget *parent = 0);
     ~DialogUser();
 
 private slots:
@@ -27,7 +29,6 @@ private:
     void selectdb();
     void InitHeadList();
     void setText();
-    void createDB();
     void infomation(QPushButton *button, const QString& msg);
 
 private:
