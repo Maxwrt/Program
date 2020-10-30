@@ -53,8 +53,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void showNormal();
-
-
 signals:
     void startCompare(const QVariantHash& hash);
     void startCompareToThread(const QVariantHash& hash);

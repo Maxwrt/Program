@@ -1,4 +1,5 @@
 #include "comparethread.h"
+#include "boolresult.h"
 #include <QDebug>
 #include <QTextStream>
 #include <QString>
@@ -19,6 +20,7 @@ Base::Base(QObject *parent)
 
 void Base::compare(const QVariantHash& hash)
 {
+    qDebug().noquote() << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
     m_ret_data.clear();
     BoolResult ret;
     if(hash.count()>0)
@@ -73,7 +75,7 @@ BoolResult Base::readTextFile(const QString& fileName)
     {
         QTextStream read(&file);
         QString contentAll = read.readAll();
-        QStringList lineList = contentAll.split("\n");
+        QStringList lineList = contentAll.split("\n", QString::SkipEmptyParts);
         qSort(lineList.begin(), lineList.end());
         if(lineList.count() > 0)
         {

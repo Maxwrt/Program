@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButtonSynchronize->setEnabled(false);
     ui->pushButtonSynchronize1->setEnabled(false);
     m_table_list << tr("fileName") << tr("handwriteTagname")<< tr("parsePath") << tr("handwritePath") << tr("compareResult");
-    setWindowIcon(QIcon(QStringLiteral(":/image/icon.png")));
+    setWindowIcon(QIcon(":/image/icon.png"));
     initMenu();
     initToolBar();
 
@@ -36,17 +36,18 @@ MainWindow::MainWindow(QWidget *parent) :
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(timer_out_slot()));
     m_synchronize = false;
-    m_thread = new Thread(this);//父类是ui界面,生命周期和ui界面一致。是一个全局线程
+    m_thread = new Thread(this);
     connect(this, &MainWindow::startCompareToThread, m_thread, &Thread::startCompareSlot);
     connect(m_thread, &Thread::finish_compare_thread, this, &MainWindow::finish_compare_main);
     connect(m_thread, &Thread::finished, this, &MainWindow::ThreadFinishSlot);
+    connect(m_thread, &Thread::finished, this, &QThread::deleteLater);
     connect(this, &MainWindow::editStartCompare, m_thread, &Thread::editStartCompareSlot);
 
     m_compare = new Compare();
-    connect(this, &MainWindow::startCompare, m_compare, &Compare::compareSlot);
-    connect(&m_compare_thread, &QThread::finished, this, &MainWindow::CompareThreadFinishSlot);
-    connect(&m_compare_thread, &QThread::finished, m_compare, &QObject::deleteLater);
-    connect(m_compare, &Compare::finishCompareSignal, this, &MainWindow::finish_compare_main);
+    connect(this, &MainWindow::startCompare, m_compare, &Compare::compareSlot, Qt::QueuedConnection);
+    connect(&m_compare_thread, &QThread::finished, this, &MainWindow::CompareThreadFinishSlot, Qt::QueuedConnection);
+    connect(&m_compare_thread, &QThread::finished, m_compare, &QObject::deleteLater, Qt::QueuedConnection);
+    connect(m_compare, &Compare::finishCompareSignal, this, &MainWindow::finish_compare_main, Qt::QueuedConnection);
     m_compare->moveToThread(&m_compare_thread);
     m_compare_thread.start();
 
@@ -78,8 +79,6 @@ MainWindow::~MainWindow()
 {
     stopThread();
     delete ui;
-    if (m_compare)
-        delete m_compare;
     qDebug().noquote()<<tr("~MainWindow destruct");
 }
 
@@ -99,10 +98,15 @@ void MainWindow::stopThread()
     {
         m_compare_thread.quit();
         m_compare_thread.wait();
-        qDebug().noquote()<<tr("m_compare thread exit");
+        qDebug().noquote()<<tr("m_compare_thread over");
     }
-    m_thread->stopThread();
-    m_thread->wait();
+
+    if (m_thread->isRunning())
+    {
+        m_thread->stopThread();
+        m_thread->wait();
+        qDebug().noquote() << "m_thread over";
+    }
 }
 
 void MainWindow::initMenu()
@@ -165,7 +169,7 @@ void MainWindow::on_pushButtonCompare_clicked()
 
     QVariantHash hash;
     hash.insert("file", m_filename);
-    hash.insert("dir", m_dir);
+    hash.insert("dir",  m_dir);
     hash.insert("bool", m_synchronize);
     m_data_hash = hash;
     if(!m_isthread)

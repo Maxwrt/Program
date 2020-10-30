@@ -1,19 +1,25 @@
 #ifndef COMPARETHREAD_H
 #define COMPARETHREAD_H
 
-#include "boolresult.h"
+//#include "boolresult.h"
 #include <QObject>
 #include <QVariantHash>
 #include <QMap>
 #include <QDomElement>
 #include <QDomDocument>
 #include <QFile>
-
+#include <QTextStream>
+#include <QThread>
+class BoolResult;
 class Base: public QObject
 {
     Q_OBJECT
 public:
     Base(QObject *parent = 0);
+//    ~Base()
+//    {
+//        QTextStream(stdout) << "function:   " << __FUNCTION__ << " id:   "<< QThread::currentThreadId() << "\n";
+//    }
     void compare(const QVariantHash& hash);
 
 signals:

@@ -12,6 +12,7 @@
 #include <QTime>
 #include <vector>
 #include <iostream>
+#include <QRegularExpression>
 //读取txt文件到QString
 QString UtReadTxtFileToQString(const QString &filenamestr, const QString &encodestr)
 {
@@ -130,5 +131,10 @@ int main(int argc, char *argv[])
     OUT << gbk2string(cat.getname());
     /****************************************测试虚函数************************************************/
 
+    /****************************************测试remove************************************************/
+    QString r = "Telephone@@";
+    r.remove(QRegularExpression("[aeiou]."));//正则表达式表示匹配aeiou中的一个与任意另一字符组成的字符串
+    OUT << r;
+    /****************************************测试remove************************************************/
     return a.exec();
 }
