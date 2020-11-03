@@ -14,7 +14,7 @@
 #include "agreementdialog.h"
 #include "picture.h"
 #include "dialoguser.h"
-
+#include <QThread>
 namespace Ui {
 class MainWindow;
 }
@@ -46,6 +46,7 @@ private:
     AgreementDialog *m_AgreementDialog;
     Picture *m_picture;
     DialogUser *m_dlgUser;
+    QThread  m_thread;
 };
 
 #endif // MAINWINDOW_H

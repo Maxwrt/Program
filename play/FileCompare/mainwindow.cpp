@@ -94,7 +94,7 @@ void MainWindow::ThreadFinishSlot()
 
 void MainWindow::stopThread()
 {
-    if(m_compare_thread.isRunning())
+    if (m_compare_thread.isRunning())
     {
         m_compare_thread.quit();
         m_compare_thread.wait();

@@ -16,7 +16,7 @@ class Picture : public BaseDialog
     Q_OBJECT
 
 public:
-    explicit Picture(QWidget *parent = 0);
+    explicit Picture(const QSize& size, QWidget *parent = 0);
     ~Picture();
 
 protected:

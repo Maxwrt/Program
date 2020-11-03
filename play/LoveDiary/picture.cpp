@@ -6,7 +6,7 @@
 #include <QPixmap>
 #include <QStringList>
 #include <QTextStream>
-Picture::Picture(QWidget *parent) :
+Picture::Picture(const QSize& size, QWidget *parent) :
     BaseDialog(parent),
     ui(new Ui::Picture)
 {
@@ -14,7 +14,7 @@ Picture::Picture(QWidget *parent) :
     m_imageHash = LoadImage(qApp->applicationDirPath() % QStringLiteral("/us"), QStringList()<<"*.jpg"<<"*.png");
     setWindowFlags(Qt::FramelessWindowHint);
     setStyleSheet(QString("QDialog{border-image:url(%1);}").arg(m_imageHash.value(0)));
-    move((parent->width()- width())/2, (parent->height() - height())/2);
+    move((size.width()- width())/2, (size.height() - height())/2);
 }
 
 Picture::~Picture()

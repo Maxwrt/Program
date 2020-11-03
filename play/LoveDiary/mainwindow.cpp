@@ -12,6 +12,7 @@
 #include <QFont>
 #include <QSqlQuery>
 #include <QIcon>
+#include <QThread>
 
 MainWindow::MainWindow(QSqlDatabase& db, const QVariantHash& logHash, QWidget *parent) :
     QMainWindow(parent),
@@ -34,6 +35,11 @@ MainWindow::~MainWindow()
     if (m_timer.isActive())
     {
         m_timer.stop();
+    }
+    if (m_thread.isRunning())
+    {
+        m_thread.quit();
+        m_thread.wait();
     }
     delete ui;
 }
@@ -95,13 +101,13 @@ void MainWindow::InitSignalSlot()
         m_dlgUser->exec();
     });
 
+    m_picture = new Picture(size(), nullptr);
+    m_picture->moveToThread(&m_thread);
+    connect(&m_thread, &QThread::finished, m_picture, &QObject::deleteLater, Qt::QueuedConnection);
+    m_thread.start();
     connect(ui->pushButton_us, &QPushButton::clicked, this, [=]()
     {
-        if (nullptr == m_picture)
-        {
-            m_picture = new Picture(this);
-        }
-        m_picture->exec();
+        m_picture->show();
     }
     );
 }

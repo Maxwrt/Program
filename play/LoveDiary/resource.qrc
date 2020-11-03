@@ -14,5 +14,6 @@
         <file>config/update.png</file>
         <file>config/us.png</file>
         <file>config/table.txt</file>
+        <file>config/tcpsocket.txt</file>
     </qresource>
 </RCC>
