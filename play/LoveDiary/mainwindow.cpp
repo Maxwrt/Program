@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "dialoguser.h"
 #include "common.h"
+#include "Sender.h"
+#include "Receiver.h"
 #include <QFile>
 #include <QDateTime>
 #include <QDate>
@@ -110,6 +112,23 @@ void MainWindow::InitSignalSlot()
         m_picture->show();
     }
     );
+
+    connect(ui->pushButton_chat, &QPushButton::clicked, this, [=]()
+    {
+        static Sender *sender = 0;
+        if (sender == 0)
+        {
+            sender = new Sender();
+        }
+        sender->exec();
+
+        static Receiver *receiver = 0;
+        if (receiver == 0)
+        {
+            receiver = new Receiver();
+        }
+        receiver->exec();
+    });
 }
 
 void MainWindow::Show()

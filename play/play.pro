@@ -9,6 +9,7 @@ SUBDIRS += \
     frmCountCode \
     CustomWidget \
     ReadFile \
-    LoveDiary
+    LoveDiary \
+    Socket
 
 

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       +=  gui sql
+QT       +=  gui sql network
 
 DEFINES += QT_USE_FAST_OPERATOR_PLUS
 
@@ -39,7 +39,9 @@ SOURCES += main.cpp\
     registdialog.cpp \
     picture.cpp \
     forgetpassword.cpp \
-    basedialog.cpp
+    basedialog.cpp \
+    Sender.cpp \
+    Receiver.cpp
 
 HEADERS  += mainwindow.h \
             qdialoglogin.h \
@@ -52,7 +54,9 @@ HEADERS  += mainwindow.h \
     registdialog.h \
     picture.h \
     forgetpassword.h \
-    basedialog.h
+    basedialog.h \
+    Sender.h \
+    Receiver.h
 
 FORMS    += mainwindow.ui \
             qdialoglogin.ui \
@@ -60,7 +64,9 @@ FORMS    += mainwindow.ui \
     dialoguser.ui \
     registdialog.ui \
     picture.ui \
-    forgetpassword.ui
+    forgetpassword.ui \
+    Sender.ui \
+    Receiver.ui
 
 TRANSLATIONS = LoveDiary_en.ts \
                LoveDiary_zh.ts

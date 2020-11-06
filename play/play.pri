@@ -3,6 +3,7 @@ CONFIG += c++11
 CONFIG += plugin
 CONFIG += debug_and_release
 
+DEFINES += GUAGUA
 
 CONFIG(debug, debug|release){
       contains(TEMPLATE, app){

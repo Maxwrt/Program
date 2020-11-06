@@ -34,7 +34,7 @@ private slots:
     void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
 
     /**
-     * @brief eventFilter li'yong利用事件过滤器来捕捉控件事件
+     * @brief eventFilter 利用事件过滤器来捕捉控件事件
      * @param obejct
      * @param event
      */
