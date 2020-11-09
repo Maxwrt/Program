@@ -6,7 +6,7 @@
 Sender::Sender(QWidget *parent):
 QDialog(parent)
 {
-    groupAddress = QHostAddress("239.255.43.21");
+    groupAddress = QHostAddress("239.255.43.21"); //224.0.0.0~239.255.255.255(组播地址是一个D类地址)
 
     statusLabel = new QLabel(tr("ready to multicast datagrams to group %1 on port 45454").arg(groupAddress.toString()));
 
@@ -60,7 +60,8 @@ void Sender::sendDatagram()
 {
     statusLabel->setText(tr("Now sending datagram %1").arg(messageNo));
     QByteArray datagram = "Multicast message: " + QByteArray::number(messageNo);
-    udpSocket->writeDatagram(datagram.data(), datagram.size(), groupAddress, 45454);
-    udpSocket->writeDatagram(datagram.data(), datagram.size(), groupAddress, 45453);
+    udpSocket->writeDatagram(datagram.data(), datagram.size(), groupAddress /*QHostAddress("239.255.43.21")*/, 45454);
+    udpSocket->writeDatagram(datagram.data(), datagram.size(), groupAddress /*QHostAddress("239.255.43.21")*/, 45453);
+
     ++messageNo;
 }

@@ -40,3 +40,11 @@ void Receiver::processPendingDatagrams()
         statusLabel->setText(tr("Receiver datagram:\"%1\"").arg(datagram.data()));
     }
 }
+
+/**
+ * udp单播(unicast)：单播只能是发送方往接收放指定的IP端口发送数据
+ * udp组播(multicast)需要具备的条件：1.接收方设置组播属性及组播号  2 发送方往接收方定义的组播地址发送数据包
+ *                  3.服务器客户端端口号需要一致
+ * 广播(broadcast)
+ *
+ */
