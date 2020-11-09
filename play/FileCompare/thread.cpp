@@ -72,6 +72,7 @@ void Thread::editStartCompareSlot(const QVariantHash& hash)
 
 void Thread::startCompareSlot(const QVariantHash& hash)
 {
+    emit sendMsg(u8"Thread线程启动");
     qDebug().noquote() << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
     QMutexLocker lock(&m_mutex);
     m_start_compare = true;
@@ -81,6 +82,7 @@ void Thread::startCompareSlot(const QVariantHash& hash)
 
 void Thread::receiveBaseSlot(const QVariantList& retlist)
 {
+    emit sendMsg(u8"Thread线程比较返回");
     qDebug().noquote()<<tr("Thread receive compare over signal");
     emit finish_compare_thread(retlist);
 }

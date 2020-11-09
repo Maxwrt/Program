@@ -22,6 +22,7 @@ public slots:
 
 signals:
     void finish_compare_thread(const QVariantList& retlist);
+    void sendMsg(const QString& msg);
 
 private:
     void compare();

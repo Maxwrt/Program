@@ -16,11 +16,19 @@ class Base: public QObject
     Q_OBJECT
 public:
     Base(QObject *parent = 0);
-//    ~Base()
-//    {
-//        QTextStream(stdout) << "function:   " << __FUNCTION__ << " id:   "<< QThread::currentThreadId() << "\n";
-//    }
+    ~Base()
+    {
+        QTextStream(stdout) << "function:   " << __FUNCTION__ << " id:   "<< QThread::currentThreadId() << "\n";
+    }
     void compare(const QVariantHash& hash);
+    QVariantList *getData()
+    {
+        if(m_ret_data.isEmpty())
+        {
+            return 0;
+        }
+        return &m_ret_data;
+    }
 
 signals:
     void finishCompare(const QVariantList& retlist);

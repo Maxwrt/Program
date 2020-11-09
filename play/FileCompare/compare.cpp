@@ -21,6 +21,7 @@ Compare::~Compare()
 
 void Compare::compareSlot(const QVariantHash& hash)
 {
+    emit sendMsg(u8"Compare线程启动");
     qDebug().noquote() << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
     m_mutex.lock();
     m_base->compare(hash);
@@ -32,4 +33,5 @@ void Compare::finishCompareSlot(const QVariantList& retlist)
     qDebug().noquote() << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
     qDebug().noquote()<<tr("Compare receive compare over signal");
     emit finishCompareSignal(retlist);
+    emit sendMsg(u8"Compare线程比较返回");
 }

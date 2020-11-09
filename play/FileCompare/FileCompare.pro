@@ -35,13 +35,15 @@ SOURCES += main.cpp\
            comparethread.cpp \
            thread.cpp \
            boolresult.cpp \
-           compare.cpp
+           compare.cpp \
+    Runnable.cpp
 
 HEADERS  += mainwindow.h \
             comparethread.h \
             thread.h \
             boolresult.h \
-            compare.h
+            compare.h \
+    Runnable.h
 
 FORMS    += mainwindow.ui
 

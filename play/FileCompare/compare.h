@@ -23,6 +23,7 @@ public slots:
 signals:
     void finishCompareSignal(const QVariantList& retlist);
     void editThreadMemberSignal();
+    void sendMsg(const QString& msg);
 
 private:
     Base *m_base;

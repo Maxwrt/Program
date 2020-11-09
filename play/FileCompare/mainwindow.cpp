@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "boolresult.h"
+#include "Runnable.h"
 #include <QMessageBox>
 #include <QFile>
 #include <QFileInfo>
@@ -19,6 +20,7 @@
 #include <QMapIterator>
 #include <QThreadPool>
 #include <QDateTime>
+#include <QScrollBar>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -33,23 +35,48 @@ MainWindow::MainWindow(QWidget *parent) :
     initToolBar();
 
     m_isthread = false;
+    m_isrunnable = false;
+    m_synchronize = false;
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(timer_out_slot()));
-    m_synchronize = false;
-    m_thread = new Thread(this);
-    connect(this, &MainWindow::startCompareToThread, m_thread, &Thread::startCompareSlot);
-    connect(m_thread, &Thread::finish_compare_thread, this, &MainWindow::finish_compare_main);
-    connect(m_thread, &Thread::finished, this, &MainWindow::ThreadFinishSlot);
-    connect(m_thread, &Thread::finished, this, &QThread::deleteLater);
-    connect(this, &MainWindow::editStartCompare, m_thread, &Thread::editStartCompareSlot);
+    connect(ui->pushButtonInfoTip, &QPushButton::clicked, this, [=]()
+    {
+         static bool flag = false;
+         if (flag)
+         {
+             ui->textEdit->show();
+         }
+         else
+         {
+             ui->textEdit->hide();
+         }
+    });
 
+    //继承QThread实现的比较功能
+    m_thread = new Thread(this);
+    connect(this, &MainWindow::startCompare, m_thread, &Thread::startCompareSlot);
+    connect(m_thread, &Thread::finish_compare_thread, this, &MainWindow::finish_compare_main);
+    connect(m_thread, &Thread::finished, this, &MainWindow::thread_finish_slot);
+    connect(m_thread, &Thread::finished, this, &QThread::deleteLater);
+    connect(m_thread, &Thread::sendMsg, this, &MainWindow::show_msg_slot);
+
+    //继承QObject实现的比较功能
     m_compare = new Compare();
     connect(this, &MainWindow::startCompare, m_compare, &Compare::compareSlot, Qt::QueuedConnection);
-    connect(&m_compare_thread, &QThread::finished, this, &MainWindow::CompareThreadFinishSlot, Qt::QueuedConnection);
+    connect(&m_compare_thread, &QThread::finished, this, &MainWindow::compare_thread_finish_slot, Qt::QueuedConnection);
     connect(&m_compare_thread, &QThread::finished, m_compare, &QObject::deleteLater, Qt::QueuedConnection);
     connect(m_compare, &Compare::finishCompareSignal, this, &MainWindow::finish_compare_main, Qt::QueuedConnection);
+    connect(m_compare, &Compare::sendMsg, this, &MainWindow::show_msg_slot);
     m_compare->moveToThread(&m_compare_thread);
     m_compare_thread.start();
+
+    //使用QRunnable类实现的比较功能
+    m_runnable = CompareRunable::instance();
+    connect(this, &MainWindow::startCompare, m_runnable, &CompareRunable::startCompareSlot);
+    connect(m_runnable, &CompareRunable::returnRetList, this, &MainWindow::finish_compare_main);
+    connect(m_runnable, &CompareRunable::sendMsg, this, &MainWindow::show_msg_slot);
+
+
 
     qDebug().noquote()<<u8"主线程 id: "<<QThread::currentThreadId();
     QMapMarkRecorStatus record;
@@ -82,14 +109,27 @@ MainWindow::~MainWindow()
     qDebug().noquote()<<tr("~MainWindow destruct");
 }
 
-void MainWindow::CompareThreadFinishSlot()
+void MainWindow::compare_thread_finish_slot()
 {
     qDebug().noquote()<<tr("info: m_compare_thread exit");
 }
 
-void MainWindow::ThreadFinishSlot()
+void MainWindow::thread_finish_slot()
 {
     qDebug().noquote()<<tr("info: m_thread exit");
+}
+
+void MainWindow::show_msg_slot(const QString& msg)
+{
+    if (msg.isEmpty())
+        return;
+    QScrollBar *verticalBar = ui->textEdit->verticalScrollBar();
+    bool down = false;
+    if (verticalBar && verticalBar->value() == verticalBar->maximum())
+        down = true;
+    ui->textEdit->append(msg);
+    if (down)
+        verticalBar->setValue(verticalBar->maximum());
 }
 
 void MainWindow::stopThread()
@@ -143,6 +183,8 @@ void MainWindow::timer_out_slot()
 
 void MainWindow::on_pushButtonCompare_clicked()
 {
+    if (!m_data_hash.isEmpty())
+        m_data_hash.clear();
     if(!m_timer->isActive())
         m_timer->start(200);
     ui->progressBar->reset();
@@ -175,16 +217,21 @@ void MainWindow::on_pushButtonCompare_clicked()
     if(!m_isthread)
     {
         emit startCompare(hash);
-        qDebug().noquote()<<tr("emit startCompare signal");
+        qDebug().noquote()<<tr("emit startCompare signal to thread");
+    }
+    else if (m_isrunnable)
+    {
+        emit startCompare(hash);
+        qDebug().noquote()<<u8"发射startComapre信号到runnable";
     }
     else
     {
-        emit startCompareToThread(hash);
-        qDebug().noquote()<<tr("emit startCompareToThread signal");
+        emit startCompare(hash);
+        qDebug().noquote()<<tr("emit startCompare signal to Compare");
     }
 }
 
-void MainWindow::finish_compare_main(const QVariantList& retlist)
+bool MainWindow::finish_compare_main(const QVariantList& retlist)
 {
     if(retlist.count() > 0)
     {
@@ -198,7 +245,7 @@ void MainWindow::finish_compare_main(const QVariantList& retlist)
                 ui->progressBar->hide();
             }
             QMessageBox::information(this, u8"提示", errmsg + QString(u8"请检查！"), u8"确定");
-            return;
+            return false;
         }
         updateTable();
         if(m_synchronize)
@@ -232,6 +279,7 @@ void MainWindow::finish_compare_main(const QVariantList& retlist)
         m_timer->stop();
         ui->progressBar->hide();
     }
+    return true;
 }
 
 QString MainWindow::parseCompareResult()
@@ -262,7 +310,6 @@ void MainWindow::on_pushButtonCompare1_clicked()
     if(m_thread->isRunning())
     {
         qDebug().noquote()<<tr("m_thread is runing");
-        emit editStartCompare(m_data_hash);
         return;
     }
     m_thread->start();
@@ -277,6 +324,18 @@ void MainWindow::on_pushButtonSynchronize1_clicked()
     on_pushButtonCompare_clicked();
 }
 
+void MainWindow::on_pushButtonCompare2_clicked()
+{
+    m_isrunnable = true;
+    on_pushButtonCompare_clicked();
+}
+
+void MainWindow::on_pushButtonSynchronize2_clicked()
+{
+    m_isthread = true;
+    m_synchronize = true;
+    on_pushButtonCompare_clicked();
+}
 void MainWindow::on_pushButtonDelete_clicked()
 {
     ui->lineEditDir->clear();
@@ -393,6 +452,11 @@ void MainWindow::setTableWidth()
         }
         ui->tableView->setColumnWidth(i, 150);
     }
+}
+
+bool MainWindow::showData(const QVariantList* retdata)
+{
+    return finish_compare_main(*retdata);
 }
 
 void MainWindow::updateTable()
