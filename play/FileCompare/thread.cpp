@@ -7,7 +7,7 @@
 Thread::Thread(QObject *parent)
     :QThread(parent)
 {
-    m_base = new Base(this);
+    m_base = QPointer<Base>(new Base(this));
     m_stop = false;
     m_start_compare = false;
     connect(m_base, SIGNAL(finishCompareToThread(const QVariantList&)), this, SLOT(receiveBaseSlot(const QVariantList&)));

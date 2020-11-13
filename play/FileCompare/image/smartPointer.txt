@@ -1,0 +1,37 @@
+智能指针：一个被重写了指针解引用操作operator*()和operator->()的类被称为智能指针
+QSharedPointer(strong reference) <> std::shared_ptr 可以安全的放到标准容器中
+内部维持着对拥有的内存资源的引用计数。比如5个QSharedPoniter拥有同一个内存资源，
+那么这个引用计数就是5。这时如果一个QSharedPointer离开它的作用域，那么就还剩下
+4个QSharedPointer拥有这个内存资源，引用计数就变成了4。当引用计数降到0时，这个
+内存资源就被释放掉了。QSharedPointer对象是线程安全的，但是QSharedPointer指向的内存区域
+不一定是线程安全的，当多个线程访问该区域时要加锁。QSharedPointer不支持指向一个数组。
+QScopedPointer <> std::auto_ptr(std::unique_ptr)
+这个智能指针只能在本作用域里使用，不希望被转让，因为它的拷贝构造和赋值操作都是私有的。不能用作
+容器的元素。当我们的内存数据只在一处被使用时，用完就可以安全的释放时就可以使用QScopedPointer.
+复制QScopedPointer是无意义的，因为它会导致所引用的对象重复删除。
+QScopedArrayPointer
+用于指向的内存数据是一个数组，这时可以用QScopedArrayPointer。QScopedArrayPointer与
+QScopedPointer类似，用于简单的场景。
+QWeakPointer <>  std::weak_ptr
+为了配合QSharedPointer而引入的一种智能指针，是QSharedPointer的助手
+QPointer
+QPointer<QLabel> laber_ptr = new QLabel;
+label_ptr->setText("&Status:");
+...//如果在这里把label_ptr指向的对象释放掉，label会自动置为nullptr，而不会是一个悬挂指针
+if (label_ptr)
+{
+    label->show();
+}
+QPointer于其他的智能指针有很大的不同。其他只能在指针都是为了自动释放内存资源而设计的。QPointer
+智能用于指向QObject机派生类的对象。当一个QObject或派生类对象被删除后，QPointer能自动把其内部的
+指针设置为0。这样我们在使用这个QPointer之前就可以判断一下是否有效了。当一个QPointer对象超出
+作用域时，并不会删除它指向的内存对象，这是和其他智能指针不同的地方。
+QSharedDataPointer
+QSharedDataPointer这个类帮我们实现数据的隐式共享。qt中大量采用了隐式共享和写时拷贝技术。
+QExplicitlySharedDataPointer
+
+QScopedPointerDeleter  使用delete删除
+QScopedPointerArrayDeleter 使用delete[]删除
+QScopedPointerPodDeleter   使用free()删除
+QScopedPointerDeleteLater 使用deteterLater()删除
+

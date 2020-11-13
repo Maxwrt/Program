@@ -4,7 +4,7 @@
 Compare::Compare(QObject *parent)
     :QObject(parent)
 {
-    m_base = new Base(this);
+    m_base = QPointer<Base>(new Base(this));
     connect(m_base, SIGNAL(finishCompare(const QVariantList& )), this, SLOT(finishCompareSlot(const QVariantList&)));
     qDebug().noquote() << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
 }
@@ -14,8 +14,13 @@ Compare::~Compare()
     qDebug().noquote() << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
     if (m_base)
     {
+        qDebug().noquote() << QString::fromLocal8Bit("在~Compare中释放m_base");
         delete m_base;
-        m_base = nullptr;
+        if (nullptr == m_base)
+        {
+            qDebug().noquote() << QString::fromLocal8Bit("m_base已经被QPointer置0");
+        }
+//        m_base = nullptr; QPointer 会把m_base置0
     }
 }
 

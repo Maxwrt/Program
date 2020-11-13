@@ -15,6 +15,7 @@
 #include <QFile>
 #include <QThread>
 #include <QMap>
+#include <QPointer>
 namespace Ui {
 class MainWindow;
 }
@@ -97,15 +98,15 @@ private:
     QString m_filename;
     QString m_dir;
     QVariantHash m_data_hash;
-    QStandardItemModel *m_model;
+    QPointer<QStandardItemModel> m_model;
     QStringList m_table_list;
-    QTimer *m_timer;
+    QPointer<QTimer> m_timer;
     QThread m_compare_thread;
-    Compare *m_compare;
+    QPointer<Compare> m_compare;
     bool m_synchronize;
     bool m_isthread;
     bool m_isrunnable;
-    Thread *m_thread;
+    QPointer<Thread> m_thread;
     CompareRunable *m_runnable;
 };
 

@@ -2,7 +2,7 @@
 #define BOOLRESULT_H
 
 #include <QString>
-
+#include <QSharedPointer>
 class BoolResultPrivate
 {
 public:
@@ -50,7 +50,7 @@ public:
     }
 
 private:
-    BoolResultPrivate* m_pdata;
+    QSharedPointer<BoolResultPrivate> m_pdata;
 };
 
 #endif // BOOLRESULT_H

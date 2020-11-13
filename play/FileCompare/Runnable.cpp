@@ -8,7 +8,7 @@ Runnable::Runnable(QObject * parent):
     QRunnable()
 {
     qDebug().noquote() << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
-    m_base = new Base;
+    m_base = QPointer<Base>(new Base);
 }
 
 Runnable::~Runnable()

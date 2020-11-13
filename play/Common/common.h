@@ -26,6 +26,12 @@ enum LOVE
 
 
 /**
+ * @brief 打印QList
+ * @param list
+ * @param type
+ */
+void COMMONSHARED_EXPORT printList(const QList<QHash<QString, QString> >& list, int type);
+/**
  * @brief 创建数据库
  * @param dbName
  * @return

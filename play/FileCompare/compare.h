@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QMutex>
 #include <QTextStream>
+#include <QPointer>
 class Compare: public QObject
 {
     Q_OBJECT
@@ -26,7 +27,7 @@ signals:
     void sendMsg(const QString& msg);
 
 private:
-    Base *m_base;
+    QPointer<Base> m_base;
     QMutex m_mutex;
 };
 

@@ -6,6 +6,7 @@
 #include <QString>
 #include <QStringList>
 #include <QStringBuilder>
+#include <QPointer>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -16,8 +17,8 @@ int main(int argc, char *argv[])
     font.setPointSize(10);
     font.setStyleStrategy(QFont::NoAntialias);
     a.setFont(font);
-    QTranslator *translator=NULL;
-    translator = new QTranslator(&a);
+    QPointer<QTranslator> translator=NULL;
+    translator = QPointer<QTranslator>(new QTranslator(&a));
     translator->load(QStringLiteral(":/FileCompare_zh.qm"));
     a.installTranslator(translator);
 

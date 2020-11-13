@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QMutex>
 #include <QVariantHash>
+#include <QPointer>
 #include "comparethread.h"
 
 class Runnable : public QRunnable
@@ -18,7 +19,7 @@ protected:
 
 private:
     QObject *m_obj;
-    Base *m_base;
+    QPointer<Base> m_base;
     QMutex m_mutex;
 };
 

@@ -6,6 +6,7 @@
 #include <QVariantHash>
 #include <QMutex>
 #include <QVariantList>
+#include <QPointer>
 
 class Thread: public QThread
 {
@@ -30,7 +31,7 @@ private:
 private:
     virtual void run();
     QVariantHash m_hash;
-    Base *m_base;
+    QPointer<Base> m_base;
     bool m_stop;
     bool m_start_compare;
     QMutex m_mutex;

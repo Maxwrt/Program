@@ -25,6 +25,7 @@
 #include <QObject>
 #include <cmath>
 #include <QFileInfo>
+#include <QTextStream>
 
 float f(float x, float y, float z)
 {
@@ -40,6 +41,34 @@ float h(float x, float z)
     return 0.0f;
 }
 
+void printList(const QList<QHash<QString, QString> >& list, int type)
+{
+    if (type == 1)
+    {
+        QTextStream(stdout) << "begin~~~~~~~~~~~~~~~~dbformula~~~~~~~~~~~~\n";
+    }
+    else
+    {
+        QTextStream(stdout) << "begin~~~~~~~~~~~~~~~~~fformula~~~~~~~~~~~~\n";
+    }
+
+    for (int i=0; i<list.size(); i++)
+    {
+        QHash<QString, QString> hash = list.at(i);
+        QHash<QString, QString>::iterator it = hash.begin();
+
+        QTextStream(stdout) << "key:" << it.key() << "  value:" << it.value() << "\n";
+    }
+
+    if (type == 1)
+    {
+        QTextStream(stdout) << "end~~~~~~~~~~~~~~~~dbformula~~~~~~~~~~~~\n";
+    }
+    else
+    {
+        QTextStream(stdout) << "end~~~~~~~~~~~~~~~~~fformula~~~~~~~~~~~~\n";
+    }
+}
 void ReplaceHeart(QString * line, const QString &keywords, int linenum)
 {
     int count = 0;

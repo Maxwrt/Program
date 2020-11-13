@@ -6,5 +6,6 @@
         <file>image/exit.png</file>
         <file>FileCompare_zh.qm</file>
         <file>image/paste.png</file>
+        <file>image/smartPointer.txt</file>
     </qresource>
 </RCC>

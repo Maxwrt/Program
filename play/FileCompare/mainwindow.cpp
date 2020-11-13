@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isthread = false;
     m_isrunnable = false;
     m_synchronize = false;
-    m_timer = new QTimer(this);
+    m_timer = QPointer<QTimer>(new QTimer(this));
     connect(m_timer, SIGNAL(timeout()), this, SLOT(timer_out_slot()));
     connect(ui->pushButtonInfoTip, &QPushButton::clicked, this, [=]()
     {
@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
     //继承QThread实现的比较功能
-    m_thread = new Thread(this);
+    m_thread = QPointer<Thread>(new Thread(this));
     connect(this, &MainWindow::startCompare, m_thread, &Thread::startCompareSlot);
     connect(m_thread, &Thread::finish_compare_thread, this, &MainWindow::finish_compare_main);
     connect(m_thread, &Thread::finished, this, &MainWindow::thread_finish_slot);
@@ -61,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_thread, &Thread::sendMsg, this, &MainWindow::show_msg_slot);
 
     //继承QObject实现的比较功能
-    m_compare = new Compare();
+    m_compare = QPointer<Compare>(new Compare());
     connect(this, &MainWindow::startCompare, m_compare, &Compare::compareSlot, Qt::QueuedConnection);
     connect(&m_compare_thread, &QThread::finished, this, &MainWindow::compare_thread_finish_slot, Qt::QueuedConnection);
     connect(&m_compare_thread, &QThread::finished, m_compare, &QObject::deleteLater, Qt::QueuedConnection);
@@ -435,7 +435,7 @@ void MainWindow::createTable()
     t->resizeColumnsToContents();
     t->setTextElideMode(Qt::ElideMiddle);
 
-    m_model = new QStandardItemModel(this);
+    m_model = QPointer<QStandardItemModel>(new QStandardItemModel(this));
     m_model->setColumnCount(m_table_list.count());
     m_model->setHorizontalHeaderLabels(m_table_list);
     t->setModel(m_model);
