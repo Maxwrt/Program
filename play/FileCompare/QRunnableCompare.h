@@ -1,13 +1,14 @@
-#ifndef RUNNABLE_H
-#define RUNNABLE_H
+#ifndef QRunnableCompare_H
+#define QRunnableCompare_H
 
 #include <QRunnable>
 #include <QObject>
 #include <QMutex>
 #include <QVariantHash>
 #include <QPointer>
-#include "comparethread.h"
 
+
+class Compare;
 class Runnable : public QRunnable
 {
 public:
@@ -19,20 +20,20 @@ protected:
 
 private:
     QObject *m_obj;
-    QPointer<Base> m_base;
+    QPointer<Compare> m_compare;
     QMutex m_mutex;
 };
 
-class CompareRunable: public QObject
+class QRunnableCompare: public QObject
 {
     Q_OBJECT
 public:
-    static CompareRunable* instance()
+    static QRunnableCompare* instance()
     {
-        static CompareRunable* ptr = nullptr;
+        static QRunnableCompare* ptr = nullptr;
         if (ptr == nullptr)
         {
-            ptr = new CompareRunable(0);
+            ptr = new QRunnableCompare(0);
         }
         return ptr;
     }
@@ -51,8 +52,8 @@ signals:
     void returnRetList(const QVariantList& retlist);
 
 private:
-    CompareRunable(QObject *parent = 0);
-    ~CompareRunable();
+    QRunnableCompare(QObject *parent = 0);
+    ~QRunnableCompare();
 
 private:
     Runnable *m_runnable;
@@ -60,4 +61,4 @@ private:
     QVariantList m_ret_list;
 };
 
-#endif // RUNNABLE_H
+#endif // QRunnableCompare_H

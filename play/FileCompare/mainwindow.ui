@@ -57,12 +57,15 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>比较</string>
+       <string>QObject比较</string>
       </property>
      </widget>
     </item>
     <item row="0" column="6">
      <widget class="QPushButton" name="pushButtonSynchronize">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -70,12 +73,15 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>同步</string>
+       <string>QObject同步</string>
       </property>
      </widget>
     </item>
     <item row="0" column="7">
      <widget class="QPushButton" name="pushButtonCompare1">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -83,12 +89,15 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>比较1</string>
+       <string>QThread比较</string>
       </property>
      </widget>
     </item>
     <item row="0" column="8">
      <widget class="QPushButton" name="pushButtonSynchronize1">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -96,7 +105,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>同步1</string>
+       <string>QThread同步</string>
       </property>
      </widget>
     </item>
@@ -109,12 +118,15 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>比较2</string>
+       <string>QRunable比较</string>
       </property>
      </widget>
     </item>
     <item row="0" column="10">
      <widget class="QPushButton" name="pushButtonSynchronize2">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -122,7 +134,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>同步2</string>
+       <string>QRunable同步</string>
       </property>
      </widget>
     </item>

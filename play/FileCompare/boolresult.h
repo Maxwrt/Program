@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QSharedPointer>
+
 class BoolResultPrivate
 {
 public:
@@ -24,6 +25,7 @@ public:
     BoolResult(bool flag, int ret, QString msg);
     BoolResult(const BoolResult& other);
     BoolResult(bool flag);
+//    BoolResult(QString msg);
     ~BoolResult();
 
     BoolResult& operator =(const BoolResult& other);

@@ -30,8 +30,8 @@ VerificationCodeLabel::VerificationCodeLabel(QWidget *parent)
     : QLabel(parent),ifgenerate(true)
 {
     qsrand(QTime::currentTime().second() * 1000 + QTime::currentTime().msec());
-    colorArray = new QColor[letter_number];
-    verificationCode = new QChar[letter_number];
+    colorArray = QPointer<QColor>(new QColor[letter_number]);
+    verificationCode = QPointer<QColor>(new QChar[letter_number]);
     noice_point_number = this->width();
 
     connect(this, SIGNAL(clicked()), this, SLOT(Repaint()));
@@ -39,16 +39,16 @@ VerificationCodeLabel::VerificationCodeLabel(QWidget *parent)
 
 VerificationCodeLabel::~VerificationCodeLabel()
 {
-    if (colorArray != nullptr)
+    if (colorArray != 0)
     {
         delete []colorArray;
-        colorArray = nullptr;
+        colorArray = 0;
     }
 
-    if (verificationCode != nullptr)
+    if (verificationCode != 0)
     {
         delete []verificationCode;
-        verificationCode = nullptr;
+        verificationCode = 0;
     }
 }
 

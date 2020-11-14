@@ -1,10 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "comparethread.h"
-#include "thread.h"
-#include "compare.h"
-#include "Runnable.h"
 #include <QMainWindow>
 #include <QVariantList>
 #include <QVariantHash>
@@ -47,6 +43,9 @@ struct MarkRecordStatus
 
 typedef QMap<QString, MarkRecordStatus> QMapMarkRecorStatus;
 
+class QObjectCompare;
+class QRunnableCompare;
+class QThreadCompare;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -57,7 +56,9 @@ public:
     void showNormal();
 
 signals:
-    void startCompare(const QVariantHash& hash);
+    void startQThreadCompare(const QVariantHash& hash);
+    void startQObjectCompare(const QVariantHash& hash);
+    void startQRunnableCompare(const QVariantHash& hash);
     void sendMsg(const QString & msg);
 
 public slots:
@@ -77,8 +78,8 @@ private slots:
     void on_actOpenFile_triggered();
     void timer_out_slot();
     bool finish_compare_main(const QVariantList& retlist);
-    void compare_thread_finish_slot();
-    void thread_finish_slot();
+    void objectCompare_finish_slot();
+    void threadCompare_finish_slot();
     void show_msg_slot(const QString& msg);
 
 private:
@@ -101,13 +102,12 @@ private:
     QPointer<QStandardItemModel> m_model;
     QStringList m_table_list;
     QPointer<QTimer> m_timer;
-    QThread m_compare_thread;
-    QPointer<Compare> m_compare;
+    QThread m_objectCompareThread;
+    QPointer<QObjectCompare> m_objectCompare;
     bool m_synchronize;
-    bool m_isthread;
-    bool m_isrunnable;
-    QPointer<Thread> m_thread;
-    CompareRunable *m_runnable;
+    short unsigned int m_flag;  //最低1位标识QObject,次级一位标识QThread,再次级一位标识QRunnable
+    QPointer<QThreadCompare> m_threadCompare;
+    QRunnableCompare *m_runnableComapre;
 };
 
 #endif // MAINWINDOW_H

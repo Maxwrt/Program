@@ -1,24 +1,26 @@
-#ifndef COMPARE_H
-#define COMPARE_H
+#ifndef QObjectCompare_H
+#define QObjectCompare_H
 
-#include "comparethread.h"
 #include <QObject>
 #include <QMutex>
 #include <QTextStream>
 #include <QPointer>
-class Compare: public QObject
+
+
+class Compare;
+class QObjectCompare: public QObject
 {
     Q_OBJECT
 public:
-    Compare(QObject *parent = 0);
-    ~Compare();
+    QObjectCompare(QObject *parent = 0);
+    ~QObjectCompare();
 
 public slots:
     void compareSlot(const QVariantHash& hash);
     void finishCompareSlot(const QVariantList& retlist);
     void print()
     {
-        QTextStream(stdout) << "wrt\n";
+        QTextStream(stdout) << "test\n";
     }
 
 signals:
@@ -27,8 +29,8 @@ signals:
     void sendMsg(const QString& msg);
 
 private:
-    QPointer<Base> m_base;
+    QPointer<Compare> m_compare;
     QMutex m_mutex;
 };
 
-#endif // COMPARE_H
+#endif // QObjectCompare_H

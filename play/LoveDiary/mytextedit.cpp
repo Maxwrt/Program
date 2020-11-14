@@ -9,18 +9,18 @@
 //*********************************************************************************************************
 MyTextEdit::MyTextEdit(QWidget* parent) : QPlainTextEdit(parent)
 {
-    lineNumberArea = new LineNumberArea(this);
+    lineNumberArea = QPointer<LineNumberArea>(new LineNumberArea(this));
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect, int)), this, SLOT(updateLineNumberArea(QRect, int)));
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
     updateLineNumberAreaWidth(0);
 
     highlightCurrentLine();
-    label = new QLabel(this);
+    label = QPointer<QLabel>(new QLabel(this));
     statusBar = new LineStatusBar(this);
 
     changed = 0;
-    timer = new QTimer(this);
+    timer = QPointer<QTimer>(new QTimer(this));
     timer->setInterval(1000);
     timer->setSingleShot(true);
     connect(timer, &QTimer::timeout, this, [&] { emit submit(); });
@@ -35,7 +35,7 @@ MyTextEdit::MyTextEdit(QWidget* parent) : QPlainTextEdit(parent)
     this->setTabStopWidth(fm.width(' ') * 4);  // 设置\t占用四个空格的宽度
     this->setLineWrapMode(QPlainTextEdit::NoWrap);
 
-    QAction* actionSave = new QAction(u8"保存", this);
+    QAction* actionSave = QPointer<QAction>(new QAction(u8"保存", this));
     actionSave->setShortcut(QKeySequence::Save);
     actionSave->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(actionSave, &QAction::triggered, this, [&]

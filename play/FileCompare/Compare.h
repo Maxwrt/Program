@@ -1,7 +1,6 @@
-#ifndef COMPARETHREAD_H
-#define COMPARETHREAD_H
+#ifndef Compare_H
+#define Compare_H
 
-//#include "boolresult.h"
 #include <QObject>
 #include <QVariantHash>
 #include <QMap>
@@ -10,17 +9,18 @@
 #include <QFile>
 #include <QTextStream>
 #include <QThread>
+
 class BoolResult;
-class Base: public QObject
+class Compare: public QObject
 {
     Q_OBJECT
 public:
-    Base(QObject *parent = 0);
-    ~Base()
+    Compare(QObject *parent = 0);
+    ~Compare()
     {
         QTextStream(stdout) << "function:   " << __FUNCTION__ << " id:   "<< QThread::currentThreadId() << "\n";
     }
-    void compare(const QVariantHash& hash);
+    BoolResult compareStart(const QVariantHash& hash);
     QVariantList *getData()
     {
         if(m_ret_data.isEmpty())
@@ -53,4 +53,4 @@ private:
     QString m_dir;
 };
 
-#endif // COMPARETHREAD_H
+#endif // Compare_H

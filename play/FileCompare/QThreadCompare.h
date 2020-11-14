@@ -1,19 +1,19 @@
-#ifndef THREAD_H
-#define THREAD_H
+#ifndef QThreadCompare_H
+#define QThreadCompare_H
 
-#include "comparethread.h"
 #include <QThread>
 #include <QVariantHash>
 #include <QMutex>
 #include <QVariantList>
 #include <QPointer>
 
-class Thread: public QThread
+class Compare;
+class QThreadCompare: public QThread
 {
     Q_OBJECT
 public:
-    Thread(QObject *parent = 0);
-    ~Thread();
+    QThreadCompare(QObject *parent = 0);
+    ~QThreadCompare();
     void stopThread();
 
 public slots:
@@ -31,11 +31,12 @@ private:
 private:
     virtual void run();
     QVariantHash m_hash;
-    QPointer<Base> m_base;
+    QPointer<Compare> m_compare;
     bool m_stop;
     bool m_start_compare;
     QMutex m_mutex;
 };
+#endif // QThreadCompare_H
 
 /**
  *默认的构造函数在以下四种情况下必须合成，称为(implicit notrivial constructor)
@@ -80,6 +81,3 @@ private:
   *如果线程正处于执行过程中时，线程对象被销毁时，程序将会出错。
   *工程实践中线程对象的生命期必须大于线程的生命期。
   */
-
-
-#endif // THREAD_H

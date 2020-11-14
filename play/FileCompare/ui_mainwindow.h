@@ -130,6 +130,7 @@ public:
 
         pushButtonSynchronize = new QPushButton(centralWidget);
         pushButtonSynchronize->setObjectName(QStringLiteral("pushButtonSynchronize"));
+        pushButtonSynchronize->setEnabled(false);
         sizePolicy.setHeightForWidth(pushButtonSynchronize->sizePolicy().hasHeightForWidth());
         pushButtonSynchronize->setSizePolicy(sizePolicy);
 
@@ -137,6 +138,7 @@ public:
 
         pushButtonCompare1 = new QPushButton(centralWidget);
         pushButtonCompare1->setObjectName(QStringLiteral("pushButtonCompare1"));
+        pushButtonCompare1->setEnabled(true);
         sizePolicy.setHeightForWidth(pushButtonCompare1->sizePolicy().hasHeightForWidth());
         pushButtonCompare1->setSizePolicy(sizePolicy);
 
@@ -144,6 +146,7 @@ public:
 
         pushButtonSynchronize1 = new QPushButton(centralWidget);
         pushButtonSynchronize1->setObjectName(QStringLiteral("pushButtonSynchronize1"));
+        pushButtonSynchronize1->setEnabled(false);
         sizePolicy.setHeightForWidth(pushButtonSynchronize1->sizePolicy().hasHeightForWidth());
         pushButtonSynchronize1->setSizePolicy(sizePolicy);
 
@@ -158,6 +161,7 @@ public:
 
         pushButtonSynchronize2 = new QPushButton(centralWidget);
         pushButtonSynchronize2->setObjectName(QStringLiteral("pushButtonSynchronize2"));
+        pushButtonSynchronize2->setEnabled(false);
         sizePolicy.setHeightForWidth(pushButtonSynchronize2->sizePolicy().hasHeightForWidth());
         pushButtonSynchronize2->setSizePolicy(sizePolicy);
 
@@ -237,12 +241,12 @@ public:
         labelDir->setText(QApplication::translate("MainWindow", "\347\233\256\345\275\225:", 0));
         labelFile->setText(QApplication::translate("MainWindow", "\346\226\207\344\273\266:", 0));
         pushButtonDelete->setText(QApplication::translate("MainWindow", "\346\270\205\351\231\244", 0));
-        pushButtonCompare->setText(QApplication::translate("MainWindow", "\346\257\224\350\276\203", 0));
-        pushButtonSynchronize->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\245", 0));
-        pushButtonCompare1->setText(QApplication::translate("MainWindow", "\346\257\224\350\276\2031", 0));
-        pushButtonSynchronize1->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\2451", 0));
-        pushButtonCompare2->setText(QApplication::translate("MainWindow", "\346\257\224\350\276\2032", 0));
-        pushButtonSynchronize2->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\2452", 0));
+        pushButtonCompare->setText(QApplication::translate("MainWindow", "QObject\346\257\224\350\276\203", 0));
+        pushButtonSynchronize->setText(QApplication::translate("MainWindow", "QObject\345\220\214\346\255\245", 0));
+        pushButtonCompare1->setText(QApplication::translate("MainWindow", "QThread\346\257\224\350\276\203", 0));
+        pushButtonSynchronize1->setText(QApplication::translate("MainWindow", "QThread\345\220\214\346\255\245", 0));
+        pushButtonCompare2->setText(QApplication::translate("MainWindow", "QRunable\346\257\224\350\276\203", 0));
+        pushButtonSynchronize2->setText(QApplication::translate("MainWindow", "QRunable\345\220\214\346\255\245", 0));
         pushButtonInfoTip->setText(QApplication::translate("MainWindow", "\346\217\220\347\244\272\344\277\241\346\201\257", 0));
         menu->setTitle(QApplication::translate("MainWindow", "\346\226\207\344\273\266", 0));
     } // retranslateUi

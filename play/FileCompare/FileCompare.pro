@@ -30,20 +30,21 @@ RCC_DIR = $$PWD/../.object/filecompare
 
 
 
-SOURCES += main.cpp\
+SOURCES += \
            mainwindow.cpp \
-           comparethread.cpp \
-           thread.cpp \
            boolresult.cpp \
-           compare.cpp \
-    Runnable.cpp
+           QThreadCompare.cpp \
+           QObjectCompare.cpp \
+           QRunnableCompare.cpp \
+           App.cpp \
+           Compare.cpp
 
 HEADERS  += mainwindow.h \
-            comparethread.h \
-            thread.h \
             boolresult.h \
-            compare.h \
-    Runnable.h
+            QThreadCompare.h \
+            QObjectCompare.h \
+            QRunnableCompare.h \
+            Compare.h
 
 FORMS    += mainwindow.ui
 

@@ -19,6 +19,14 @@ BoolResult::BoolResult()
     m_pdata->m_ret = 0;
 }
 
+//BoolResult::BoolResult(QString msg)
+//{
+//    m_pdata = QSharedPointer<BoolResultPrivate>(new BoolResultPrivate());
+//    m_pdata->m_flag = false;
+//    m_pdata->m_msg = msg;
+//    m_pdata->m_ret = 0;
+//}
+
 BoolResult::BoolResult(bool flag, int ret, QString msg)
 {
     m_pdata = QSharedPointer<BoolResultPrivate>(new BoolResultPrivate());
@@ -31,8 +39,8 @@ BoolResult::BoolResult(const BoolResult& other)
 {
     m_pdata = QSharedPointer<BoolResultPrivate>(new BoolResultPrivate());
     m_pdata->m_flag = other.m_pdata->m_flag;
-    m_pdata->m_msg = other.m_pdata->m_msg;
-    m_pdata->m_ret = other.m_pdata->m_ret;
+    m_pdata->m_msg =  other.m_pdata->m_msg;
+    m_pdata->m_ret =  other.m_pdata->m_ret;
 }
 
 BoolResult::BoolResult(bool flag)

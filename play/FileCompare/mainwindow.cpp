@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "boolresult.h"
-#include "Runnable.h"
+#include "common.h"
+#include "QThreadCompare.h"
+#include "QObjectCompare.h"
+#include "QRunnableCompare.h"
 #include <QMessageBox>
 #include <QFile>
 #include <QFileInfo>
@@ -27,58 +30,61 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->progressBar->hide();
-    ui->pushButtonSynchronize->setEnabled(false);
-    ui->pushButtonSynchronize1->setEnabled(false);
     m_table_list << tr("fileName") << tr("handwriteTagname")<< tr("parsePath") << tr("handwritePath") << tr("compareResult");
     setWindowIcon(QIcon(":/image/icon.png"));
     initMenu();
     initToolBar();
 
-    m_isthread = false;
-    m_isrunnable = false;
+
+    m_flag = 1;
     m_synchronize = false;
+
     m_timer = QPointer<QTimer>(new QTimer(this));
     connect(m_timer, SIGNAL(timeout()), this, SLOT(timer_out_slot()));
     connect(ui->pushButtonInfoTip, &QPushButton::clicked, this, [=]()
     {
-         static bool flag = false;
-         if (flag)
-         {
-             ui->textEdit->show();
-         }
-         else
-         {
-             ui->textEdit->hide();
-         }
+        static bool flag = false;
+        if (flag)
+        {
+            ui->textEdit->show();
+            flag = false;
+        }
+        else
+        {
+            ui->textEdit->hide();
+            flag = true;
+        }
     });
 
     //继承QThread实现的比较功能
-    m_thread = QPointer<Thread>(new Thread(this));
-    connect(this, &MainWindow::startCompare, m_thread, &Thread::startCompareSlot);
-    connect(m_thread, &Thread::finish_compare_thread, this, &MainWindow::finish_compare_main);
-    connect(m_thread, &Thread::finished, this, &MainWindow::thread_finish_slot);
-    connect(m_thread, &Thread::finished, this, &QThread::deleteLater);
-    connect(m_thread, &Thread::sendMsg, this, &MainWindow::show_msg_slot);
+    m_threadCompare = QPointer<QThreadCompare>(new QThreadCompare(this));
+    connect(this, &MainWindow::startQThreadCompare, m_threadCompare, &QThreadCompare::startCompareSlot);
+    connect(m_threadCompare, &QThreadCompare::finish_compare_thread, this, &MainWindow::finish_compare_main);
+    connect(m_threadCompare, &QThreadCompare::finished, this, &MainWindow::threadCompare_finish_slot);
+    connect(m_threadCompare, &QThreadCompare::finished, this, &QThread::deleteLater);
+    connect(m_threadCompare, &QThreadCompare::sendMsg, this, &MainWindow::show_msg_slot);
 
     //继承QObject实现的比较功能
-    m_compare = QPointer<Compare>(new Compare());
-    connect(this, &MainWindow::startCompare, m_compare, &Compare::compareSlot, Qt::QueuedConnection);
-    connect(&m_compare_thread, &QThread::finished, this, &MainWindow::compare_thread_finish_slot, Qt::QueuedConnection);
-    connect(&m_compare_thread, &QThread::finished, m_compare, &QObject::deleteLater, Qt::QueuedConnection);
-    connect(m_compare, &Compare::finishCompareSignal, this, &MainWindow::finish_compare_main, Qt::QueuedConnection);
-    connect(m_compare, &Compare::sendMsg, this, &MainWindow::show_msg_slot);
-    m_compare->moveToThread(&m_compare_thread);
-    m_compare_thread.start();
+    m_objectCompare = QPointer<QObjectCompare>(new QObjectCompare());
+    connect(this, &MainWindow::startQObjectCompare, m_objectCompare, &QObjectCompare::compareSlot, Qt::QueuedConnection);
+    connect(&m_objectCompareThread, &QThread::finished, this, &MainWindow::objectCompare_finish_slot, Qt::QueuedConnection);
+    connect(&m_objectCompareThread, &QThread::finished, m_objectCompare, &QObject::deleteLater, Qt::QueuedConnection);
+    connect(m_objectCompare, &QObjectCompare::finishCompareSignal, this, &MainWindow::finish_compare_main, Qt::QueuedConnection);
+    connect(m_objectCompare, &QObjectCompare::sendMsg, this, &MainWindow::show_msg_slot, Qt::QueuedConnection);
+    m_objectCompare->moveToThread(&m_objectCompareThread);
 
     //使用QRunnable类实现的比较功能
-    m_runnable = CompareRunable::instance();
-    connect(this, &MainWindow::startCompare, m_runnable, &CompareRunable::startCompareSlot);
-    connect(m_runnable, &CompareRunable::returnRetList, this, &MainWindow::finish_compare_main);
-    connect(m_runnable, &CompareRunable::sendMsg, this, &MainWindow::show_msg_slot);
+    m_runnableComapre = QRunnableCompare::instance();
+    connect(this, &MainWindow::startQRunnableCompare, m_runnableComapre, &QRunnableCompare::startCompareSlot);
+    connect(m_runnableComapre, &QRunnableCompare::returnRetList, this, &MainWindow::finish_compare_main);
+    connect(m_runnableComapre, &QRunnableCompare::sendMsg, this, &MainWindow::show_msg_slot);
+
+    connect(this, &MainWindow::sendMsg, this, &MainWindow::show_msg_slot);
 
 
+    OUT << u8"主线程 id: " << QThread::currentThreadId();
 
-    qDebug().noquote()<<u8"主线程 id: "<<QThread::currentThreadId();
+#if 0
     QMapMarkRecorStatus record;
     record[u8"零"] = MarkRecordStatus();
     record[u8"一"] = record.size();
@@ -88,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
     record[u8"五"] = record.size();
     record[u8"六"] = record.size();
     printQMapMarkRecorStatus(record);
+#endif
 }
 
 void MainWindow::printQMapMarkRecorStatus(const QMapMarkRecorStatus& record)
@@ -97,7 +104,7 @@ void MainWindow::printQMapMarkRecorStatus(const QMapMarkRecorStatus& record)
     QMapMarkRecorStatus::const_iterator constItera = record.begin();
     while(constItera != record.end())
     {
-        qDebug().noquote() << "key:   " <<constItera.key() << "  value:  " << constItera.value().m_recordNo;
+        OUT << u8"键:   " <<constItera.key() << u8"  值:  " << constItera.value().m_recordNo;
         constItera++;
     }
 }
@@ -106,17 +113,17 @@ MainWindow::~MainWindow()
 {
     stopThread();
     delete ui;
-    qDebug().noquote()<<tr("~MainWindow destruct");
+    OUT << u8"~MainWindow解构";
 }
 
-void MainWindow::compare_thread_finish_slot()
+void MainWindow::objectCompare_finish_slot()
 {
-    qDebug().noquote()<<tr("info: m_compare_thread exit");
+    OUT << u8"QObjectCompare比较完成";
 }
 
-void MainWindow::thread_finish_slot()
+void MainWindow::threadCompare_finish_slot()
 {
-    qDebug().noquote()<<tr("info: m_thread exit");
+    OUT << u8"QThreadCompare比较完成";
 }
 
 void MainWindow::show_msg_slot(const QString& msg)
@@ -134,18 +141,18 @@ void MainWindow::show_msg_slot(const QString& msg)
 
 void MainWindow::stopThread()
 {
-    if (m_compare_thread.isRunning())
+    if (m_objectCompareThread.isRunning())
     {
-        m_compare_thread.quit();
-        m_compare_thread.wait();
-        qDebug().noquote()<<tr("m_compare_thread over");
+        m_objectCompareThread.quit();
+        m_objectCompareThread.wait();
+        sendMsg(u8"解构窗口中，m_objectCompareThread线程退出");
     }
 
-    if (m_thread->isRunning())
+    if (m_threadCompare->isRunning())
     {
-        m_thread->stopThread();
-        m_thread->wait();
-        qDebug().noquote() << "m_thread over";
+        m_threadCompare->stopThread();
+        m_threadCompare->wait();
+        sendMsg(u8"解构窗口中，m_threadCompare线程退出");
     }
 }
 
@@ -185,16 +192,10 @@ void MainWindow::on_pushButtonCompare_clicked()
 {
     if (!m_data_hash.isEmpty())
         m_data_hash.clear();
-    if(!m_timer->isActive())
-        m_timer->start(200);
-    ui->progressBar->reset();
-    ui->progressBar->show();
+
     m_dir = ui->lineEditDir->text();
     if(m_dir.isEmpty())
     {
-        if(m_timer->isActive())
-            m_timer->stop();
-        ui->progressBar->hide();
         QMessageBox::information(this, tr("Tip"), tr("lineEditFile is empty, please choose one dir"), tr("ok"));
         return;
     }
@@ -202,38 +203,47 @@ void MainWindow::on_pushButtonCompare_clicked()
     m_filename = ui->lineEditFile->text();
     if(m_filename.isEmpty())
     {
-        if(m_timer->isActive())
-            m_timer->stop();
-        ui->progressBar->hide();
         QMessageBox::information(this, tr("Tip"), tr("lineEditFile is empty, please choose one file"), tr("ok"));
         return;
     }
 
-    QVariantHash hash;
-    hash.insert("file", m_filename);
-    hash.insert("dir",  m_dir);
-    hash.insert("bool", m_synchronize);
-    m_data_hash = hash;
-    if(!m_isthread)
+    if(!m_timer->isActive())
+        m_timer->start(200);
+
+    ui->progressBar->reset();
+    ui->progressBar->show();
+
+    m_data_hash.insert("file", m_filename);
+    m_data_hash.insert("dir",  m_dir);
+    m_data_hash.insert("bool", m_synchronize);
+
+    switch(m_flag)
     {
-        emit startCompare(hash);
-        qDebug().noquote()<<tr("emit startCompare signal to thread");
-    }
-    else if (m_isrunnable)
-    {
-        emit startCompare(hash);
-        qDebug().noquote()<<u8"发射startComapre信号到runnable";
-    }
-    else
-    {
-        emit startCompare(hash);
-        qDebug().noquote()<<tr("emit startCompare signal to Compare");
+    case 1:
+        m_objectCompareThread.start();
+        sendMsg(u8"m_objectCompareThread线程启动");
+        emit startQObjectCompare(m_data_hash);
+        sendMsg(u8"发射startQObjectCompare信号到QObjectCompare");
+        break;
+
+    case 2:
+        emit startQThreadCompare(m_data_hash);
+        sendMsg(u8"发射startQThreadCompare信号到QThreadCompare");
+        break;
+
+    case 4:
+        emit startQRunnableCompare(m_data_hash);
+        sendMsg(u8"发射startQRunnableComapre信号到QRunnableCompare");
+        break;
+
+    default:
+        break;
     }
 }
 
 bool MainWindow::finish_compare_main(const QVariantList& retlist)
 {
-    if(retlist.count() > 0)
+    if (retlist.size() > 0)
     {
         m_ret_data = retlist;
         QString errmsg = parseCompareResult();
@@ -248,21 +258,41 @@ bool MainWindow::finish_compare_main(const QVariantList& retlist)
             return false;
         }
         updateTable();
-        if(m_synchronize)
+
+        switch(m_flag)
         {
-            qDebug().noquote()<<tr("synchronize over");
-            m_synchronize = false;
-            m_data_hash.insert("bool", m_synchronize);
-        }
-        if(m_isthread)
-        {
-            ui->pushButtonSynchronize1->setEnabled(true);
-            m_isthread = false;
-        }
-        else
-        {
+        case 1:
             ui->pushButtonSynchronize->setEnabled(true);
+            break;
+        case 2:
+            ui->pushButtonSynchronize1->setEnabled(true);
+            break;
+        case 4:
+            ui->pushButtonSynchronize2->setEnabled(true);
+            break;
+        default:
+            break;
         }
+
+        if (m_objectCompareThread.isRunning())
+        {
+            m_objectCompareThread.quit();
+            m_objectCompareThread.wait();
+            if (m_objectCompareThread.isFinished())
+            {
+                sendMsg(u8"m_objectCompareThread退出");
+            }
+        }
+
+        if (m_threadCompare->isRunning())
+        {
+            m_threadCompare->stopThread();
+            if (m_threadCompare->isFinished())
+            {
+                sendMsg(u8"m_threadCompare退出");
+            }
+        }
+
     }
     else
     {
@@ -271,14 +301,16 @@ bool MainWindow::finish_compare_main(const QVariantList& retlist)
             m_timer->stop();
             ui->progressBar->hide();
         }
-        qDebug().noquote()<<tr("compare result is empty");
         QMessageBox::information(this, u8"提示", u8"比较结果为空", u8"确定");
+        return false;
     }
     if(m_timer->isActive())
     {
         m_timer->stop();
         ui->progressBar->hide();
     }
+    m_synchronize = false; //默认先进行比较，在进行比对
+    m_flag = 1; //默认使用QObject进行比较
     return true;
 }
 
@@ -292,7 +324,7 @@ QString MainWindow::parseCompareResult()
         QString fileName = hash.value("fileName").toString();
         if(hash.value("parsePath").toString().isEmpty() && !uniqueFileHash.contains(fileName))
         {
-            errmsg += tr(u8"文件%1是空的\n").arg(fileName);
+            errmsg += QString(u8"文件%1是空的\r\n").arg(fileName);
             uniqueFileHash.insert(fileName, fileName);
         }
     }
@@ -301,43 +333,47 @@ QString MainWindow::parseCompareResult()
 
 void MainWindow::on_pushButtonSynchronize_clicked()
 {
+    m_flag = 1;
     m_synchronize = true;
     on_pushButtonCompare_clicked();
 }
 
 void MainWindow::on_pushButtonCompare1_clicked()
 {
-    if(m_thread->isRunning())
+    if(m_threadCompare->isRunning())
     {
-        qDebug().noquote()<<tr("m_thread is runing");
+        OUT << u8"m_threadCompare线程在运行";
         return;
     }
-    m_thread->start();
-    m_isthread = true;
+    m_threadCompare->start();
+    m_flag = 2;
     on_pushButtonCompare_clicked();
 }
 
 void MainWindow::on_pushButtonSynchronize1_clicked()
 {
-    m_isthread = true;
+    m_flag = 2;
     m_synchronize = true;
+    OUT << u8"m_threadCompare线程开始同步";
     on_pushButtonCompare_clicked();
 }
 
 void MainWindow::on_pushButtonCompare2_clicked()
 {
-    m_isrunnable = true;
+    m_flag = 4;
     on_pushButtonCompare_clicked();
 }
 
 void MainWindow::on_pushButtonSynchronize2_clicked()
 {
-    m_isthread = true;
+    m_flag = 4;
     m_synchronize = true;
+    OUT << u8"m_runnableComapre线程开始同步";
     on_pushButtonCompare_clicked();
 }
 void MainWindow::on_pushButtonDelete_clicked()
 {
+    OUT << u8"清空数据";
     ui->lineEditDir->clear();
     ui->lineEditFile->clear();
     m_model->setRowCount(0);
@@ -388,25 +424,27 @@ void MainWindow::on_actSave_triggered()
         {
             QTextStream write(&file);
             write.setCodec("UTF-8");
-            write << tr("fileName") << "\t" << tr("handwriteTagname") << "\t" \
-                  << tr("parsePath") << "\t" << tr("handwritePath") << "\t" \
-                  << tr("compareResult")<< "\n";
+            write << tr("fileName\t")
+                  << tr("handwriteTagname\t")
+                  << tr("parsePath\t")
+                  << tr("handwritePath\t")
+                  << tr("compareResult\r\n");
             if(m_ret_data.count()>0)
             {
                 for(int i=0; i<m_ret_data.count(); i++)
                 {
                     QVariantHash hash = m_ret_data.at(i).toHash();
-                    write<<hash.value("fileName").toString()<<"\t";
-                    write<<hash.value("handwriteTagname").toString()<<"\t";
-                    write<<hash.value("parsePath").toString()<<"\t";
-                    write<<hash.value("handwritePath").toString()<<"\t";
+                    write << hash.value("fileName").toString() << "\t";
+                    write << hash.value("handwriteTagname").toString() << "\t";
+                    write << hash.value("parsePath").toString() << "\t";
+                    write << hash.value("handwritePath").toString() << "\t";
                     if(hash.value("isSame").toBool())
                     {
-                        write<<tr("same")<<"\n";
+                        write<<tr("same")<<"\r\n";
                     }
                     else
                     {
-                        write<<tr("different")<<"\n";
+                        write<<tr("different")<<"\r\n";
                     }
                 }
             }
@@ -415,7 +453,7 @@ void MainWindow::on_actSave_triggered()
     }
     else
     {
-        qDebug().noquote()<<tr("don't choose one file");
+        OUT<<tr("don't choose one file");
     }
 }
 
@@ -496,7 +534,7 @@ void MainWindow::updateTable()
     }
     else
     {
-        qDebug().noquote()<<tr("compare result is empty, please check");
+        OUT << u8"比较结果为空，请检查";
     }
 }
 

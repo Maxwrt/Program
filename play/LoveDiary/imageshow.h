@@ -4,6 +4,7 @@
 #include <QImage>
 #include <QPixmap>
 #include <QByteArray>
+#include <QPointer>
 class ImageShow
 {
 public:
@@ -15,8 +16,8 @@ public:
 
 
 private:
-    QImage *m_imgsrc;
-    QImage *m_imgdst;
+    QPointer<QImage> m_imgsrc;
+    QPointer<QImage> m_imgdst;
     QString m_filename;
 };
 

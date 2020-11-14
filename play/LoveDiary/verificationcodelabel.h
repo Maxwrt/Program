@@ -12,6 +12,7 @@
 #include <QTextStream>
 #include <QPushButton>
 #include <QBitmap>
+#include <QPointer>
 class SignInButton: public QPushButton
 {
     Q_OBJECT
@@ -75,9 +76,9 @@ private:
     QChar produceRandomLetter() const;
     void produceRandomColor() const;
 
-    QChar *verificationCode;
+    QPointer<QChar> verificationCode;
     QString code;
-    QColor *colorArray;
+    QPointer<QColor> colorArray;
     bool ifgenerate;
 };
 #endif // VERIFICATIONCODELABEL_H

@@ -15,6 +15,8 @@
 #include "picture.h"
 #include "dialoguser.h"
 #include <QThread>
+#include <QPointer>
+#include <QSharedPointer>
 namespace Ui {
 class MainWindow;
 }
@@ -42,10 +44,10 @@ private:
     QTimer m_timer;
     const int m_numDigits;
     QSqlDatabase m_db;
-    QLabel *m_labelTipInfo;
-    AgreementDialog *m_AgreementDialog;
-    Picture *m_picture;
-    DialogUser *m_dlgUser;
+    QSharedPointer<QLabel> m_labelTipInfo;
+    QPoint<AgreementDialog> m_AgreementDialog;
+    QPoint<Picture> m_picture;
+    QPoint<DialogUser> m_dlgUser;
     QThread  m_thread;
 };
 

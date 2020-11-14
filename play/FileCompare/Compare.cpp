@@ -1,5 +1,6 @@
-#include "comparethread.h"
+#include "Compare.h"
 #include "boolresult.h"
+#include "common.h"
 #include <QDebug>
 #include <QTextStream>
 #include <QString>
@@ -12,16 +13,20 @@
 #include <QFileInfo>
 #include <QThread>
 
-Base::Base(QObject *parent)
+Compare::Compare(QObject *parent)
     :QObject(parent)
 {
     m_synchronize = false;
 }
 
-void Base::compare(const QVariantHash& hash)
+BoolResult Compare::compareStart(const QVariantHash& hash)
 {
-    qDebug().noquote() << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
-    m_ret_data.clear();
+    OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
+    if (!m_ret_data.isEmpty())
+    {
+        m_ret_data.clear();
+    }
+
     BoolResult ret;
     if(hash.count()>0)
     {
@@ -30,7 +35,8 @@ void Base::compare(const QVariantHash& hash)
         m_synchronize = hash.value("bool").toBool();
         if(fileName.isEmpty())
         {
-            qDebug().noquote()<<tr("received fileName is empty, please check");
+            OUT << tr("received fileName is empty, please check");
+            return u8"记录信息的文件为空，请检查";
         }
         if(!m_synchronize)
         {
@@ -38,23 +44,25 @@ void Base::compare(const QVariantHash& hash)
         }
         else
         {
-            qDebug().noquote()<<tr("synchronized data");
+            OUT << tr("synchronized data");
         }
         compareAll(m_raw_data);
     }
     else
     {
-        qDebug().noquote()<<tr("received hash is empty, please check");
+        OUT << tr("received hash is empty, please check");
+        return u8"参数hash的为空，请检查";
     }
     if(!hash.value("isbool", false).toBool())
         emit finishCompare(m_ret_data);
     else
         emit finishCompareToThread(m_ret_data);
 
+    return true;
     //printMap(m_raw_map);
 }
 
-BoolResult Base::readTextFile(const QString& fileName)
+BoolResult Compare::readTextFile(const QString& fileName)
 {
     if(!QFile::exists(fileName))
     {
@@ -101,13 +109,13 @@ BoolResult Base::readTextFile(const QString& fileName)
     }
     else
     {
-        qDebug().noquote()<<QString(tr("open file %1 fail")).arg(fileName);
+        OUT << QString(tr("open file %1 fail")).arg(fileName);
     }
 
     return m_raw_data.count()>0;
 }
 
-void Base::compareAll(const QVariantList& rawDataList)
+void Compare::compareAll(const QVariantList& rawDataList)
 {
     if(rawDataList.count() > 0)
     {
@@ -120,15 +128,15 @@ void Base::compareAll(const QVariantList& rawDataList)
             hash = compareOne(hash);
             m_ret_data<<hash;
         }
-        qDebug().noquote()<< tr("compare over");
+        OUT << tr("compare over");
     }
     else
     {
-        qDebug().noquote()<< tr("can't read raw dara or have compared you may compare repeatly");
+        OUT << tr("can't read raw dara or have compared you may compare repeatly");
     }
 }
 
-QVariantHash Base::compareOne(const QVariantHash& hash)
+QVariantHash Compare::compareOne(const QVariantHash& hash)
 {
     QString fileName = hash.value("fileName").toString();
     QString tagName = hash.value("handwriteTagname").toString().remove(QRegExp(QStringLiteral("\\s"))).toLower();
@@ -163,7 +171,7 @@ QVariantHash Base::compareOne(const QVariantHash& hash)
     return rethash;
 }
 
-QString Base::parseXml(const QString& fileName, const QString& tagName, const QString& rightPath)
+QString Compare::parseXml(const QString& fileName, const QString& tagName, const QString& rightPath)
 {
     QString checkFile;
     m_file.setFileName(fileName);
@@ -176,9 +184,9 @@ QString Base::parseXml(const QString& fileName, const QString& tagName, const QS
 
         if(!m_doc.setContent(&m_file, false, &errorStr, &errorLine, &errorColumn))
         {
-            qDebug().noquote() << tr("Parse error at line %1, column %2: %3:").arg(errorLine).arg(errorColumn).arg(errorStr);
+            OUT << tr("Parse error at line %1, column %2: %3:").arg(errorLine).arg(errorColumn).arg(errorStr);
             m_file.close();
-            qDebug().noquote() << tr("error! file close");
+            OUT << tr("error! file close");
             return checkFile;
         }
         QDomElement root = m_doc.documentElement();
@@ -211,15 +219,17 @@ QString Base::parseXml(const QString& fileName, const QString& tagName, const QS
     return checkFile;
 }
 
-QString Base::parseTargetTagName(const QDomElement& element, const QString& tagName, const QString& rightPath)
+QString Compare::parseTargetTagName(const QDomElement& element, const QString& tagName, const QString& rightPath)
 {
     QString checkFile;
     QDomNode child = element.firstChild();
     while (!child.isNull())
     {
         QDomElement element = child.toElement();
-        if(element.tagName() == QLatin1String("OutputPath") || \
-                element.tagName() == QLatin1String("OutDir") && element.attribute(QStringLiteral("Condition")).toLower().contains(tagName))
+        if( element.tagName() == QLatin1String("OutputPath") || \
+            element.tagName() == QLatin1String("OutDir") &&     \
+            element.attribute(QStringLiteral("Condition")).toLower().contains(tagName)
+          )
         {
             checkFile = element.text();
 
@@ -236,7 +246,7 @@ QString Base::parseTargetTagName(const QDomElement& element, const QString& tagN
 
                     if(!m_file.open(QIODevice::WriteOnly))
                     {
-                        qDebug().noquote()<<tr("open file %1 fail").arg(m_file.fileName());
+                        OUT << tr("open file %1 fail").arg(m_file.fileName());
                         break;
                     }
                     QTextStream write(&m_file);
@@ -251,12 +261,12 @@ QString Base::parseTargetTagName(const QDomElement& element, const QString& tagN
     }
     return checkFile;
 }
-void Base::printMap(const QMap<QString, QVariantHash>& map)
+void Compare::printMap(const QMap<QString, QVariantHash>& map)
 {
     foreach(QVariantHash hash, map)
     {
-        qDebug()<<tr("1:    %1").arg(hash.value("fileName").toString()) \
-               <<tr("2:    %2").arg(hash.value("handwriteTagname").toString()) \
-              <<tr("3:    %3").arg(hash.value("handwritePath").toString());
+        OUT << tr("1:    %1").arg(hash.value("fileName").toString()) \
+            << tr("2:    %2").arg(hash.value("handwriteTagname").toString()) \
+            << tr("3:    %3").arg(hash.value("handwritePath").toString());
     }
 }

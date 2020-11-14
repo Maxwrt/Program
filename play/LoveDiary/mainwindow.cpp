@@ -51,7 +51,7 @@ void MainWindow::Init()
 {
     m_timer.setInterval(1000);
     setWindowIcon(QIcon(":/config/title.ico"));
-    m_labelTipInfo = new QLabel(this);
+    m_labelTipInfo = QSharedPointer<QLabel>(new QLabel(this));
     m_labelTipInfo->adjustSize();
     statusBar()->addWidget(m_labelTipInfo);
     m_loveDateTime = QDateTime(QDate(2020, 9, 4), QTime(21, 9, 9)),
@@ -89,7 +89,7 @@ void MainWindow::InitSignalSlot()
     {
         if (!m_AgreementDialog)
         {
-            m_AgreementDialog = new AgreementDialog(size(), this);
+            m_AgreementDialog = QPointer<AgreementDialog>(new AgreementDialog(size(), this));
         }
         m_AgreementDialog->Show();
     });
@@ -98,12 +98,12 @@ void MainWindow::InitSignalSlot()
     {
         if (nullptr == m_dlgUser)
         {
-            m_dlgUser = new DialogUser(m_db, this);
+            m_dlgUser = QPointer<DialogUser>(new DialogUser(m_db, this));
         }
         m_dlgUser->exec();
     });
 
-    m_picture = new Picture(size(), nullptr);
+    m_picture = QPointer<Picture>(new Picture(size(), nullptr));
     m_picture->moveToThread(&m_thread);
     connect(&m_thread, &QThread::finished, m_picture, &QObject::deleteLater, Qt::QueuedConnection);
     m_thread.start();
@@ -115,17 +115,17 @@ void MainWindow::InitSignalSlot()
 
     connect(ui->pushButton_chat, &QPushButton::clicked, this, [=]()
     {
-        static Sender *sender = 0;
+        static QPointer<Sender> sender = 0;
         if (sender == 0)
         {
-            sender = new Sender();
+            sender = QPointer<Sender>(new Sender());
         }
         sender->exec();
 
-        static Receiver *receiver = 0;
+        static QPointer<Receiver> receiver = 0;
         if (receiver == 0)
         {
-            receiver = new Receiver();
+            receiver = QPointer<Receiver>(new Receiver());
         }
         receiver->exec();
     });

@@ -12,6 +12,7 @@
 #include <QListView>
 #include <QStandardItemModel>
 #include <QSet>
+#include <QPointer>
 
 class MyTextEdit : public QPlainTextEdit
 {
@@ -78,11 +79,11 @@ private:
      */
     void setLabelText();
 
-	QTimer* timer;
+    QPointer<QTimer> timer;
 	int changed;
-    QWidget *lineNumberArea;
-    QStatusBar *statusBar;
-    QLabel *label;
+    QPointer<QWidget> lineNumberArea;
+    QPointer<QStatusBar> statusBar;
+    QPointer<QLabel> label;
     QString input;
     QStringList keywords;
     QStringList result;
@@ -135,7 +136,7 @@ protected:
         textEditor->lineStatusBarPaintEvent(event);
     }
 private:
-    MyTextEdit *textEditor;
+    QPointer<MyTextEdit> textEditor;
 };
 
 class Intellisense : public QListView
@@ -159,7 +160,7 @@ protected:
     }
 
 private:
-    MyTextEdit *textEditor;
+    QPointer<MyTextEdit> textEditor;
     QString filename;
 };
 
