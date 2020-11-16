@@ -218,9 +218,8 @@ int main(int argc, char *argv[])
     OUT << "list1's size:" << list1.size();
     OUT << list1;
     OUT << list1.join(" ");
-#endif
-    compareTwoFormula("1:one!2:two!3:three!", "2:two!1:one!3:three");
 
+    compareTwoFormula("1:one!2:two!3:three!", "2:two!1:one!3:three");
     QString str1;
     QString str2;
     if (str1 == str2)
@@ -233,6 +232,22 @@ int main(int argc, char *argv[])
     }
     QStringList strlist = QString("wrt love suna").split('!');
     OUT << "strlist's size: " << strlist.size() << "    content:    "<<strlist.at(0);
+#endif
+    QStringList list1;
+    QStringList list2;
+    list1 << "3Ctwo+3" << "2Bone" << "1Athress";
+    list2 << "3Ctwo+3" << "2Bone" << "1Athress";
+    qSort(list1.begin(), list1.end());
+    qSort(list2.begin(), list2.end());
+    for (int i=0; i<list1.size(); i++)
+    {
+        if (list1.at(i).contains('+'))
+        {
+            OUT << "wrt";
+        }
+        if (list1.at(i) == list2.at(i))
+            OUT << u8"相等";
+    }
     /****************************************测试\r(回车), \n(换行), \r\n(回车+换行)**********************/
     return a.exec();
 }

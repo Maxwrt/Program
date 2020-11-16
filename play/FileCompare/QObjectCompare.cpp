@@ -14,15 +14,11 @@ QObjectCompare::QObjectCompare(QObject *parent)
 
 QObjectCompare::~QObjectCompare()
 {
-    OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
+    OUT << u8"~QObjectCompare 所在线程 id: "<< QThread::currentThreadId();
     if (m_compare)
     {
         OUT << QString::fromLocal8Bit("在~Compare中释放m_compare");
         delete m_compare;
-        if (0 == m_compare)
-        {
-            OUT << QString::fromLocal8Bit("m_compare已经被QPointer置0");
-        }
     }
 }
 
@@ -36,7 +32,7 @@ void QObjectCompare::compareSlot(const QVariantHash& hash)
 
 void QObjectCompare::finishCompareSlot(const QVariantList& retlist)
 {
-    OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
+    OUT << "file:    " << __FILEW__ << " function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
     emit sendMsg(u8"QObjectCompare线程比较返回");
     emit finishCompareSignal(retlist);
 }

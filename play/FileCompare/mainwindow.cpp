@@ -61,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::startQThreadCompare, m_threadCompare, &QThreadCompare::startCompareSlot);
     connect(m_threadCompare, &QThreadCompare::finish_compare_thread, this, &MainWindow::finish_compare_main);
     connect(m_threadCompare, &QThreadCompare::finished, this, &MainWindow::threadCompare_finish_slot);
-    connect(m_threadCompare, &QThreadCompare::finished, this, &QThread::deleteLater);
+//    connect(m_threadCompare, &QThreadCompare::finished, this, &QThread::deleteLater);//m_threadCompare让界面程序自己释放，这里连接信号槽可能crashed掉程序
     connect(m_threadCompare, &QThreadCompare::sendMsg, this, &MainWindow::show_msg_slot);
 
     //继承QObject实现的比较功能
@@ -145,14 +145,14 @@ void MainWindow::stopThread()
     {
         m_objectCompareThread.quit();
         m_objectCompareThread.wait();
-        sendMsg(u8"解构窗口中，m_objectCompareThread线程退出");
+        OUT << u8"解构窗口中，m_objectCompareThread线程退出";
     }
 
     if (m_threadCompare->isRunning())
     {
         m_threadCompare->stopThread();
         m_threadCompare->wait();
-        sendMsg(u8"解构窗口中，m_threadCompare线程退出");
+        OUT << u8"解构窗口中，m_threadCompare线程退出";
     }
 }
 
@@ -287,9 +287,11 @@ bool MainWindow::finish_compare_main(const QVariantList& retlist)
         if (m_threadCompare->isRunning())
         {
             m_threadCompare->stopThread();
+            m_threadCompare->wait();
             if (m_threadCompare->isFinished())
             {
                 sendMsg(u8"m_threadCompare退出");
+                OUT << u8"m_threadCompare退出";
             }
         }
 
@@ -342,9 +344,10 @@ void MainWindow::on_pushButtonCompare1_clicked()
 {
     if(m_threadCompare->isRunning())
     {
-        OUT << u8"m_threadCompare线程在运行";
+        sendMsg(u8"m_threadCompare线程在运行");
         return;
     }
+    sendMsg(u8"m_threadCompare线程启动");
     m_threadCompare->start();
     m_flag = 2;
     on_pushButtonCompare_clicked();

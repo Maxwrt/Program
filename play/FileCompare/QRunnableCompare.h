@@ -6,6 +6,7 @@
 #include <QMutex>
 #include <QVariantHash>
 #include <QPointer>
+#include <QMutex>
 
 
 class Compare;
@@ -41,10 +42,10 @@ public:
     {
         return m_hash;
     }
+    Q_INVOKABLE   void getDataList(QVariantList list);
 
 public slots:
     void startCompareSlot(const QVariantHash& hash);
-    bool getDataList(QVariantList list);
 
 
 signals:
@@ -59,6 +60,7 @@ private:
     Runnable *m_runnable;
     QVariantHash m_hash;
     QVariantList m_ret_list;
+    QMutex m_mutex;
 };
 
 #endif // QRunnableCompare_H

@@ -12,7 +12,7 @@ Runnable::Runnable(QObject * parent):
     QRunnable()
 {
     OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
-    m_compare = QPointer<Compare>(new Compare);
+    m_compare = QPointer<Compare>(new Compare(0));
 }
 
 Runnable::~Runnable()
@@ -21,7 +21,6 @@ Runnable::~Runnable()
     if (m_compare)
     {
         delete m_compare;
-        m_compare = 0;
     }
 }
 
@@ -30,22 +29,16 @@ void Runnable::run()
     OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
 
     //进行比较处理过程
+
+    QMutexLocker ml(&m_mutex);
     if (QRunnableCompare::instance()->giveDatahash().size() > 0)
     {
         m_compare->compareStart(QRunnableCompare::instance()->giveDatahash());
     }
     if (0 != m_compare->getData())
     {
-        bool retvalue = false;
-        QMetaObject::invokeMethod(m_obj, "getDataList", Q_RETURN_ARG(bool, retvalue),Q_ARG(QVariantList, *(m_compare->getData())));
-        if (!retvalue)
-        {
-            OUT << u8"王瑞亭错误";
-        }
-        else
-        {
-            OUT << u8"王瑞亭正确";
-        }
+        QVariantList datalist = *(m_compare->getData());
+        QMetaObject::invokeMethod(m_obj, "getDataList", Qt::QueuedConnection, Q_ARG(QVariantList, datalist));
         QThread::msleep(1000);
     }
 }
@@ -65,6 +58,7 @@ QRunnableCompare::~QRunnableCompare()
 void QRunnableCompare::startCompareSlot(const QVariantHash& hash)
 {
     OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
+    QMutexLocker ml(&m_mutex);
     m_hash = hash;
     m_hash.insert("isbool", true);
     if (m_hash.size() > 0)
@@ -74,7 +68,7 @@ void QRunnableCompare::startCompareSlot(const QVariantHash& hash)
     }
 }
 
-bool QRunnableCompare::getDataList(QVariantList list)
+void QRunnableCompare::getDataList(QVariantList list)
 {
      m_ret_list = list;
      if (m_ret_list.size() > 0)
@@ -82,5 +76,8 @@ bool QRunnableCompare::getDataList(QVariantList list)
          emit sendMsg(u8"Runable比较结束返回");
          emit returnRetList(list);
      }
-     return m_ret_list.size() > 0 ? true : false;
+     else
+     {
+         OUT << u8"获取比较结果数据失败";
+     }
 }

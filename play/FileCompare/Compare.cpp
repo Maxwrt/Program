@@ -128,7 +128,7 @@ void Compare::compareAll(const QVariantList& rawDataList)
             hash = compareOne(hash);
             m_ret_data<<hash;
         }
-        OUT << tr("compare over");
+        OUT << u8"±È½Ï½áÊø";
     }
     else
     {

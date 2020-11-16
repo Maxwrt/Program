@@ -84,7 +84,6 @@ void QThreadCompare::startCompareSlot(const QVariantHash& hash)
 void QThreadCompare::receiveBaseSlot(const QVariantList& retlist)
 {
     emit sendMsg(u8"Thread线程比较返回");
-    OUT<<tr("Thread receive compare over signal");
     emit finish_compare_thread(retlist);
 }
 
