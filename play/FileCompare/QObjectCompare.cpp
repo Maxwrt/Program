@@ -4,8 +4,8 @@
 #include "boolresult.h"
 #include <QThread>
 
-QObjectCompare::QObjectCompare(QObject *parent)
-    :QObject(parent)
+QObjectCompare::QObjectCompare()
+    :QObject(0)
 {
     m_compare = QPointer<Compare>(new Compare(this));
     connect(m_compare, SIGNAL(finishCompare(const QVariantList& )), this, SLOT(finishCompareSlot(const QVariantList&)));

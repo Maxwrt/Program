@@ -19,6 +19,11 @@ Compare::Compare(QObject *parent)
     m_synchronize = false;
 }
 
+Compare::~Compare()
+{
+    OUT << "function:   " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
+}
+
 BoolResult Compare::compareStart(const QVariantHash& hash)
 {
     OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
@@ -35,7 +40,6 @@ BoolResult Compare::compareStart(const QVariantHash& hash)
         m_synchronize = hash.value("bool").toBool();
         if(fileName.isEmpty())
         {
-            OUT << tr("received fileName is empty, please check");
             return u8"记录信息的文件为空，请检查";
         }
         if(!m_synchronize)
@@ -44,13 +48,12 @@ BoolResult Compare::compareStart(const QVariantHash& hash)
         }
         else
         {
-            OUT << tr("synchronized data");
+            OUT << u8"操作为同步数据";
         }
         compareAll(m_raw_data);
     }
     else
     {
-        OUT << tr("received hash is empty, please check");
         return u8"参数hash的为空，请检查";
     }
     if(!hash.value("isbool", false).toBool())
@@ -70,12 +73,6 @@ BoolResult Compare::readTextFile(const QString& fileName)
         return false;
     }
 
-//    QFileInfo fileInfo(fileName);
-//    if(fileInfo.size() == 0)
-//    {
-//        QMessageBox::information(NULL, QObject::tr("Tip"), QString(tr("文件 %1 大小为0")).arg(fileName), QObject::tr("ok"));
-//        return false;
-//    }
     m_raw_data.clear();
     m_raw_map.clear();
     QFile file(fileName);
@@ -132,7 +129,7 @@ void Compare::compareAll(const QVariantList& rawDataList)
     }
     else
     {
-        OUT << tr("can't read raw dara or have compared you may compare repeatly");
+        OUT << u8"没有获得有效数据或者正在进行重复比较，请检查所选文件是否符合要求";
     }
 }
 

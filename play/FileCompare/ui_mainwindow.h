@@ -37,20 +37,21 @@ public:
     QAction *actSave;
     QAction *actExit;
     QAction *actOpenFile;
+    QAction *actionQThread;
+    QAction *actionClear;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QLabel *labelDir;
-    QLineEdit *lineEditDir;
-    QLabel *labelFile;
-    QLineEdit *lineEditFile;
-    QPushButton *pushButtonDelete;
     QPushButton *pushButtonCompare;
+    QLabel *labelFile;
+    QLineEdit *lineEditDir;
+    QLineEdit *lineEditFile;
     QPushButton *pushButtonSynchronize;
     QPushButton *pushButtonCompare1;
-    QPushButton *pushButtonSynchronize1;
-    QPushButton *pushButtonCompare2;
-    QPushButton *pushButtonSynchronize2;
     QPushButton *pushButtonInfoTip;
+    QPushButton *pushButtonSynchronize1;
+    QPushButton *pushButtonSynchronize2;
+    QPushButton *pushButtonCompare2;
     QTableView *tableView;
     QProgressBar *progressBar;
     QTextEdit *textEdit;
@@ -85,6 +86,16 @@ public:
         QIcon icon3;
         icon3.addFile(QStringLiteral(":/image/paste.png"), QSize(), QIcon::Normal, QIcon::On);
         actOpenFile->setIcon(icon3);
+        actionQThread = new QAction(MainWindow);
+        actionQThread->setObjectName(QStringLiteral("actionQThread"));
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/image/close_thread.png"), QSize(), QIcon::Normal, QIcon::On);
+        actionQThread->setIcon(icon4);
+        actionClear = new QAction(MainWindow);
+        actionClear->setObjectName(QStringLiteral("actionClear"));
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/image/trash_can.png"), QSize(), QIcon::Normal, QIcon::On);
+        actionClear->setIcon(icon5);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -96,37 +107,30 @@ public:
 
         gridLayout->addWidget(labelDir, 0, 0, 1, 1);
 
-        lineEditDir = new QLineEdit(centralWidget);
-        lineEditDir->setObjectName(QStringLiteral("lineEditDir"));
+        pushButtonCompare = new QPushButton(centralWidget);
+        pushButtonCompare->setObjectName(QStringLiteral("pushButtonCompare"));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(pushButtonCompare->sizePolicy().hasHeightForWidth());
+        pushButtonCompare->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(lineEditDir, 0, 1, 1, 1);
+        gridLayout->addWidget(pushButtonCompare, 0, 4, 1, 1);
 
         labelFile = new QLabel(centralWidget);
         labelFile->setObjectName(QStringLiteral("labelFile"));
 
         gridLayout->addWidget(labelFile, 0, 2, 1, 1);
 
+        lineEditDir = new QLineEdit(centralWidget);
+        lineEditDir->setObjectName(QStringLiteral("lineEditDir"));
+
+        gridLayout->addWidget(lineEditDir, 0, 1, 1, 1);
+
         lineEditFile = new QLineEdit(centralWidget);
         lineEditFile->setObjectName(QStringLiteral("lineEditFile"));
 
         gridLayout->addWidget(lineEditFile, 0, 3, 1, 1);
-
-        pushButtonDelete = new QPushButton(centralWidget);
-        pushButtonDelete->setObjectName(QStringLiteral("pushButtonDelete"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(pushButtonDelete->sizePolicy().hasHeightForWidth());
-        pushButtonDelete->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonDelete, 0, 4, 1, 1);
-
-        pushButtonCompare = new QPushButton(centralWidget);
-        pushButtonCompare->setObjectName(QStringLiteral("pushButtonCompare"));
-        sizePolicy.setHeightForWidth(pushButtonCompare->sizePolicy().hasHeightForWidth());
-        pushButtonCompare->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonCompare, 0, 5, 1, 1);
 
         pushButtonSynchronize = new QPushButton(centralWidget);
         pushButtonSynchronize->setObjectName(QStringLiteral("pushButtonSynchronize"));
@@ -134,7 +138,7 @@ public:
         sizePolicy.setHeightForWidth(pushButtonSynchronize->sizePolicy().hasHeightForWidth());
         pushButtonSynchronize->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(pushButtonSynchronize, 0, 6, 1, 1);
+        gridLayout->addWidget(pushButtonSynchronize, 0, 5, 1, 1);
 
         pushButtonCompare1 = new QPushButton(centralWidget);
         pushButtonCompare1->setObjectName(QStringLiteral("pushButtonCompare1"));
@@ -142,7 +146,14 @@ public:
         sizePolicy.setHeightForWidth(pushButtonCompare1->sizePolicy().hasHeightForWidth());
         pushButtonCompare1->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(pushButtonCompare1, 0, 7, 1, 1);
+        gridLayout->addWidget(pushButtonCompare1, 0, 6, 1, 1);
+
+        pushButtonInfoTip = new QPushButton(centralWidget);
+        pushButtonInfoTip->setObjectName(QStringLiteral("pushButtonInfoTip"));
+        sizePolicy.setHeightForWidth(pushButtonInfoTip->sizePolicy().hasHeightForWidth());
+        pushButtonInfoTip->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(pushButtonInfoTip, 0, 10, 1, 1);
 
         pushButtonSynchronize1 = new QPushButton(centralWidget);
         pushButtonSynchronize1->setObjectName(QStringLiteral("pushButtonSynchronize1"));
@@ -150,14 +161,7 @@ public:
         sizePolicy.setHeightForWidth(pushButtonSynchronize1->sizePolicy().hasHeightForWidth());
         pushButtonSynchronize1->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(pushButtonSynchronize1, 0, 8, 1, 1);
-
-        pushButtonCompare2 = new QPushButton(centralWidget);
-        pushButtonCompare2->setObjectName(QStringLiteral("pushButtonCompare2"));
-        sizePolicy.setHeightForWidth(pushButtonCompare2->sizePolicy().hasHeightForWidth());
-        pushButtonCompare2->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonCompare2, 0, 9, 1, 1);
+        gridLayout->addWidget(pushButtonSynchronize1, 0, 7, 1, 1);
 
         pushButtonSynchronize2 = new QPushButton(centralWidget);
         pushButtonSynchronize2->setObjectName(QStringLiteral("pushButtonSynchronize2"));
@@ -165,25 +169,25 @@ public:
         sizePolicy.setHeightForWidth(pushButtonSynchronize2->sizePolicy().hasHeightForWidth());
         pushButtonSynchronize2->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(pushButtonSynchronize2, 0, 10, 1, 1);
+        gridLayout->addWidget(pushButtonSynchronize2, 0, 9, 1, 1);
 
-        pushButtonInfoTip = new QPushButton(centralWidget);
-        pushButtonInfoTip->setObjectName(QStringLiteral("pushButtonInfoTip"));
-        sizePolicy.setHeightForWidth(pushButtonInfoTip->sizePolicy().hasHeightForWidth());
-        pushButtonInfoTip->setSizePolicy(sizePolicy);
+        pushButtonCompare2 = new QPushButton(centralWidget);
+        pushButtonCompare2->setObjectName(QStringLiteral("pushButtonCompare2"));
+        sizePolicy.setHeightForWidth(pushButtonCompare2->sizePolicy().hasHeightForWidth());
+        pushButtonCompare2->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(pushButtonInfoTip, 0, 11, 1, 1);
+        gridLayout->addWidget(pushButtonCompare2, 0, 8, 1, 1);
 
         tableView = new QTableView(centralWidget);
         tableView->setObjectName(QStringLiteral("tableView"));
 
-        gridLayout->addWidget(tableView, 1, 0, 1, 12);
+        gridLayout->addWidget(tableView, 1, 0, 1, 11);
 
         progressBar = new QProgressBar(centralWidget);
         progressBar->setObjectName(QStringLiteral("progressBar"));
         progressBar->setValue(24);
 
-        gridLayout->addWidget(progressBar, 2, 0, 1, 12);
+        gridLayout->addWidget(progressBar, 2, 0, 1, 11);
 
         textEdit = new QTextEdit(centralWidget);
         textEdit->setObjectName(QStringLiteral("textEdit"));
@@ -193,7 +197,7 @@ public:
         sizePolicy1.setHeightForWidth(textEdit->sizePolicy().hasHeightForWidth());
         textEdit->setSizePolicy(sizePolicy1);
 
-        gridLayout->addWidget(textEdit, 3, 0, 1, 12);
+        gridLayout->addWidget(textEdit, 3, 0, 1, 11);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -238,16 +242,24 @@ public:
 #ifndef QT_NO_TOOLTIP
         actOpenFile->setToolTip(QApplication::translate("MainWindow", "\346\211\223\345\274\200\346\226\207\344\273\266", 0));
 #endif // QT_NO_TOOLTIP
+        actionQThread->setText(QApplication::translate("MainWindow", "\351\200\200\345\207\272\347\272\277\347\250\213QThread", 0));
+#ifndef QT_NO_TOOLTIP
+        actionQThread->setToolTip(QApplication::translate("MainWindow", "\351\200\200\345\207\272\347\272\277\347\250\213QThread", 0));
+#endif // QT_NO_TOOLTIP
+        actionQThread->setShortcut(QApplication::translate("MainWindow", "Ctrl+C", 0));
+        actionClear->setText(QApplication::translate("MainWindow", "\346\270\205\351\231\244", 0));
+#ifndef QT_NO_TOOLTIP
+        actionClear->setToolTip(QApplication::translate("MainWindow", "\346\270\205\351\231\244\350\241\250\346\240\274\345\222\214\346\217\220\347\244\272\344\277\241\346\201\257", 0));
+#endif // QT_NO_TOOLTIP
         labelDir->setText(QApplication::translate("MainWindow", "\347\233\256\345\275\225:", 0));
-        labelFile->setText(QApplication::translate("MainWindow", "\346\226\207\344\273\266:", 0));
-        pushButtonDelete->setText(QApplication::translate("MainWindow", "\346\270\205\351\231\244", 0));
         pushButtonCompare->setText(QApplication::translate("MainWindow", "QObject\346\257\224\350\276\203", 0));
+        labelFile->setText(QApplication::translate("MainWindow", "\346\226\207\344\273\266:", 0));
         pushButtonSynchronize->setText(QApplication::translate("MainWindow", "QObject\345\220\214\346\255\245", 0));
         pushButtonCompare1->setText(QApplication::translate("MainWindow", "QThread\346\257\224\350\276\203", 0));
-        pushButtonSynchronize1->setText(QApplication::translate("MainWindow", "QThread\345\220\214\346\255\245", 0));
-        pushButtonCompare2->setText(QApplication::translate("MainWindow", "QRunable\346\257\224\350\276\203", 0));
-        pushButtonSynchronize2->setText(QApplication::translate("MainWindow", "QRunable\345\220\214\346\255\245", 0));
         pushButtonInfoTip->setText(QApplication::translate("MainWindow", "\346\217\220\347\244\272\344\277\241\346\201\257", 0));
+        pushButtonSynchronize1->setText(QApplication::translate("MainWindow", "QThread\345\220\214\346\255\245", 0));
+        pushButtonSynchronize2->setText(QApplication::translate("MainWindow", "QRunable\345\220\214\346\255\245", 0));
+        pushButtonCompare2->setText(QApplication::translate("MainWindow", "QRunable\346\257\224\350\276\203", 0));
         menu->setTitle(QApplication::translate("MainWindow", "\346\226\207\344\273\266", 0));
     } // retranslateUi
 

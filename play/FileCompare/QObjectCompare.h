@@ -12,7 +12,7 @@ class QObjectCompare: public QObject
 {
     Q_OBJECT
 public:
-    QObjectCompare(QObject *parent = 0);
+    QObjectCompare();
     ~QObjectCompare();
 
 public slots:

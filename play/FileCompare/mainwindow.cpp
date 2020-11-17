@@ -41,6 +41,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_timer = QPointer<QTimer>(new QTimer(this));
     connect(m_timer, SIGNAL(timeout()), this, SLOT(timer_out_slot()));
+    connect(ui->actionClear, &QAction::triggered, this, [=]()
+    {
+        m_model->setRowCount(0);
+        ui->textEdit->clear();
+    });
+
+
     connect(ui->pushButtonInfoTip, &QPushButton::clicked, this, [=]()
     {
         static bool flag = false;
@@ -80,7 +87,18 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_runnableComapre, &QRunnableCompare::sendMsg, this, &MainWindow::show_msg_slot);
 
     connect(this, &MainWindow::sendMsg, this, &MainWindow::show_msg_slot);
-
+    connect(ui->actionQThread, &QAction::triggered, this,  [=]()
+    {
+        if(m_threadCompare->isRunning())
+        {
+            m_threadCompare->stopThread();
+            m_threadCompare->wait();
+            if (m_threadCompare->isFinished())
+            {
+                 OUT << u8"退出m_threadCompare线程";
+            }
+        }
+    });
 
     OUT << u8"主线程 id: " << QThread::currentThreadId();
 
@@ -173,6 +191,10 @@ void MainWindow::initToolBar()
     ui->mainToolBar->addAction(ui->actOpenFile);
     ui->mainToolBar->addSeparator();
     ui->mainToolBar->addAction(ui->actExit);
+    ui->mainToolBar->addSeparator();
+    ui->mainToolBar->addAction(ui->actionClear);
+    ui->mainToolBar->addSeparator();
+    ui->mainToolBar->addAction(ui->actionQThread);
 }
 
 void MainWindow::timer_out_slot()
@@ -373,13 +395,6 @@ void MainWindow::on_pushButtonSynchronize2_clicked()
     m_synchronize = true;
     OUT << u8"m_runnableComapre线程开始同步";
     on_pushButtonCompare_clicked();
-}
-void MainWindow::on_pushButtonDelete_clicked()
-{
-    OUT << u8"清空数据";
-    ui->lineEditDir->clear();
-    ui->lineEditFile->clear();
-    m_model->setRowCount(0);
 }
 
 void MainWindow::on_actOpen_triggered()

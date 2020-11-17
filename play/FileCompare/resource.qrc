@@ -7,5 +7,7 @@
         <file>FileCompare_zh.qm</file>
         <file>image/paste.png</file>
         <file>image/smartPointer.txt</file>
+        <file>image/close_thread.png</file>
+        <file>image/trash_can.png</file>
     </qresource>
 </RCC>

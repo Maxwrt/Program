@@ -16,10 +16,7 @@ class Compare: public QObject
     Q_OBJECT
 public:
     Compare(QObject *parent = 0);
-    ~Compare()
-    {
-        QTextStream(stdout) << "function:   " << __FUNCTION__ << " id:   "<< QThread::currentThreadId() << "\n";
-    }
+    ~Compare();
     BoolResult compareStart(const QVariantHash& hash);
     QVariantList *getData()
     {

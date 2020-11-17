@@ -71,7 +71,6 @@ private slots:
     void on_pushButtonSynchronize1_clicked();
     void on_pushButtonCompare2_clicked();
     void on_pushButtonSynchronize2_clicked();
-    void on_pushButtonDelete_clicked();
     void on_actOpen_triggered();
     void on_actSave_triggered();
     void on_actExit_triggered();
