@@ -44,10 +44,10 @@ private:
     QTimer m_timer;
     const int m_numDigits;
     QSqlDatabase m_db;
-    QSharedPointer<QLabel> m_labelTipInfo;
-    QPoint<AgreementDialog> m_AgreementDialog;
-    QPoint<Picture> m_picture;
-    QPoint<DialogUser> m_dlgUser;
+    QLabel *m_labelTipInfo;
+    QPointer<AgreementDialog> m_AgreementDialog;
+    QPointer<Picture> m_picture;
+    QPointer<DialogUser> m_dlgUser;
     QThread  m_thread;
 };
 

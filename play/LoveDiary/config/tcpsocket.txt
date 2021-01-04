@@ -1,4 +1,4 @@
-QAbstactsocket state
+QAbstactSocket state
 1. unconnected
 2. hostLookup
 3. connecting

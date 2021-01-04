@@ -51,7 +51,7 @@ void MainWindow::Init()
 {
     m_timer.setInterval(1000);
     setWindowIcon(QIcon(":/config/title.ico"));
-    m_labelTipInfo = QSharedPointer<QLabel>(new QLabel(this));
+    m_labelTipInfo = new QLabel(this);
     m_labelTipInfo->adjustSize();
     statusBar()->addWidget(m_labelTipInfo);
     m_loveDateTime = QDateTime(QDate(2020, 9, 4), QTime(21, 9, 9)),

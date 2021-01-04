@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>udp.txt</file>
+    </qresource>
+</RCC>

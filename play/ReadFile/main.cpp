@@ -14,6 +14,9 @@
 #include <iostream>
 #include <QRegularExpression>
 #include <QTextStream>
+#include <QHostInfo>
+#include <QHostAddress>
+#include <QTimer>
 //读取txt文件到QString
 QString UtReadTxtFileToQString(const QString &filenamestr, const QString &encodestr)
 {
@@ -89,8 +92,8 @@ bool compareTwoFormula(QString dbformula, QString fformula)
     }
     qSort(dbparse.begin(), dbparse.end(), compare);
     qSort(ffparse.begin(), ffparse.end(), compare);
-    printList(dbparse, 1);
-    printList(ffparse, 0);
+//    printList(dbparse, 1);
+//    printList(ffparse, 0);
     for (int i=0; i<dbparse.size(); i++)
     {
         QHash<QString, QString>::const_iterator it = dbparse.at(i).begin();
@@ -232,13 +235,15 @@ int main(int argc, char *argv[])
     }
     QStringList strlist = QString("wrt love suna").split('!');
     OUT << "strlist's size: " << strlist.size() << "    content:    "<<strlist.at(0);
-#endif
+
     QStringList list1;
     QStringList list2;
+    QStringList list3;
     list1 << "3Ctwo+3" << "2Bone" << "1Athress";
     list2 << "3Ctwo+3" << "2Bone" << "1Athress";
     qSort(list1.begin(), list1.end());
     qSort(list2.begin(), list2.end());
+
     for (int i=0; i<list1.size(); i++)
     {
         if (list1.at(i).contains('+'))
@@ -248,6 +253,81 @@ int main(int argc, char *argv[])
         if (list1.at(i) == list2.at(i))
             OUT << u8"相等";
     }
+
+    QStringList list4;
+    QStringList list5;
+    list4 << "wang" << "rui";
+    list5 << "wang" << "rui";
+    if (list4 == list5)
+    {
+        OUT << u8"QStringList相等";
+    }
+    else
+    {
+        OUT << u8"QStringList不相等";
+    }
+    QString str("H:231=1!L:232=0!");
+    QStringList strlist;
+    strlist = str.split('!');
+    qDebug() << strlist;
+    QString str1 = strlist.join('!');
+    qDebug() << str1;
+
+    list3 = QStringList() << "wang" << "rui" << "ting";
+    qDebug() << list3;
     /****************************************测试\r(回车), \n(换行), \r\n(回车+换行)**********************/
+
+    /****************************************************测试引用的大小和是否占用内存**********************/
+    int a1 = 10;
+    int &aa = a1;
+    OUT << u8"对象的地址:    "<<&a1 << u8"对象的大小: "<<sizeof(a1);
+    OUT << u8"引用的地址:    "<<&aa << u8"引用的大小: "<<sizeof(&aa);
+    /****************************************************测试引用的大小和是否占用内存**********************/
+
+    QTextStream read(stdin);
+    while (true)
+    {
+        printMenu();
+        QString what =  read.readLine().trimmed();
+        if (!what.isEmpty())
+        {
+            if (what == QStringLiteral("getip"))
+            {
+                while (true)
+                {
+                    int count = 0;
+                    foreach (QHostAddress address, QHostInfo::fromName(QHostInfo::localHostName()).addresses())
+                    {
+                        if (address.protocol() == QAbstractSocket::IPv4Protocol)
+                        {
+                            OUT << QDateTime::currentDateTime().toString("yyyy_MM_dd hh:mm ")<<u8"本机IP: " << address.toString();
+                            break;
+                        }
+                    }
+                    Sleep(1000 * 60 * 2);
+                    count++;
+                    if (count > 2)
+                        break;
+                }
+            }
+            else if (what == QStringLiteral("getname"))
+            {
+                OUT << u8"本机主机名: "<<QHostInfo::localHostName();
+            }
+            else if (what == QStringLiteral("quit"))
+            {
+                break;
+            }
+            else
+            {
+                OUT << QString(u8"没有%1该选项，请重新输入").arg(what);
+            }
+        }
+    }
+    OUT << u8"退出";
+#endif
+    qDebug() << QString("\xE4\xB8\xA4") << "  size:   " << QString("\xE4\xB8\xA4").size();
+    qDebug() << QString("两") << "   size: " << QString("两").size();
+
     return a.exec();
 }

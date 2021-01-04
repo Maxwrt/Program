@@ -455,7 +455,6 @@ void Sleep(int mesc)
         QThread::msleep(mesc);
 #endif
     }
-
 }
 
 QSqlDatabase Createdb(const QString & dbName)
@@ -573,6 +572,16 @@ void RunWithSystem(const QString &strName, const QString &strPath, bool autoRun)
 #endif
 }
 
+
+void printMenu()
+{
+     OUT << u8"|************************";
+     OUT << u8"| 1. getip(获取本机地址)   ";
+     OUT << u8"| 2. getname(获取主机名)   ";
+     OUT << u8"| 3. quit(退出)           ";
+     OUT << u8"|************************";
+     OUT << u8"您的选择:";
+}
 
 bool IsIP(const QString &ip)
 {

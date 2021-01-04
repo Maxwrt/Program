@@ -12,3 +12,6 @@ SOURCES += main.cpp \
 
 HEADERS += \
     Sender.h
+
+RESOURCES += \
+    resource.qrc

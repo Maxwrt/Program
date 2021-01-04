@@ -263,7 +263,7 @@ public:
 protected:
     Vertex *next;
 };
-
+#if 0
 class Vertex3d : public Point3d, public Vertex
 {
 public:
@@ -271,6 +271,7 @@ public:
 protected:
     float mumble;
 };
+#endif
 
 //Virtual Inheritance(ĞéÄâ¼Ì³Ğ)
 //arrregation(¾ÛºÏ)

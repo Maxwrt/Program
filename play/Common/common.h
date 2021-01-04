@@ -24,6 +24,10 @@ enum LOVE
   OTHERS
 };
 
+/**
+ * @brief ¥Ú”°≤Àµ•
+ */
+COMMONSHARED_EXPORT void printMenu();
 
 /**
  * @brief ¥Ú”°QList

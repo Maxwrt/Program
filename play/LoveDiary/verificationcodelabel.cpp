@@ -31,7 +31,7 @@ VerificationCodeLabel::VerificationCodeLabel(QWidget *parent)
 {
     qsrand(QTime::currentTime().second() * 1000 + QTime::currentTime().msec());
     colorArray = QPointer<QColor>(new QColor[letter_number]);
-    verificationCode = QPointer<QColor>(new QChar[letter_number]);
+    verificationCode = QPointer<QChar>(new QChar[letter_number]);
     noice_point_number = this->width();
 
     connect(this, SIGNAL(clicked()), this, SLOT(Repaint()));

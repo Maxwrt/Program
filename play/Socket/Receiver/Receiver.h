@@ -21,8 +21,6 @@ private:
     QLabel *statusLabel;
     QPushButton *quitButton;
     QUdpSocket *udpSocket;
-    QHostAddress groupAddress;
-
 };
 
 #endif // RECEIVER_H

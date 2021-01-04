@@ -102,13 +102,13 @@ public:
     {
         textEditor = editor;
     }
-    QSize sizeHint() const Q_DECL_OVERRIDE
+    QSize sizeHint() const
     {
         return QSize(textEditor->lineNumberAreaWidth(), 0);
     }
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE
+    void paintEvent(QPaintEvent *event)
     {
         textEditor->lineNumberAreaPaintEvent(event);
     }
@@ -125,13 +125,13 @@ public:
         textEditor = editor;
     }
 
-    QSize sizeHint() const Q_DECL_OVERRIDE
+    QSize sizeHint() const
     {
         return QSize(textEditor->width(), textEditor->lineStatusBarHeight());
     }
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE
+    void paintEvent(QPaintEvent *event)
     {
         textEditor->lineStatusBarPaintEvent(event);
     }
@@ -149,12 +149,12 @@ public:
     }
 
 protected:
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE
+    void keyPressEvent(QKeyEvent *event)
     {
         textEditor->intellisenseKeyPressEvent(event);
     }
 
-    void mouseDoubleClickEvent(QMouseEvent *event) Q_DECL_OVERRIDE
+    void mouseDoubleClickEvent(QMouseEvent *event)
     {
         textEditor->intellisenseMouseDoubleClickEvent(event);
     }

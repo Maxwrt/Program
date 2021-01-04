@@ -14,15 +14,17 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
@@ -33,181 +35,177 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actOpen;
-    QAction *actSave;
-    QAction *actExit;
-    QAction *actOpenFile;
+    QAction *actionEdit;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QLabel *labelDir;
-    QLineEdit *lineEditDir;
-    QLabel *labelFile;
-    QLineEdit *lineEditFile;
-    QPushButton *pushButtonDelete;
-    QPushButton *pushButtonCompare;
-    QPushButton *pushButtonSynchronize;
-    QPushButton *pushButtonCompare1;
-    QPushButton *pushButtonSynchronize1;
-    QPushButton *pushButtonCompare2;
-    QPushButton *pushButtonSynchronize2;
-    QPushButton *pushButtonInfoTip;
-    QTableView *tableView;
-    QProgressBar *progressBar;
+    QTabWidget *tabWidget;
+    QWidget *tab_work;
+    QGridLayout *gridLayout_3;
+    QSpacerItem *horizontalSpacer_2;
+    QPushButton *pushButton_chat;
     QTextEdit *textEdit;
-    QMenuBar *menuBar;
-    QMenu *menu;
+    QWidget *tab_life;
+    QWidget *tab_love;
+    QGridLayout *gridLayout_2;
+    QHBoxLayout *horizontalLayout;
+    QLabel *label_together;
+    QLCDNumber *lcdNumber;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *pushButton_agreement;
+    QPushButton *pushButton_us;
+    QTableView *tableView;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QMenuBar *menuBar;
+    QMenu *menu;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(914, 718);
-        actOpen = new QAction(MainWindow);
-        actOpen->setObjectName(QStringLiteral("actOpen"));
-        actOpen->setCheckable(true);
+        MainWindow->resize(913, 563);
+        actionEdit = new QAction(MainWindow);
+        actionEdit->setObjectName(QStringLiteral("actionEdit"));
+        actionEdit->setCheckable(true);
         QIcon icon;
-        icon.addFile(QStringLiteral(":/image/open.png"), QSize(), QIcon::Normal, QIcon::On);
-        actOpen->setIcon(icon);
-        actSave = new QAction(MainWindow);
-        actSave->setObjectName(QStringLiteral("actSave"));
-        QIcon icon1;
-        icon1.addFile(QStringLiteral(":/image/save.png"), QSize(), QIcon::Normal, QIcon::On);
-        actSave->setIcon(icon1);
-        actExit = new QAction(MainWindow);
-        actExit->setObjectName(QStringLiteral("actExit"));
-        QIcon icon2;
-        icon2.addFile(QStringLiteral(":/image/exit.png"), QSize(), QIcon::Normal, QIcon::On);
-        actExit->setIcon(icon2);
-        actOpenFile = new QAction(MainWindow);
-        actOpenFile->setObjectName(QStringLiteral("actOpenFile"));
-        QIcon icon3;
-        icon3.addFile(QStringLiteral(":/image/paste.png"), QSize(), QIcon::Normal, QIcon::On);
-        actOpenFile->setIcon(icon3);
+        icon.addFile(QStringLiteral(":/config/icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionEdit->setIcon(icon);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        labelDir = new QLabel(centralWidget);
-        labelDir->setObjectName(QStringLiteral("labelDir"));
+        tabWidget = new QTabWidget(centralWidget);
+        tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        tabWidget->setLayoutDirection(Qt::LeftToRight);
+        tabWidget->setTabPosition(QTabWidget::West);
+        tab_work = new QWidget();
+        tab_work->setObjectName(QStringLiteral("tab_work"));
+        gridLayout_3 = new QGridLayout(tab_work);
+        gridLayout_3->setSpacing(6);
+        gridLayout_3->setContentsMargins(11, 11, 11, 11);
+        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
+        horizontalSpacer_2 = new QSpacerItem(762, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addWidget(labelDir, 0, 0, 1, 1);
+        gridLayout_3->addItem(horizontalSpacer_2, 0, 0, 1, 1);
 
-        lineEditDir = new QLineEdit(centralWidget);
-        lineEditDir->setObjectName(QStringLiteral("lineEditDir"));
+        pushButton_chat = new QPushButton(tab_work);
+        pushButton_chat->setObjectName(QStringLiteral("pushButton_chat"));
 
-        gridLayout->addWidget(lineEditDir, 0, 1, 1, 1);
+        gridLayout_3->addWidget(pushButton_chat, 0, 1, 1, 1);
 
-        labelFile = new QLabel(centralWidget);
-        labelFile->setObjectName(QStringLiteral("labelFile"));
+        textEdit = new QTextEdit(tab_work);
+        textEdit->setObjectName(QStringLiteral("textEdit"));
 
-        gridLayout->addWidget(labelFile, 0, 2, 1, 1);
+        gridLayout_3->addWidget(textEdit, 1, 0, 1, 2);
 
-        lineEditFile = new QLineEdit(centralWidget);
-        lineEditFile->setObjectName(QStringLiteral("lineEditFile"));
-
-        gridLayout->addWidget(lineEditFile, 0, 3, 1, 1);
-
-        pushButtonDelete = new QPushButton(centralWidget);
-        pushButtonDelete->setObjectName(QStringLiteral("pushButtonDelete"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        tabWidget->addTab(tab_work, QString());
+        tab_life = new QWidget();
+        tab_life->setObjectName(QStringLiteral("tab_life"));
+        tabWidget->addTab(tab_life, QString());
+        tab_love = new QWidget();
+        tab_love->setObjectName(QStringLiteral("tab_love"));
+        gridLayout_2 = new QGridLayout(tab_love);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        label_together = new QLabel(tab_love);
+        label_together->setObjectName(QStringLiteral("label_together"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(pushButtonDelete->sizePolicy().hasHeightForWidth());
-        pushButtonDelete->setSizePolicy(sizePolicy);
+        sizePolicy.setHeightForWidth(label_together->sizePolicy().hasHeightForWidth());
+        label_together->setSizePolicy(sizePolicy);
+        label_together->setSizeIncrement(QSize(400, 0));
+        label_together->setBaseSize(QSize(1000, 0));
 
-        gridLayout->addWidget(pushButtonDelete, 0, 4, 1, 1);
+        horizontalLayout->addWidget(label_together);
 
-        pushButtonCompare = new QPushButton(centralWidget);
-        pushButtonCompare->setObjectName(QStringLiteral("pushButtonCompare"));
-        sizePolicy.setHeightForWidth(pushButtonCompare->sizePolicy().hasHeightForWidth());
-        pushButtonCompare->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonCompare, 0, 5, 1, 1);
-
-        pushButtonSynchronize = new QPushButton(centralWidget);
-        pushButtonSynchronize->setObjectName(QStringLiteral("pushButtonSynchronize"));
-        sizePolicy.setHeightForWidth(pushButtonSynchronize->sizePolicy().hasHeightForWidth());
-        pushButtonSynchronize->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonSynchronize, 0, 6, 1, 1);
-
-        pushButtonCompare1 = new QPushButton(centralWidget);
-        pushButtonCompare1->setObjectName(QStringLiteral("pushButtonCompare1"));
-        sizePolicy.setHeightForWidth(pushButtonCompare1->sizePolicy().hasHeightForWidth());
-        pushButtonCompare1->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonCompare1, 0, 7, 1, 1);
-
-        pushButtonSynchronize1 = new QPushButton(centralWidget);
-        pushButtonSynchronize1->setObjectName(QStringLiteral("pushButtonSynchronize1"));
-        sizePolicy.setHeightForWidth(pushButtonSynchronize1->sizePolicy().hasHeightForWidth());
-        pushButtonSynchronize1->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonSynchronize1, 0, 8, 1, 1);
-
-        pushButtonCompare2 = new QPushButton(centralWidget);
-        pushButtonCompare2->setObjectName(QStringLiteral("pushButtonCompare2"));
-        sizePolicy.setHeightForWidth(pushButtonCompare2->sizePolicy().hasHeightForWidth());
-        pushButtonCompare2->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonCompare2, 0, 9, 1, 1);
-
-        pushButtonSynchronize2 = new QPushButton(centralWidget);
-        pushButtonSynchronize2->setObjectName(QStringLiteral("pushButtonSynchronize2"));
-        sizePolicy.setHeightForWidth(pushButtonSynchronize2->sizePolicy().hasHeightForWidth());
-        pushButtonSynchronize2->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonSynchronize2, 0, 10, 1, 1);
-
-        pushButtonInfoTip = new QPushButton(centralWidget);
-        pushButtonInfoTip->setObjectName(QStringLiteral("pushButtonInfoTip"));
-        sizePolicy.setHeightForWidth(pushButtonInfoTip->sizePolicy().hasHeightForWidth());
-        pushButtonInfoTip->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(pushButtonInfoTip, 0, 11, 1, 1);
-
-        tableView = new QTableView(centralWidget);
-        tableView->setObjectName(QStringLiteral("tableView"));
-
-        gridLayout->addWidget(tableView, 1, 0, 1, 12);
-
-        progressBar = new QProgressBar(centralWidget);
-        progressBar->setObjectName(QStringLiteral("progressBar"));
-        progressBar->setValue(24);
-
-        gridLayout->addWidget(progressBar, 2, 0, 1, 12);
-
-        textEdit = new QTextEdit(centralWidget);
-        textEdit->setObjectName(QStringLiteral("textEdit"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        lcdNumber = new QLCDNumber(tab_love);
+        lcdNumber->setObjectName(QStringLiteral("lcdNumber"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(textEdit->sizePolicy().hasHeightForWidth());
-        textEdit->setSizePolicy(sizePolicy1);
+        sizePolicy1.setHeightForWidth(lcdNumber->sizePolicy().hasHeightForWidth());
+        lcdNumber->setSizePolicy(sizePolicy1);
+        lcdNumber->setMinimumSize(QSize(100, 0));
+        lcdNumber->setMaximumSize(QSize(16777211, 16777215));
+        QFont font;
+        font.setFamily(QStringLiteral("Agency FB"));
+        lcdNumber->setFont(font);
+        lcdNumber->setStyleSheet(QLatin1String("background-color:rgb(85, 85, 0);\n"
+"color:red;\n"
+""));
 
-        gridLayout->addWidget(textEdit, 3, 0, 1, 12);
+        horizontalLayout->addWidget(lcdNumber);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
+        pushButton_agreement = new QPushButton(tab_love);
+        pushButton_agreement->setObjectName(QStringLiteral("pushButton_agreement"));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(pushButton_agreement->sizePolicy().hasHeightForWidth());
+        pushButton_agreement->setSizePolicy(sizePolicy2);
+        pushButton_agreement->setStyleSheet(QLatin1String("border-image: url(:/config/loveprotocol.png);\n"
+"color: rgb(255, 170, 0);"));
+
+        horizontalLayout->addWidget(pushButton_agreement);
+
+        pushButton_us = new QPushButton(tab_love);
+        pushButton_us->setObjectName(QStringLiteral("pushButton_us"));
+        sizePolicy2.setHeightForWidth(pushButton_us->sizePolicy().hasHeightForWidth());
+        pushButton_us->setSizePolicy(sizePolicy2);
+        pushButton_us->setStyleSheet(QLatin1String("border-image: url(:/config/us.png);\n"
+"color: rgb(255, 170, 0);"));
+
+        horizontalLayout->addWidget(pushButton_us);
+
+
+        gridLayout_2->addLayout(horizontalLayout, 0, 0, 1, 1);
+
+        tableView = new QTableView(tab_love);
+        tableView->setObjectName(QStringLiteral("tableView"));
+        tableView->setMaximumSize(QSize(16777215, 16777211));
+
+        gridLayout_2->addWidget(tableView, 1, 0, 1, 1);
+
+        tabWidget->addTab(tab_love, QString());
+
+        gridLayout->addWidget(tabWidget, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(MainWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 914, 26));
-        menu = new QMenu(menuBar);
-        menu->setObjectName(QStringLiteral("menu"));
-        MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
         MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
+        menuBar = new QMenuBar(MainWindow);
+        menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 913, 26));
+        menu = new QMenu(menuBar);
+        menu->setObjectName(QStringLiteral("menu"));
+        MainWindow->setMenuBar(menuBar);
 
         menuBar->addAction(menu->menuAction());
+        menu->addSeparator();
+        menu->addSeparator();
+        menu->addSeparator();
+        menu->addSeparator();
+        menu->addSeparator();
 
         retranslateUi(MainWindow);
+
+        tabWidget->setCurrentIndex(1);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -215,36 +213,21 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        actOpen->setText(QApplication::translate("MainWindow", "\346\211\223\345\274\200\347\233\256\345\275\225", 0));
+        actionEdit->setText(QApplication::translate("MainWindow", "\347\274\226\350\276\221", 0));
 #ifndef QT_NO_TOOLTIP
-        actOpen->setToolTip(QApplication::translate("MainWindow", "\346\211\223\345\274\200\347\233\256\345\275\225", 0));
+        actionEdit->setToolTip(QApplication::translate("MainWindow", "\347\274\226\350\276\221\347\224\250\346\210\267", 0));
 #endif // QT_NO_TOOLTIP
-        actOpen->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
-        actSave->setText(QApplication::translate("MainWindow", "\344\277\235\345\255\230", 0));
+        pushButton_chat->setText(QApplication::translate("MainWindow", "\350\201\212\345\244\251", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab_work), QApplication::translate("MainWindow", "WORK", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab_life), QApplication::translate("MainWindow", "LIFE", 0));
+        label_together->setText(QString());
 #ifndef QT_NO_TOOLTIP
-        actSave->setToolTip(QApplication::translate("MainWindow", "\345\217\246\345\255\230\344\270\272", 0));
+        pushButton_agreement->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" color:#ffaa00;\">\347\210\261\346\203\205\344\271\246</span></p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
-        actSave->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", 0));
-        actExit->setText(QApplication::translate("MainWindow", "\351\200\200\345\207\272", 0));
-#ifndef QT_NO_TOOLTIP
-        actExit->setToolTip(QApplication::translate("MainWindow", "\351\200\200\345\207\272\347\263\273\347\273\237", 0));
-#endif // QT_NO_TOOLTIP
-        actExit->setShortcut(QApplication::translate("MainWindow", "Ctrl+E", 0));
-        actOpenFile->setText(QApplication::translate("MainWindow", "\346\211\223\345\274\200\346\226\207\344\273\266", 0));
-#ifndef QT_NO_TOOLTIP
-        actOpenFile->setToolTip(QApplication::translate("MainWindow", "\346\211\223\345\274\200\346\226\207\344\273\266", 0));
-#endif // QT_NO_TOOLTIP
-        labelDir->setText(QApplication::translate("MainWindow", "\347\233\256\345\275\225:", 0));
-        labelFile->setText(QApplication::translate("MainWindow", "\346\226\207\344\273\266:", 0));
-        pushButtonDelete->setText(QApplication::translate("MainWindow", "\346\270\205\351\231\244", 0));
-        pushButtonCompare->setText(QApplication::translate("MainWindow", "\346\257\224\350\276\203", 0));
-        pushButtonSynchronize->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\245", 0));
-        pushButtonCompare1->setText(QApplication::translate("MainWindow", "\346\257\224\350\276\2031", 0));
-        pushButtonSynchronize1->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\2451", 0));
-        pushButtonCompare2->setText(QApplication::translate("MainWindow", "\346\257\224\350\276\2032", 0));
-        pushButtonSynchronize2->setText(QApplication::translate("MainWindow", "\345\220\214\346\255\2452", 0));
-        pushButtonInfoTip->setText(QApplication::translate("MainWindow", "\346\217\220\347\244\272\344\277\241\346\201\257", 0));
-        menu->setTitle(QApplication::translate("MainWindow", "\346\226\207\344\273\266", 0));
+        pushButton_agreement->setText(QString());
+        pushButton_us->setText(QApplication::translate("MainWindow", "\346\210\221\344\273\254", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab_love), QApplication::translate("MainWindow", "LOVE", 0));
+        menu->setTitle(QApplication::translate("MainWindow", "\345\267\245\345\205\267", 0));
     } // retranslateUi
 
 };

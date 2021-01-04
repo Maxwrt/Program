@@ -15,5 +15,6 @@
         <file>config/us.png</file>
         <file>config/table.txt</file>
         <file>config/tcpsocket.txt</file>
+        <file>config/learn.txt</file>
     </qresource>
 </RCC>
