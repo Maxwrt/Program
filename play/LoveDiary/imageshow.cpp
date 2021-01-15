@@ -5,13 +5,13 @@
 ImageShow::ImageShow(QString filename)
 {
     m_filename = filename;
-    m_imgsrc = nullptr;
-    m_imgdst = nullptr;
+    m_imgsrc = Q_NULLPTR;
+    m_imgdst = Q_NULLPTR;
 }
 
 ImageShow::~ImageShow()
 {
-    if (m_imgsrc != nullptr)
+    if (m_imgsrc != Q_NULLPTR)
     {
         delete m_imgsrc;
     }
@@ -22,11 +22,11 @@ bool ImageShow::LoadImg(const QString &filename)
 {
     if (!m_filename.isEmpty())
     {
-        m_imgsrc = QPointer<QImage>(new QImage(m_filename));
+        m_imgsrc = new QImage(m_filename);
     }
     else if (!filename.isEmpty())
     {
-        m_imgsrc = QPointer<QImage>(new QImage(filename));
+        m_imgsrc = new QImage(filename);
     }
     else
     {
@@ -78,11 +78,11 @@ QPixmap ImageShow::ToDifferStyle(QImage::Format type)
     {
         if (type == QImage::Format_RGB16)
         {
-            m_imgdst = QPointer<QImage>(new QImage(m_imgsrc->convertToFormat(QImage::Format_RGB16)));
+            m_imgdst = new QImage(m_imgsrc->convertToFormat(QImage::Format_RGB16));
         }
         else if (type == QImage::Format_Grayscale8)
         {
-            m_imgdst = QPointer<QImage>(new QImage(m_imgsrc->convertToFormat(QImage::Format_Grayscale8)));
+            m_imgdst = new QImage(m_imgsrc->convertToFormat(QImage::Format_Grayscale8));
         }
     }
     else

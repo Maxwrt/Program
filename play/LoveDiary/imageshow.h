@@ -1,3 +1,8 @@
+/****************************************************************************
+** 时间：2021.01.14
+** 作者：王瑞亭
+** 功能：**
+****************************************************************************/
 #ifndef IMAGESHOW_H
 #define IMAGESHOW_H
 
@@ -16,8 +21,8 @@ public:
 
 
 private:
-    QPointer<QImage> m_imgsrc;
-    QPointer<QImage> m_imgdst;
+    QImage *m_imgsrc;
+    QImage *m_imgdst;
     QString m_filename;
 };
 

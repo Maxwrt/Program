@@ -6,18 +6,28 @@ partial 部分  texture 纹理  gradient 梯度 alpha 开端；最初 degrade 降低  retriev
 iterate 迭代  predictable 可预测的    extract 提取  qualify 限定，修饰；使具有资格；证明…合格 canonical 规范
 sufficient 足够的，充分的  straightforward 简单的；坦率的；明确的；径直的 adequate 充足的 redundant 冗余
 synonym 同义词 irrespective 不考虑的   terminology 术语  notation 符号 proportional 成比例的 colon 冒号
-logarithm 对数    asymptotically 渐近   sole 唯一 adjacent 相邻 versatile通用的 inverse 相反的
-conjunction 结合 interpreted 解释 seamless 无缝的 hierarchy 等级,层级制度 dangling 悬挂的，摇摆的
-paradigm 范式 omit 省略 postpone 推迟 disambiguation 消除模棱两可情况，解疑  incompatible  不兼容的
-T qobject_cast(QObject* object)
-返回object向下的转型T，转型成功返回0，如果传入的object本省就是0则返回0
+logarithm 对数    asymptotically 渐近   sole 唯一 adjacent 相邻 versatile通用的 inverse 相反的 populate 填充
+conjunction 结合 interpreted 解释 seamless 无缝的 hierarchy 等级,层级制度 dangling 悬挂的，摇摆的 partially 部分
+paradigm 范式 omit 省略 postpone 推迟 disambiguation 消除模棱两可情况，解疑  incompatible  不兼容的 hierarchical 分层
+orientation 方向，定向 unary 一元的 negation 否定 dummy  假的 irrelevant 无关紧要的 primitive 基本的 heretofore 迄今为止
+spurious  虚假的 Eliminating  消除 proceed 开始，继续进行，发生，行进 preserve  保护，保存 obliged  必须的，有责任的 verbosity 冗长
+overhead 开销 pilfering 偷切 tremendously 极大的 amenable 有责任的，有义务的 substantially 实质上，大体上，充分地
+T qobject_cast(QObject* object) terminology 术语，用辞 positioning 定位 identical 完全相同的 respective 各自的，分别的
+intact 完整的，原封不动的 conceive 怀孕；构思；以为；持有 workaround 解决方法，变通方案 asynchronously 异步 perform 执行，表演
+返回object向下的转型T，转型成功返回0，如果传入的object本省就是0则返回0 denote 表示  lexically  字典地  lexical 词汇的 tokens 代币，符号
+semicolons 分号 parenthesis 括号 commas 逗号 Syntactically 语法上 cyclically 周期地，循环地 initially 最初地，开始地 consistency 一致性
+indicator 指示器 interrogation 问号 Auxiliary 辅助的，附加的 caveats  警告 说明 compress 压缩 dispatched 派遣，发送 pending 行将发生的，未决定的
+routine 常规,例程  program-wide 有效的
+lua函数调用：
+v:name(args) <==> v.name(v,args)
 使用时的两个限制：
 1. T类型必须继承自QObject。
 2. 在声明时必须有Q_OBJECT宏
 Q_DECLARE_METATYPE   Q_DECLARE_OPAQUE_POINTER qRegisterMetaType()
 通过QWidget * QApplication::focusWidget()可以获得当前拥有焦点的widget
 
-static_cast相当于传统的C语言里的强制转换，该运算符把expression转换为new_type类型，用来强迫隐式转换如non-const对象转为const对象，编译时检查，用于非多态的转换，可以转换指针及其他，但没有运行时类型检查来保证转换的安全性。它主要有如下几种用法：
+static_cast相当于传统的C语言里的强制转换，该运算符把expression转换为new_type类型，用来强迫隐式转换如non-const对象转为const对象，
+编译时检查，用于非多态的转换，可以转换指针及其他，但没有运行时类型检查来保证转换的安全性。它主要有如下几种用法：
 
 ①用于类层次结构中基类（父类）和派生类（子类）之间指针或引用的转换。
 进行上行转换（把派生类的指针或引用转换成基类表示）是安全的；
@@ -64,6 +74,32 @@ QContainer可以被QDataStream读取和写入的基础是，其包含的Type必须提供operator<<(QD
 使用foreach遍历容器时，会发生拷贝操作，如果在循环中修改数据，不会影响到原容器中的数据
 Other QContainerS: QVarLengthArray,QCache,QPair,QContigousCache
 
+嵌套类
+1. 一个类可以定义在另一个类的内部，前者称为嵌套类，嵌套类是一个独立的类，和外层类根本没有什么关系。
+2. 嵌套类必须声明在类的内部，但是可以定义在类的内部或者外部。
+3. 在外层类之外定义一个嵌套类时，必须以外层类的名字限定嵌套类的名字。
+
+局部类
+1. 类可以定义在某个函数的内部，这样的类被称为局部类，局部类定义的类型只在定义它的作用域内可见。
+2. 局部类已经封装在函数作用域中，通过信息隐藏进一步封装就显得没什么必要了。
+3. 局部类中不能使用函数作用域中的变量。
+4. 可以在局部类的内部在嵌套一个类，此时，嵌套类的定义可以出现在局部类之外且与局部类相同的作用域中。
+
+左值
+基础类型:c语言定义~既能够出现在等号左边也能出现在等号右边的变量(或表达式)，代表内存中占有确定位置的对象
+        现有定义~没有数组类型，没有不完全类型，没有const修饰的类型，并且如果它是结构体或联合体，则没有任何const修饰的成员(包含,递归包含,任何成员元素的集合)
+自定义类型:
+右值
+基础类型:只能出现在等号右边的变量(或表达式),不在内存中占有确定位置的对象,不可以被修改，不可被const,volatile所修饰
+自定义类型:允许通过它的成员函数进行修改，只能被const类型的引用所指向，非const的引用则是非法的。
+当一个右值被const引用指向时，它的生命周期就被延长了，暗藏的逻辑是：右值不能当成左值使用(但左值可以当成右值使用)
+
+非const左值引用不能被赋右值，因为这将要求一个无效的右值到左值的转换
+常量左值引用可以被赋右值。
+右值引用: 给我们一个右值的引用，在调用之后将被析构
+Intvec& operator=(Intvec&& other)
+Intvec v2;
+v2= Intvec(10);这里移动赋值运算符被调用，因为Intvec(10)创建的是临时对象。移动赋值运算符只是简单的切换右值的内部缓冲区为自己的。
 
 
 

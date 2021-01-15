@@ -41,10 +41,12 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;删除&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-image: url(:/config/delete.png);</string>
+        <string notr="true">border:none;
+color: rgb(0, 0, 0);
+font: 14pt &quot;楷体&quot;;</string>
        </property>
        <property name="text">
-        <string/>
+        <string>删除</string>
        </property>
       </widget>
      </item>
@@ -60,10 +62,12 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;更新&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-image: url(:/config/update.png);</string>
+        <string notr="true">border:none;
+color: rgb(0, 0, 0);
+font: 14pt &quot;楷体&quot;;</string>
        </property>
        <property name="text">
-        <string/>
+        <string>更新</string>
        </property>
       </widget>
      </item>
@@ -79,10 +83,12 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;添加&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">border-image: url(:/config/insert.png);</string>
+        <string notr="true">border:none;
+color: rgb(0, 0, 0);
+font: 14pt &quot;楷体&quot;;</string>
        </property>
        <property name="text">
-        <string/>
+        <string>删除</string>
        </property>
       </widget>
      </item>

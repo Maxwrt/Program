@@ -1,3 +1,8 @@
+/****************************************************************************
+** 时间：2021.01.14
+** 作者：王瑞亭
+** 功能：**
+****************************************************************************/
 #ifndef VERIFICATIONCODELABEL_H
 #define VERIFICATIONCODELABEL_H
 
@@ -48,7 +53,7 @@ public:
 
     QString Text() const
     {
-        return code;
+        return m_code;
     }
 
 protected:
@@ -64,8 +69,8 @@ signals:
     void textchanged();
 
 private:
-    const int letter_number = 4;
-    int noice_point_number ;//噪点的数量
+    const int m_letter_number = 4;
+    int m_noice_point_number ;//噪点的数量
     enum class TYPE
     {
         NUMBER_FLAG,
@@ -76,9 +81,9 @@ private:
     QChar produceRandomLetter() const;
     void produceRandomColor() const;
 
-    QPointer<QChar> verificationCode;
-    QString code;
-    QPointer<QColor> colorArray;
-    bool ifgenerate;
+    QChar *m_verificationCode;
+    QString m_code;
+    QColor *m_colorArray;
+    bool m_ifgenerate;
 };
 #endif // VERIFICATIONCODELABEL_H

@@ -67,8 +67,8 @@ QDialogLogin::QDialogLogin(const QSize& argsize,QWidget *parent) :
 
         if (!isUser(username))
         {
-             QMessageBox::information(this, u8"提示信息", QString(u8"用户%1不存在，无法找回密码，请先注册").arg(username), u8"确定");
-             return;
+            QMessageBox::information(this, u8"提示信息", QString(u8"用户%1不存在，无法找回密码，请先注册").arg(username), u8"确定");
+            return;
         }
         ForgetPassword ftd(username, m_db, argsize, this);
         if (ftd.exec() == QDialog::Accepted)
@@ -138,27 +138,35 @@ void QDialogLogin::loginSystem()
                 QVariantHash hash = m_hashlist.at(i).toHash();
                 if(hash.value("username") == user)
                 {
-                    if(hash.value("password") == password)
+                    if (0 != password.indexOf(QRegExp("^[A-Z][a-zA-Z0-9]{5,17}")))
                     {
-                        m_user=user;
-                        m_loginUserHash=m_hashlist.at(i).toHash();
-                        accept();
-                        qDebug() << tr("Login Sys");
+                        QMessageBox::information(this, u8"提示", u8"密码长度要求不小6且以大写字母开头必须包含小写字母和数字", u8"确定");
+                        return;
                     }
                     else
                     {
-                        m_trynum++;
-                        if(m_trynum>3)
+                        if(hash.value("password").toString() == password)
                         {
-                            QMessageBox::critical(this, tr("Error Tip"), tr("Input error number greater than 3,sys close"), u8"确定");
-                            close();
-                            return;
+                            m_user=user;
+                            m_loginUserHash=m_hashlist.at(i).toHash();
+                            accept();
+                            OUT << u8"登录成功";
                         }
                         else
                         {
-                            QMessageBox::information(this, tr("Info"), tr("the username or password error, please check"));
-                            ui->lineEditPassword->clear();
-                            return;
+                            m_trynum++;
+                            if(m_trynum>3)
+                            {
+                                QMessageBox::critical(this, u8"提示", u8"输入密码错误次数超限,系统自动关闭", u8"确定");
+                                close();
+                                return;
+                            }
+                            else
+                            {
+                                QMessageBox::information(this, u8"提示", u8"输入密码错误,请检查", u8"确定");
+                                ui->lineEditPassword->clear();
+                                return;
+                            }
                         }
                     }
                 }
@@ -166,13 +174,13 @@ void QDialogLogin::loginSystem()
         }
         if((m_hashlist.count()<1) || m_user.isEmpty())
         {
-            QMessageBox::information(this, tr("Info"), tr(u8"user %1 not exists，please register firstly").arg(user), u8"确定");
+            QMessageBox::information(this, u8"提示", QString(u8"用户%1不存在,请先注册").arg(user), u8"确定");
             return;
         }
     }
     else
     {
-        QMessageBox::information(this, tr("Info"), tr("please input username"));
+        QMessageBox::information(this, u8"提示", u8"请输入用户名", u8"确定");
     }
 }
 
@@ -271,7 +279,7 @@ void QDialogLogin::writesettings()
     QSettings settings(organization, application);
     settings.setValue("User", m_user);
     settings.setValue("Password", encryptPasswd("Sn_11210318"));
-//    settings.setValue("flag", ui->checkBox->isChecked());
+    //    settings.setValue("flag", ui->checkBox->isChecked());
 }
 
 

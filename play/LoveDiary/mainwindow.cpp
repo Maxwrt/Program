@@ -15,15 +15,16 @@
 #include <QSqlQuery>
 #include <QIcon>
 #include <QThread>
+#include <QDesktopWidget>
 
 MainWindow::MainWindow(QSqlDatabase& db, const QVariantHash& logHash, QWidget *parent) :
     QMainWindow(parent),
     m_numDigits(11),
     m_db(db),
     m_UserHash(logHash),
-    m_picture(nullptr),
-    m_dlgUser(nullptr),
-    m_AgreementDialog(nullptr),
+    m_picture(Q_NULLPTR),
+    m_dlgUser(Q_NULLPTR),
+    m_AgreementDialog(Q_NULLPTR),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -91,7 +92,8 @@ void MainWindow::InitSignalSlot()
         {
             m_AgreementDialog = QPointer<AgreementDialog>(new AgreementDialog(size(), this));
         }
-        m_AgreementDialog->Show();
+        m_AgreementDialog->setFocus();
+        m_AgreementDialog->exec();
     });
 
     connect(ui->actionEdit, &QAction::triggered, this, [=]()
@@ -100,16 +102,20 @@ void MainWindow::InitSignalSlot()
         {
             m_dlgUser = QPointer<DialogUser>(new DialogUser(m_db, this));
         }
+        m_dlgUser->setFocus();
         m_dlgUser->exec();
     });
 
-    m_picture = QPointer<Picture>(new Picture(size(), nullptr));
+    m_picture = QPointer<Picture>(new Picture(size(), Q_NULLPTR));
     m_picture->moveToThread(&m_thread);
     connect(&m_thread, &QThread::finished, m_picture, &QObject::deleteLater, Qt::QueuedConnection);
-    m_thread.start();
     connect(ui->pushButton_us, &QPushButton::clicked, this, [=]()
     {
-        m_picture->show();
+        m_thread.start();
+        m_picture->move( (QApplication::desktop()->availableGeometry().size().width() - m_picture->width())/2,
+                         (QApplication::desktop()->availableGeometry().size().height() - m_picture->height())/2);
+        m_picture->setFocus();
+        m_picture->exec();
     }
     );
 

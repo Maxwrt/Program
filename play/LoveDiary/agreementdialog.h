@@ -1,3 +1,8 @@
+/****************************************************************************
+** 时间：2021.01.14
+** 作者：王瑞亭
+** 功能：**
+****************************************************************************/
 #ifndef AGREEMENTDIALOG_H
 #define AGREEMENTDIALOG_H
 
@@ -17,7 +22,6 @@ class AgreementDialog : public BaseDialog
 public:
     explicit AgreementDialog(const QSize& argsize, QWidget *parent = 0);
     ~AgreementDialog();
-    void Show();
 
 private:
     void Init();

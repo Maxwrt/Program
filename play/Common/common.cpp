@@ -328,7 +328,7 @@ void AppLog(QtMsgType type, const QMessageLogContext & context, const QString &m
         return;
     }
     QString dirstr;
-    dirstr = QDir::currentPath() % QString("/log/");
+    dirstr = QCoreApplication::applicationDirPath()% QString("/log/");
     QDir dir(dirstr);
     if(!dir.exists(dirstr))
     {
@@ -558,7 +558,7 @@ void SetSystemDateTime(const QString &year, const QString &month, const QString 
     p.waitForFinished(1000);
     p.close();
 #else
-    QString cmd = QString(date "%1%2%3%4%5.%6").arg(year).arg(month).arg(day).arg(hour).arg(min).arg(sec);
+    QString cmd = QString("date %1%2%3%4%5.%6").arg(year).arg(month).arg(day).arg(hour).arg(min).arg(sec);
     system(cmd.toLatin1());
     system("hwclock -w");
 #endif

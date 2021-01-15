@@ -10,6 +10,7 @@ SUBDIRS += \
     CustomWidget \
     ReadFile \
     LoveDiary \
-    Socket
+    Socket \
+    AddComment
 
 

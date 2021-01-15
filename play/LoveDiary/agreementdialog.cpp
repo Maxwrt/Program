@@ -23,10 +23,6 @@ AgreementDialog::~AgreementDialog()
     delete ui;
 }
 
-void AgreementDialog::Show()
-{
-    exec();
-}
 
 void AgreementDialog::Init()
 {

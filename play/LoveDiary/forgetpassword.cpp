@@ -25,7 +25,7 @@ ForgetPassword::ForgetPassword(const QString &username, QSqlDatabase& db, const 
             return;
         }
 
-        if (userpassword.indexOf(QRegExp("^[A-Z][a-zA-Z0-9]{5,17}")))
+        if (0 != userpassword.indexOf(QRegExp("^[A-Z][a-zA-Z0-9]{5,17}")))
         {
             QMessageBox::information(this, u8"提示信息", u8"密码长度不小6且以大写字母开头必须包含小写字母和数字", u8"确定");
             return;

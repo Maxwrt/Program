@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>913</width>
-    <height>563</height>
+    <width>1126</width>
+    <height>591</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,11 +20,16 @@
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);
+border:none;
+font: 14pt &quot;楷体&quot;;</string>
+      </property>
       <property name="tabPosition">
        <enum>QTabWidget::West</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_work">
        <attribute name="title">
@@ -46,6 +51,11 @@
         </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="pushButton_chat">
+          <property name="styleSheet">
+           <string notr="true">color: rgb(0, 0, 0);
+border:none;
+font: 14pt &quot;楷体&quot;;</string>
+          </property>
           <property name="text">
            <string>聊天</string>
           </property>
@@ -115,7 +125,11 @@
             </property>
             <property name="font">
              <font>
-              <family>Agency FB</family>
+              <family>楷体</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -150,11 +164,12 @@ color:red;
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;爱情书&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">border-image: url(:/config/loveprotocol.png);
-color: rgb(255, 170, 0);</string>
+             <string notr="true">color: rgb(0, 0, 0);
+border:none;
+font: 14pt &quot;楷体&quot;;</string>
             </property>
             <property name="text">
-             <string/>
+             <string>爱</string>
             </property>
            </widget>
           </item>
@@ -167,8 +182,8 @@ color: rgb(255, 170, 0);</string>
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">border-image: url(:/config/us.png);
-color: rgb(255, 170, 0);</string>
+             <string notr="true">color: rgb(0, 0, 0);
+font: 14pt &quot;楷体&quot;;</string>
             </property>
             <property name="text">
              <string>我们</string>
@@ -207,7 +222,7 @@ color: rgb(255, 170, 0);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>913</width>
+     <width>1126</width>
      <height>26</height>
     </rect>
    </property>
