@@ -17,7 +17,9 @@ intact ÍêÕûµÄ£¬Ô­·â²»¶¯µÄ conceive »³ÔĞ£»¹¹Ë¼£»ÒÔÎª£»³ÖÓĞ workaround ½â¾ö·½·¨£¬±
 ·µ»ØobjectÏòÏÂµÄ×ªĞÍT£¬×ªĞÍ³É¹¦·µ»Ø0£¬Èç¹û´«ÈëµÄobject±¾Ê¡¾ÍÊÇ0Ôò·µ»Ø0 denote ±íÊ¾  lexically  ×ÖµäµØ  lexical ´Ê»ãµÄ tokens ´ú±Ò£¬·ûºÅ
 semicolons ·ÖºÅ parenthesis À¨ºÅ commas ¶ººÅ Syntactically Óï·¨ÉÏ cyclically ÖÜÆÚµØ£¬Ñ­»·µØ initially ×î³õµØ£¬¿ªÊ¼µØ consistency Ò»ÖÂĞÔ
 indicator Ö¸Ê¾Æ÷ interrogation ÎÊºÅ Auxiliary ¸¨ÖúµÄ£¬¸½¼ÓµÄ caveats  ¾¯¸æ ËµÃ÷ compress Ñ¹Ëõ dispatched ÅÉÇ²£¬·¢ËÍ pending ĞĞ½«·¢ÉúµÄ£¬Î´¾ö¶¨µÄ
-routine ³£¹æ,Àı³Ì  program-wide ÓĞĞ§µÄ
+routine ³£¹æ,Àı³Ì  program-wide ÓĞĞ§µÄ bypass ºöÊÓ£¬±Ü¿ª fragmented Æ¬¶ÎµÄ£¬³ÉËéÆ¬µÄ incomplete ²»ÍêÕûµÄ  transaction ÊÂÎñ prior Ö®Ç°µÄ£¬ÏÈÇ°µÄ£¬ÓÅÏÈµÄ
+separate µ¥¶ÀµÄ£¬¸÷×ÔµÄ£¬·Ö¿ªµÄ  duplicating ¸´ÖÆ£¬ÖØ¸´£¬¸´Ó¡ conservation ±£´æ£¬±£»¤
+inspect ¼ì²é capture ·ı»ñ£»¶áµÃ£»²¶×½£¬ÅÄÉã£¬Â¼ÖÆ partial j
 luaº¯Êıµ÷ÓÃ£º
 v:name(args) <==> v.name(v,args)
 Ê¹ÓÃÊ±µÄÁ½¸öÏŞÖÆ£º
@@ -58,6 +60,16 @@ dynamic_castÖ÷ÒªÓÃÓÚÀà²ã´Î¼äµÄÉÏĞĞ×ª»»ºÍÏÂĞĞ×ª»»£¬»¹¿ÉÒÔÓÃÓÚÀàÖ®¼äµÄ½»²æ×ª»»£¨cr
 ÔÚÀà²ã´Î¼ä½øĞĞÉÏĞĞ×ª»»Ê±£¬dynamic_castºÍstatic_castµÄĞ§¹ûÊÇÒ»ÑùµÄ£»
 ÔÚ½øĞĞÏÂĞĞ×ª»»Ê±£¬dynamic_cast¾ßÓĞÀàĞÍ¼ì²éµÄ¹¦ÄÜ£¬±Èstatic_cast¸ü°²È«¡£
 dynamic_castÊÇÎ¨Ò»ÎŞ·¨ÓÉ¾ÉÊ½Óï·¨Ö´ĞĞµÄ¶¯×÷£¬Ò²ÊÇÎ¨Ò»¿ÉÄÜºÄ·ÑÖØ´óÔËĞĞ³É±¾µÄ×ªĞÍ¶¯×÷
+
+reinterpret_cast ÔÚÈÎÒâÖ¸Õë£¨»òÒıÓÃ£©ÀàĞÍÖ®¼äµÄ×ª»»£»ÒÔ¼°Ö¸ÕëÓë×ã¹»Ç¿´óµÄÕûÊıÀàĞÍÖ®¼äµÄ×ª»»£»´ÓÕûÊıÀàĞÍ£¨°üÀ¨Ã¶¾ÙÀàĞÍ£©
+µ½Ö¸ÕëÀàĞÍ£¬ÎŞÊÓ´óĞ¡¡£Ö»ÓĞ½«×ª»»ºóµÄÀàĞÍÖµ×ª»»µ½ÆäÔ­Ê¼ÀàĞÍ£¬²ÅÊÇÕıÈ·µÄÊ¹ÓÃ·½Ê½
+ÔÚÒÔÏÂµØ·½ÓÃÀ´×ª»»ÔËËã·û£¨²¢²»¾ÖÏŞ£©£º
+´ÓÖ¸ÕëÀàĞÍµ½Ò»¸ö×ã¹»´óµÄÕûÊıÀàĞÍ
+´ÓÕûÊıÀàĞÍ»òÕßÃ¶¾ÙÀàĞÍµ½Ö¸ÕëÀàĞÍ
+´ÓÒ»¸öÖ¸Ïòº¯ÊıµÄÖ¸Õëµ½ÁíÒ»¸ö²»Í¬ÀàĞÍµÄÖ¸Ïòº¯ÊıµÄÖ¸Õë¡£
+´ÓÒ»¸öÖ¸Ïò¶ÔÏóµÄÖ¸Õëµ½ÁíÒ»¸ö²»Í¬ÀàĞÍµÄÖ¸Ïò¶ÔÏóµÄÖ¸Õë¡£
+´ÓÒ»¸öÖ¸ÏòÀàº¯Êı³ÉÔ±µÄÖ¸Õëµ½ÁíÒ»¸öÖ¸Ïò²»Í¬ÀàĞÍº¯Êı³ÉÔ±µÄÖ¸Õë¡£
+´ÓÒ»¸öÖ¸ÏòÀàÊı¾İ³ÉÔ±µÄÖ¸Õëµ½ÁíÒ»¸öÖ¸Ïò²»Í¬ÀàĞÍµÄÊı¾İ³ÉÔ±µÄÖ¸Õë¡£
 
 QSet operator&() oparator-()
      operator+() operator|()
@@ -102,48 +114,6 @@ Intvec v2;
 v2= Intvec(10);ÕâÀïÒÆ¶¯¸³ÖµÔËËã·û±»µ÷ÓÃ£¬ÒòÎªIntvec(10)´´½¨µÄÊÇÁÙÊ±¶ÔÏó¡£ÒÆ¶¯¸³ÖµÔËËã·ûÖ»ÊÇ¼òµ¥µÄÇĞ»»ÓÒÖµµÄÄÚ²¿»º³åÇøÎª×Ô¼ºµÄ¡£
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 QListIteraotr QMutableListIterator
 QMapIterator QMutableMapIterator
 QHashIterator QMutableMapIterator
@@ -154,3 +124,13 @@ QT_SHAREDPOINTER_TRACK_POINTERS
 QSharedData
 QSharedDataPointer
 QSharedExplicitlyDataPointer
+
+QBuffer:Í¨¹ıQIODeviceÌá¹©µÄ½Ó¿Ú·ÃÎÊQByteArray¡£´ËÊ±QByteArray±»¿´×÷ÊÇÒ»¸ö¿ÉÒÔÈÎÒâ·ÃÎÊµÄÎÄ¼ş¡£
+QIODEvice:ÎªÖ§³Ö¶ÁĞ´Êı¾İ¿éµÄÉè±¸Ìá¹©µÄ¹²Í¬ÊµÏÖºÍ³éÏóµÄ½Ó¿Ú¡£
+QByteArray:
+Á½´óÓ¦ÓÃ³¡¾° 1.Store Raw Binary Data 2. Memory conervation is critical
+QString::localeAwareCompare()
+
+QRegularExpression:ÓÉÁ½²¿·Ö×é³É
+1. pattern string
+2. pattern options(¸Ä±äpattern stringµÄº¬Òå)
