@@ -55,10 +55,9 @@
 			<province name="东京"/>
 		</Area>
 	</Country>
-	<Country name="美国">
-		<Area name="东部">
-		</Area>
-		<Area name="西部">
+	<Country name="日本">
+		<Area name="北部">
+			<province name="东京"/>
 		</Area>
 	</Country>
 </earth>

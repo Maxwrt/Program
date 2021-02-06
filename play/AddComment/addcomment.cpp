@@ -12,16 +12,20 @@ AddComment::AddComment(const QString& path, const QString& time, const QString& 
       m_author(author),
       m_function(function),
       QObject(parent)
-{}
+{
+    m_copyright = QString::fromLocal8Bit("小王同学");
+    m_version = QString("1.0.0");
+}
 
 void AddComment::PrintMenu()
 {
-    QTextStream(stdout) << QString::fromLocal8Bit("1. print(p)打印菜单\n");
-    QTextStream(stdout) << QString::fromLocal8Bit("2. check(c)检查参数\n");
-    QTextStream(stdout) << QString::fromLocal8Bit("2. vim  (v)编辑参数\n");
-    QTextStream(stdout) << QString::fromLocal8Bit("3. fire (f)开始执行\n");
-    QTextStream(stdout) << QString::fromLocal8Bit("4. tips (t)提示信息\n");
-    QTextStream(stdout) << QString::fromLocal8Bit("5. exit (e)退出程序\n");
+    QTextStream(stdout) << QString::fromLocal8Bit("1. print(打印菜单)\n");
+    QTextStream(stdout) << QString::fromLocal8Bit("2. check(检查参数)\n");
+    QTextStream(stdout) << QString::fromLocal8Bit("2. vim  (编辑参数)\n");
+    QTextStream(stdout) << QString::fromLocal8Bit("3. add  (添加注释)\n");
+    QTextStream(stdout) << QString::fromLocal8Bit("3. del  (删除注释)\n");
+    QTextStream(stdout) << QString::fromLocal8Bit("4. tips (提示信息)\n");
+    QTextStream(stdout) << QString::fromLocal8Bit("5. init6 (退出程序)\n");
 }
 
 bool AddComment::LoadFiles(const QString& path)
@@ -48,10 +52,10 @@ bool AddComment::LoadFiles(const QString& path)
     return m_filelist.count() > 0;
 }
 
-bool AddComment::Start()
+bool AddComment::Start(OPRTTYPE type)
 {
     DoWork();
-    return WriteComment();
+    return Comment(type);
 }
 
 void AddComment::DoWork()
@@ -72,7 +76,7 @@ void AddComment::DoWork()
     }
 }
 
-bool AddComment::WriteComment()
+bool AddComment::Comment(OPRTTYPE type)
 {
     if (m_filelist.count() < 1)
         return false;
@@ -81,20 +85,46 @@ bool AddComment::WriteComment()
     for (auto item : m_filelist)
     {
         QFile file(item);
+        m_filename = file.fileName();
         if (file.exists())
         {
             if (file.open(QFile::ReadWrite))
             {
                 QTextStream stream(&file);
-                QString alldata = stream.readAll();
-                if (alldata.startsWith("/*****"))
+                QString data;
+                QString alldata;
+                switch(type)
                 {
-                    file.close();
-                    continue;
+                case add:
+                    alldata = stream.readAll();
+                    if (alldata.startsWith("/*****"))
+                    {
+                        file.close();
+                        continue;
+                    }
+                    stream.seek(0);
+                    stream << QString(COMMENT).arg(m_copyright).arg(m_version).arg(m_filename) \
+                                              .arg(m_touchtime).arg(m_author).arg(m_function);
+                    stream << alldata;
+                    break;
+                case del:
+                    while(!stream.atEnd())
+                    {
+                        data = stream.readLine();
+                        if(data.endsWith("*****/"))
+                        {
+                            stream.seek(stream.pos());
+                            break;
+                        }
+                    }
+                    data = stream.readAll();
+                    stream << data;
+
+                    break;
+                default:
+                    OUT << QString::fromLocal8Bit("未知操作");
+                    break;
                 }
-                stream.seek(0);
-                stream << QString(COMMENT).arg(m_touchtime).arg(m_author).arg(m_function);
-                stream << alldata;
             }
             else
             {

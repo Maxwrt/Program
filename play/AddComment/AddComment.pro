@@ -25,10 +25,9 @@ RCC_DIR = $$PWD/../.object/crm
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    addcomment.cpp \
-    luawrite.cpp
+    addcomment.cpp
+
 
 HEADERS += \
-    addcomment.h \
-    luawrite.h \
-    lua53.h
+    addcomment.h
+

@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
-    SetAppLogName(QStringLiteral("AddComment"));
+    SetAppLogName("AddComment");
     qInstallMessageHandler(AppLog);
 
     QString path = "D:\\2020\\WRT\\Program\\play";
@@ -31,26 +31,33 @@ int main(int argc, char *argv[])
     while(true)
     {
         QTextStream read(stdin);
-        QTextStream(stdout) << QString::fromLocal8Bit("靓仔@ATCCS01A#");
+        PRINT << QString::fromLocal8Bit("靓仔@ATCCS01A#");
         QString operate = read.readLine();
-        if ((QStringLiteral("print") == operate) || QStringLiteral("p") == operate)
+
+        if (0 == (QString::localeAwareCompare("print", operate)))
             AddComment::PrintMenu();
-        else if (QStringLiteral("exit") == operate || QStringLiteral("e") == operate)
+        else if (0 == QString::localeAwareCompare("init6", operate))
         {
                 QTextStream(stdout) << QString::fromLocal8Bit("关机，下次见");
                 break;
         }
-        else if (QStringLiteral("fire") == operate || QStringLiteral("f") == operate)
+        else if (0 == QString::localeAwareCompare("add", operate))
         {
-            AddComment::Init(path, time, author, function);
-            if(AddComment::Init()->Start())
-                QTextStream(stdout) << QString::fromLocal8Bit("写入注释成功");
+            AddComment::Inst(path, time, author, function);
+            if(AddComment::Inst()->Start(AddComment::add))
+                PRINT << QString::fromLocal8Bit("写入注释成功");
         }
-        else if (QStringLiteral("vim") == operate || QStringLiteral("v") == operate)
+        else if (0 == QString::localeAwareCompare("del", operate))
         {
-            QTextStream(stdout) << QString::fromLocal8Bit("参数顺序：path->time->author->function\n");
-            QTextStream(stdout) << QString::fromLocal8Bit("靓仔@ATCCS01A#");
-            QStringList argv = read.readLine().split(' ', QString::SkipEmptyParts);
+            AddComment::Inst(path, time, author, function);
+            if(AddComment::Inst()->Start(AddComment::del))
+                PRINT << QString::fromLocal8Bit("删除注释成功");
+        }
+        else if (0 == QString::localeAwareCompare("vim", operate))
+        {
+            PRINT << QString::fromLocal8Bit("参数顺序：path->time->author->function\n");
+            PRINT << QString::fromLocal8Bit("请输入参数~靓仔@ATCCS01A#");
+            QStringList argv = read.readLine().split("->", QString::SkipEmptyParts);
             int count = argv.count();
             if (count>1)
                 path = argv[0];
@@ -63,14 +70,14 @@ int main(int argc, char *argv[])
             else
                 ;
         }
-        else if (QStringLiteral("check") == operate || QStringLiteral("c") == operate)
-            QTextStream(stdout) << "time:" << time << " author:" << author << " function:" << function << "\n";
-        else if (QStringLiteral("tips") == operate || QStringLiteral("t") == operate)
-            QTextStream(stdout) << QString::fromLocal8Bit("用法：AddComment  Path[File] Time Author Function"\
-                                                          "例子：AddComment  C:/wrt/Program/[C:/wrt/Program/test.h] 2021.01.13 小王同学 添加注释\n");
+        else if (0 == QString::localeAwareCompare("check", operate))
+            PRINT << "time:" << time << " author:" << author << " function:" << function << "\n";
+        else if (0 == QString::localeAwareCompare("tips", operate))
+            PRINT << QString::fromLocal8Bit("用法：AddComment  Path[File] Time Author Function"\
+                     "例子：AddComment  C:/wrt/Program/[C:/wrt/Program/test.h] 2021.01.13 小王同学 添加注释\n");
         else
         {
-            QTextStream(stdout) << QString::fromLocal8Bit("输入选项不合法\n");
+            PRINT << QString::fromLocal8Bit("输入选项不合法\n");
             AddComment::PrintMenu();
         }
     }

@@ -1,3 +1,4 @@
+#if 0
 #include "luawrite.h"
 #include <QCoreApplication>
 
@@ -16,3 +17,4 @@ LuaEngine::LuaEngine()
         QCoreApplication::instance()->exit(1);
     }
 }
+#endif

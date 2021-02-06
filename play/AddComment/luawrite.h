@@ -1,6 +1,7 @@
 #ifndef LUAWRITE_H
 #define LUAWRITE_H
 
+#if 0
 #include <QObject>
 #include <QPointer>
 #include <QDebug>
@@ -22,9 +23,9 @@ class LuaEngine : public QObject
 {
     Q_OBJECT
 public:
-    static LuaEngine* Int()
+    static QPointer<LuaEngine> Int()
     {
-        static LuaEngine *ptr = QPointer<LuaEngine>(new LuaEngine());
+        static QPointer<LuaEngine> ptr = QPointer<LuaEngine>(new LuaEngine());
         return ptr;
     }
 
@@ -40,5 +41,5 @@ private:
 private:
     lua_State *m_luastate;
 }
-
+#endif
 #endif // LUAWRITE_H

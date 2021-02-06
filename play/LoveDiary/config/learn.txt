@@ -15,11 +15,12 @@ overhead 开销 pilfering 偷切 tremendously 极大的 amenable 有责任的，有义务的 sub
 T qobject_cast(QObject* object) terminology 术语，用辞 positioning 定位 identical 完全相同的 respective 各自的，分别的
 intact 完整的，原封不动的 conceive 怀孕；构思；以为；持有 workaround 解决方法，变通方案 asynchronously 异步 perform 执行，表演
 返回object向下的转型T，转型成功返回0，如果传入的object本省就是0则返回0 denote 表示  lexically  字典地  lexical 词汇的 tokens 代币，符号
-semicolons 分号 parenthesis 括号 commas 逗号 Syntactically 语法上 cyclically 周期地，循环地 initially 最初地，开始地 consistency 一致性
-indicator 指示器 interrogation 问号 Auxiliary 辅助的，附加的 caveats  警告 说明 compress 压缩 dispatched 派遣，发送 pending 行将发生的，未决定的
+semicolons 分号 parenthesis 括号 commas 逗号 syntactically 语法上 cyclically 周期地，循环地 initially 最初地，开始地 consistency 一致性
+indicator 指示器 interrogation 问号 auxiliary 辅助的，附加的 caveats  警告 说明 compress 压缩 dispatched 派遣，发送 pending 行将发生的，未决定的
 routine 常规,例程  program-wide 有效的 bypass 忽视，避开 fragmented 片段的，成碎片的 incomplete 不完整的  transaction 事务 prior 之前的，先前的，优先的
-separate 单独的，各自的，分开的  duplicating 复制，重复，复印 conservation 保存，保护
-inspect 检查 capture 俘获；夺得；捕捉，拍摄，录制 partial j
+separate 单独的，各自的，分开的  duplicating 复制，重复，复印 conservation 保存，保护 affinity  密切关系；吸引力；姻亲关系；类同
+thread affinity(线程关联性;线程亲缘性;线程亲和性)  serialization 序列化，串行化
+inspect 检查 capture 俘获；夺得；捕捉，拍摄，录制 consistently 一致地，一贯地
 lua函数调用：
 v:name(args) <==> v.name(v,args)
 使用时的两个限制：
@@ -134,3 +135,178 @@ QString::localeAwareCompare()
 QRegularExpression:由两部分组成
 1. pattern string
 2. pattern options(改变pattern string的含义)
+
+
+.pro文件介绍：
+TEMPLATE = lib 生成动态库
+TEMPLATE = lib CONFIG += staticlib 生成动态库
+CODECFORSRC = GBK 源文件编码方式
+
+uic命令
+UI_DIR += forms
+将.ui文件转化成ui_*.h文件的存放的目录
+
+rcc命令
+RCC_DIR += ../tmp
+将.qrc文件转换成qrc_*.h文件的存放目录
+
+moc命令
+MOC_DIR += ../tmp
+将含Q_OBJECT的头文件转换成标准.h文件的存放目录
+
+
+目标文件的存放位置
+OBJECTS_DIR += ../tmp
+指定目标文件(obj)的存放目录
+
+程序依赖路径
+DEPENDPATH += . forms include qrc sources
+程序编译时依赖的相关路径
+
+pri文件的语法与pro的语法类似，但pri文件是专门用于给第三方工程引入头文件或资源文件的
+具体写法：
+此时则需要在当前工程的pro文件中加入include(path_to_third_project.pri)，
+注意include括号中的必须是pri文件，而在第三方工程中的pri文件则只需写上INCLUDEPATH += $$PWD即可，$$PWD表示该工程的当前目录
+
+
+complicated 复杂的  likelihood 可能性  geometry 几何 render 渲染 exposure 暴露，曝光  docked 停靠，进港 overlap 重叠
+animated 动画 snap 猛咬，突然折断 outline 概述；略述；描画…轮廓 composite 复合 flicker 闪烁，删光 transparency 透明度 bidirectional 双向的
+translucent 半透明的  accessible 易接近的；可进入的；可理解的 convey 传达，运输 consise 简洁 scribble 潦草 facilitate 促进；帮助；使容易
+intercept 拦截，截断 interval 间隔，间距 conjunction 结合 directive 指令seamless 无缝的，无伤痕的 concurrent 并发 primitives 原本事物，基本体
+QMutex
+作用：提供线程间序列化访问，保证在同一时刻只有一个线程访问一个对象，一个数据结构或者一段代码
+
+
+QWidget 父类(QObject,QPaintDevice)
+所有用户界面对象的基类，如果其有父类的话，其会被父亲的集合坐标所约束，除非在构造的时候指定窗口标志为Qt::Window；反之其是一个window(top-level widget);
+closeEvent()当用户关闭widget或close()被调用的时候事件被调用
+QMainWindow 父类(QWidget)
+为用户界面程序提供了一个框架，和其相关的类实现对主窗口的管理。
+QMdiArea
+
+QTimer
+PointerToMemberFunction
+
+QtAlgorithms
+RandomAccessIterator qBinaryFind(RandomAccessIterator begin, RandomAccessIterator end, const T &value)
+用二分法在范围[begin, end)查找，找到返回value的位置，如果value有多个，随机返回其中的一个；没有找到返回end。所有在范围[begin, end)的元素必须是升序排列的
+
+RandomAccessIterator qBinaryFind(RandomAccessIterator begin, RandomAccessIterator end, const T &value, LessThan lessThan)
+用lessThan函数比较元素而不是operator<(),所有在范围区间的元素是经过lessThan排序的
+
+Container::const_iterator qBiaryFind(const Container &container, const T &value)
+同qBiaryFind(container.begin(), container.end())
+
+OutputIterator qCopy(InputIterator begin1, InputIterator end1, OutputIterator begin2)
+将区间[begin1, end1)内的元素拷贝到区间[begin2, ...)
+
+BiIterator2 qCopyBackward(BiIterator begin1, BiIterator end1, BiIterator2 end2)
+将区间[begin1, end1)内的元素拷贝到区间[..., end2)
+
+void qCount(InputIterator begin, InputIterator end, const T &value, Size &n)
+返回范围[begin, end)value的次数，返回值是n。调用者必须初始化n，该函数要求元素类型实现了operator==()
+
+void qCount(const Container &container, const T &value, Size &n)
+同qCount(InputIterator begin, InputIterator end, const T &value, Size &n)
+
+bool qEqual(InputIterator1 begin1, InputIterator1 end1, InputIterator2 begin2)
+比较范围[begin1, end1)和范围[begin2, ...)之间的元素。所有元素都相等返回true，反之返回false。该函数要求元素实现operator==()
+
+void qFill(ForwardIteraotr begin, ForwardIterator end, const T &value)
+用value填满范围[begin, end)
+
+void qFill(Container &container, const T &value)
+同qFill(container.begin(), container.end(), value)
+
+InputIteraotr qFind(InputIterator begin, InputIterator end, const T &value)
+返回一个迭代器指向value在范围[begin, end)第一次出现的位置。value没有找到返回end。该函数要求元素类型实现operator==()。
+如果所有元素已经升序排列，可以用qLowerBound()或者qBinaryFind()更快获得结果
+
+Container::const_iterator qFind(const Container &container, const T &value)
+同qFind(container.constBegin(), container.constEnd(), value)
+
+LessThan qGreater()
+返回一个函数对象或者functor，可以被传递给qSort()或者qStableSort()
+
+LessThan qLess()
+同qGreater()
+
+RandomAccessIterator qLowerBound(RandomAccessIterator begin, RandomAccessIterator end, const T &value)
+用二分法查找范围[begin, end)，返回value第一次出现的位置.如果没有找到，返回value应该被插入的位置。区间被的元素
+要求是升序的。函数要求元素类型实现operator<()
+
+RandomAccessIterator qLowerBound(RandomAccessIterator begin, RandomAccessIterator end, const T &value, LessThan lessThan)
+用函数lessThan比较所有元素，而不是operator<();区间内的元素是根据lessThan排序的
+
+Container::const_iterator qLowerBound(const Container &container, const T &value)
+同qLowerBound(container.begin(), container.end(), value)，所有元素不可修改
+
+RandomAccessIterator qUpperBound(RandomAccessIterator begin, RandomAccessIterator end, const T &value)
+用二分法在范围[begin, end)查找value,找到返回value最后一次出现的位置；没有找到返回value应该被插入的位置。
+区间内的元素要求按升序排列。该函数要求元素类型实现operator<()
+
+RandomAccessIterator qUpperBound(RandomAccessIterator begin, RandomAccessIterator end, const T &value, LessThan lessThan)
+用函数lessThan比较所有元素，而不是operator<();区间内的元素是根据lessThan排序的
+
+Container::const_iterator qUpperBound(const Container &container, const T &value)
+同qLowerBound(container.begin(), container.end(), value)，所有元素不可修改
+
+void qSort(RandomAccessIterator begin, RandomAccessIterator end)
+用快排将[begin, end)范围内的元素升序排列，该函数要求元素类型实现operator<()
+
+void qSort(RandomAccessIterator begin, RandomAccessIterator end, LessThan lessThan)
+lessThan函数自定义,用该函数比较容器中的元素，其他同qSort(RandomAccessIterator begin, RandomAccessIterator end)
+
+void qSort(Container &container)
+和qSort(container.begin(), container.end())
+
+void qStableSort(RandomAccessIterator begin, RandomAccessIterator end)
+用稳定排序算法将[begin, end)范围内的元素升序排列，该函数要求元素类型实现operator<()
+
+void qStableSort(RandomAccessIterator begin, RandomAccessIterator end, LessThan lessThan)
+lessThan函数自定义,用该函数比较容器中的元素,其他同qStableSort(RandomAccessIterator begin, RandomAccessIterator end)
+
+void qStableSort(Container &container)
+该函数同qStableSort(container.begin(), container.end())
+
+void qSwap(T &var1, T &var2)
+
+QtCore
+
+QOther
+1. 计算机中乘法指令比加法指令慢得多。建议乘法换加法
+2. 单点登录(Single Sign On, SSO)指再同一账号平台下的多个应用系统中，用户只需登陆一次，即可访问所有相互信任的应用系统。
+3. 移动语义的关键在于实现拥有权的转移和资源的独占性。
+4. 右值引用是实现移动语义的基础。
+5. 一个引用再初始化之后就不能再引用其他对象了。引用的本质含义是绑定，是别名。左值引用是指可以绑定到左值的引用，右值引用只能使用右值(临时对象)初始化。
+   右值引用的本质含义就是绑定了一个别人无法复制而将要销毁的对象，这样我们就可以安全地"窃取/夺取"它的值。事实上，正是因为右值将要销毁，所以别人才
+   无法赋值。右值要么是字面常量，要么是在表达式求值过程中创建的临时对象。而左值有持久的状态，变量是左值。简单而言，左值持久，右值短暂。
+   右值引用的用处--实现移动操作
+   类对象的移动操作可以通过两个成员来定义：移动构造函数和移动赋值运算符，而实现这两个函数的入口参数都只能是（非const的）右值引用（原因参见右值引用的本质含义）。
+   换句话说，当右值引用被用作初始值或者赋值操作的右侧运算对象时，程序将使用移动操作。C++11之前，当我们给函数传递对象时，可以通过引用类型来减少拷贝对象的代价，
+   但是我们无法返回局部对象的引用，但现在有了移动构造函数就可以了，编译器将选择移动构造函数来执行从函数中移出返回值的任务。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

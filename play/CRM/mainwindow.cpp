@@ -127,7 +127,7 @@ void MainWindow::editUser()
     mLoginTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     if(muserHash.value("isroot").toBool())
     {
-        ui->labelTipInfo_2->setText(QString(u8"管理员:%1,您好！砍把子*****这是您第%2次使用系统").arg(muserHash.value("username").toString()).arg(muserHash.value("loginCount").toInt()+1));
+        ui->labelTipInfo_2->setText(QString(u8"管理员:%1,您好！这是您第%2次使用系统").arg(muserHash.value("username").toString()).arg(muserHash.value("loginCount").toInt()+1));
         ui->btnEditUsers->show();
     }
     else

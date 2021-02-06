@@ -15,3 +15,60 @@ protocol buffers ÊÇÒ»ÖÖÓïÑÔÎÞ¹Ø¡¢Æ½Ì¨ÎÞ¹Ø¡¢¿ÉÀ©Õ¹µÄÐòÁÐ»¯½á¹¹Êý¾ÝµÄ·½·¨£¬Ëü¿ÉÓÃÓ
 
 ÐòÁÐ»¯£º½«½á¹¹Êý¾Ý»ò¶ÔÏó×ª»»³ÉÄÜ¹»±»´æ´¢ºÍ´«Êä£¨ÀýÈçÍøÂç´«Êä£©µÄ¸ñÊ½£¬Í¬Ê±Ó¦µ±Òª±£Ö¤Õâ¸öÐòÁÐ»¯½á¹ûÔÚÖ®ºó£¨¿ÉÄÜÔÚÁíÒ»¸ö¼ÆËã»·¾³ÖÐ£©ÄÜ¹»±»ÖØ½¨»ØÔ­À´µÄ½á¹¹Êý¾Ý»ò¶ÔÏó¡£
 Àà±ÈÓÚXML£ºÕâÀïÖ÷ÒªÖ¸ÔÚÊý¾ÝÍ¨ÐÅºÍÊý¾Ý´æ´¢Ó¦ÓÃ³¡¾°ÖÐÐòÁÐ»¯·½ÃæµÄÀà±È£¬µ«XML×÷ÎªÒ»ÖÖÀ©Õ¹±ê¼ÇÓïÑÔºÍProtoBuf»¹ÊÇÓÐ×Å±¾ÖÊÇø±ðµÄ¡£
+
+
+ÏÂ±ßÃ¶¾Ù±äÁ¿ÃèÊöÁËÔÚÐÅºÅºÍ²ÛÖ®¼äÊ¹ÓÃµÄ5ÖÖÁ¬½ÓÀàÐÍ£¬¾ö¶¨ÁËÒ»¸öÌØ¶¨ÐÅºÅÊÇÒªÁ¢¼´·¢³ö»¹ÊÇÑ¹Èë¶ÓÁÐÖ®ºó·¢³ö
+Qt::AutoConnection  (Ä¬ÈÏ)½ÓÊÕÕß´æÔÚÓÚ·¢ÉäÐÅºÅµÄÏß³Ì£¬Ê¹ÓÃQt::DirectConnection¡£·´Ö®£¬Ê¹ÓÃQt::QueuedConnection¡£Á¬½ÓÀàÐÍÔÚÐÅºÅ·¢³öµÄÊ±ºò¾ö¶¨
+Qt::DirectConnection ÐÅºÅ·¢³öºó£¬²Ûº¯ÊýÁ¢¿Ì±»¼¤»î¡£²Ûº¯ÊýÔÚ·¢ËÍÕßÏß³ÌÖÐÖ´ÐÐ
+Qt::QueuedConnection ÊÂ¼þÑ­»··µ»Øµ½½ÓÊÕÕßÏß³Ì²Ûº¯Êý±»Ö´ÐÐ¡£²Ûº¯ÊýÔÚ½ÓÊÕÕßÏß³ÌÖÐÖ´ÐÐ
+Qt::BlockingQueuedConnection  ·¢ËÍÕßÏß³Ì±»×èÈûÖ±µ½²Ûº¯Êý·µ»Ø,ÆäËûÐÔÖÊºÍQt::QueuedConnectionÒ»Ñù¡£´ËÁ¬½ÓÀàÐÍ½ûÖ¹Ê¹ÓÃÔÚ·¢ËÍÕßºÍ½ÓÊÕÕßÍ¬ÊôÒ»¸öÏß³Ì£¬·ñÔò³ÌÐò»áËÀËø
+Qt::UniqueConnection   ÕâÊÇÒ»¸öÉÏÊöÁ¬½ÓÀàÐÍÍ¨¹ý»òÔËËã×éºÏµÄÁ¬½Ó±êÖ¾¡£´Ë±êÖ¾±»Ê¹ÓÃÊ±£¬Èç¹ûÁ¬½ÓÒÑ¾­´æÔÚQObject::connect()µ÷ÓÃ»áÊ§°Ü¡£
+
+
+¼ÆËã»úÍøÂç
+ÎïÀí²ã->Í¨ÐÅÁ´Â·²ã(¸ºÔðMACµØÖ·µÄ¶¨Î»)->ÍøÂç²ã(¸ºÔðIPµØÖ·µÄ¶¨Î»)->´«Êä²ã->»á»°²ã->±íÊ¾²ã->Ó¦ÓÃ²ã
+×ª·¢£º½«·Ö×é´ÓÒ»¸öÊäÈëÁ´Â·×ªÒÆµ½ÊÊµ±Êä³öÁ´Â·½Ó¿ÚµÄÂ·ÓÉ±¾µØ²Ù×÷
+Â·ÓÉÑ¡Ôñ£ºÈ·¶¨·Ö×é´ÓÔ´µ½Ä¿µÄµØËù¶¨ÎªµÄÂ·¾¶µÄÑ¡Ôñ¡£
+×ª·¢±í¡£
+Â·ÓÉÆ÷µÄ×é³É£º1.ÊäÈë¶Ë¿Ú 2.½»»»½á¹¹(½«Â·ÓÉÆ÷µÄÊäÈë¶Ë¿ÚÁ¬½Óµ½Êä³ö¶Ë¿Ú) 3. Êä³ö¶Ë¿Ú
+            4. Â·ÓÉÑ¡Ôñ´¦ÀíÆ÷(ÔÚÂ·ÓÉÆ÷ÄÚÖ´ÐÐÂ·ÓÉÐ­Òé£¬Î¬»¤Â·ÓÉ±í²¢Ö´ÐÐÍøÂç¹ÜÀí¹¦ÄÜ)
+IPµÄ×é³É£º1.IPÑ°Ö· 2. Â·ÓÉ 3. ·Ö°ü×é°ü
+IPµØÖ·ÊÇÁ¬½ÓÍøÂçÖÐµÄËùÓÐÖ÷»ú½øÐÐÍ¨ÐÅµÄÄ¿±êµØÖ·¡£
+Â·ÓÉ¿ØÖÆ£º½«·Ö×éÊý¾Ý·¢ËÍµ½×îÖÕÄ¿±êµØÖ·µÄ¹¦ÄÜ£¬¼°Ê±ÍøÂç¸´ÔÓ¶à±ä£¬Ò²ÄÜÍ¨¹ýÂ·ÓÉ¿ØÖÆµ½´ïÄ¿±êµØÖ·¡£
+Ìø£ºÂ·ÓÉÆ÷ºÍÂ·ÓÉÆ÷Ö®¼äµÄÊý¾Ý°ü´«ËÍ¡£
+Ò»Ìø£º´ÓÔ´MACµØÖ·µ½Ä¿±êMACµØÖ·Ö®¼ä´«ÊäÖ¡µÄÇø¼ä
+×ÓÍøÑÚÂë(ÍøÂçÑÚÂë)£ºÓÃÀ´Ö¸Ã÷Ò»¸öIPµØÖ·µÄÄÇÐ©±êÊ¶µÄÊÇÖ÷»úËùÔÚÍøÂç¡£ÊÇÒ»¸ö32Î»µØÖ·£¬ÓÃÓÚÆÁ±ÎIPµØÖ·µÄÒ»²¿·Ö
+                ÒÔÇø±ðÍøÂç±êÊ¶ºÍÖ÷»ú±êÊ¶
+
+ÍøÂçÉÏÁ½¸ö½Úµã·¢ËÍÊý¾Ý°üµÄ¹ý³Ì£º
+µçÄÔÊÓ½Ç£º
+Ê×ÏÈÎÒÒªÖªµÀÎÒµÄ IP ÒÔ¼°¶Ô·½µÄ IP
+Í¨¹ý×ÓÍøÑÚÂëÅÐ¶ÏÎÒÃÇÊÇ·ñÔÚÍ¬Ò»¸ö×ÓÍø
+ÔÚÍ¬Ò»¸ö×ÓÍø¾ÍÍ¨¹ý arp »ñÈ¡¶Ô·½ mac µØÖ·Ö±½ÓÈÓ³öÈ¥
+²»ÔÚÍ¬Ò»¸ö×ÓÍø¾ÍÍ¨¹ý arp »ñÈ¡Ä¬ÈÏÍø¹ØµÄ mac µØÖ·Ö±½ÓÈÓ³öÈ¥
+
+½»»»»úÊÓ½Ç£º
+ÎÒÊÕµ½µÄÊý¾Ý°ü±ØÐëÓÐÄ¿±ê MAC µØÖ·
+Í¨¹ý MAC µØÖ·±í²éÓ³Éä¹ØÏµ
+²éµ½ÁË¾Í°´ÕÕÓ³Éä¹ØÏµ´ÓÎÒµÄÖ¸¶¨¶Ë¿Ú·¢³öÈ¥
+²é²»µ½¾ÍËùÓÐ¶Ë¿Ú¶¼·¢³öÈ¥
+
+Â·ÓÉÆ÷ÊÓ½Ç£º
+ÎÒÊÕµ½µÄÊý¾Ý°ü±ØÐëÓÐÄ¿±ê IP µØÖ·
+Í¨¹ýÂ·ÓÉ±í²éÓ³Éä¹ØÏµ
+²éµ½ÁË¾Í°´ÕÕÓ³Éä¹ØÏµ´ÓÎÒµÄÖ¸¶¨¶Ë¿Ú·¢³öÈ¥£¨²»ÔÚÈÎºÎÒ»¸ö×ÓÍø·¶Î§£¬×ßÆäÂ·ÓÉÆ÷µÄÄ¬ÈÏÍø¹ØÒ²ÊÇ²éµ½ÁË£©
+²é²»µ½Ôò·µ»ØÒ»¸öÂ·ÓÉ²»¿É´ïµÄÊý¾Ý°ü
+Èç¹ûÄãÐá¾õ×ã¹»ÃôÈñ£¬ÄãÓ¦¸Ã¿ÉÒÔ¸ÐÊÜµ½ÏÂÃæÕâ¾ä»°£º
+
+ÍøÂç²ã£¨IPÐ­Òé£©±¾ÉíÃ»ÓÐ´«Êä°üµÄ¹¦ÄÜ£¬°üµÄÊµ¼Ê´«ÊäÊÇÎ¯ÍÐ¸øÊý¾ÝÁ´Â·²ã£¨ÒÔÌ«ÍøÖÐµÄ½»»»»ú£©À´ÊµÏÖµÄ¡£
+
+Éæ¼°µ½µÄÈýÕÅ±í·Ö±ðÊÇ
+
+½»»»»úÖÐÓÐ MAC µØÖ·±íÓÃÓÚÓ³Éä MAC µØÖ·ºÍËüµÄ¶Ë¿Ú
+Â·ÓÉÆ÷ÖÐÓÐÂ·ÓÉ±íÓÃÓÚÓ³Éä IP µØÖ·(¶Î)ºÍËüµÄ¶Ë¿Ú
+µçÄÔºÍÂ·ÓÉÆ÷ÖÐ¶¼ÓÐ arp »º´æ±íÓÃÓÚ»º´æ IP ºÍ MAC µØÖ·µÄÓ³Éä¹ØÏµ
+ÕâÈýÕÅ±íÊÇÔõÃ´À´µÄ
+
+MAC µØÖ·±íÊÇÍ¨¹ýÒÔÌ«ÍøÄÚ¸÷½ÚµãÖ®¼ä²»¶ÏÍ¨¹ý½»»»»úÍ¨ÐÅ£¬²»¶ÏÍêÉÆÆðÀ´µÄ¡£
+Â·ÓÉ±íÊÇ¸÷ÖÖÂ·ÓÉËã·¨ + ÈË¹¤ÅäÖÃÖð²½ÍêÉÆÆðÀ´µÄ¡£
+arp »º´æ±íÊÇ²»¶ÏÍ¨¹ý arp Ð­ÒéµÄÇëÇóÖð²½ÍêÉÆÆðÀ´µÄ¡£

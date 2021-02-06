@@ -12,7 +12,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    SetAppLogName(QStringLiteral("CRM"));
+    SetAppLogName("CRM");
     qInstallMessageHandler(AppLog);
 
     QTranslator translator(&a);
