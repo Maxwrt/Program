@@ -1,5 +1,6 @@
 violates Î¥·´ modularity Ä£¿é»¯  scenario ³¡¾° parameterize ²ÎÊı»¯ retain ±£Áô capture ²¶»ñ deprecated ÆúÓÃ
-visualize ¿ÉÊÓ»¯  scrollable ¿É¹ö¶¯µÄ  geometrical ¼¸ºÎ  alternatively ÁíÍâ validate nested Ç¶Ì×µÄ symmetry ¶Ô³Æ
+visualize ¿ÉÊÓ»¯  scrollable ¿É¹ö¶¯µÄ  geometrical ¼¸ºÎ  alternatively ÁíÍâ validate Ö¤Êµ£¬ÑéÖ¤£»È·ÈÏ£»Ê¹ÉúĞ§
+nested Ç¶Ì×µÄ symmetry ¶Ô³Æ
 viewport ÊÓ´° render äÖÈ¾   ownership ËùÓĞÈ¨   affine ·ÂÉäµÄ  matrix ¾ØÕó intersect Ïà½» resemble ÀàËÆ£¬Ïñ
 scale ¹æÄ£    shear ¼ôÇĞ    typically Í¨³£    toggle ÇĞ»»   anchor Å×Ãª;Ãª mandatory Ç¿ÖÆµÄ£»ÍĞ¹ÜµÄ£»ÃüÁîµÄ
 partial ²¿·Ö  texture ÎÆÀí  gradient Ìİ¶È alpha ¿ª¶Ë£»×î³õ degrade ½µµÍ  retrieve ¼ìË÷ contiguously Á¬Ğø
@@ -10,11 +11,9 @@ logarithm ¶ÔÊı    asymptotically ½¥½ü   sole Î¨Ò» adjacent ÏàÁÚ versatileÍ¨ÓÃµÄ 
 conjunction ½áºÏ interpreted ½âÊÍ seamless ÎŞ·ìµÄ hierarchy µÈ¼¶,²ã¼¶ÖÆ¶È dangling Ğü¹ÒµÄ£¬Ò¡°ÚµÄ partially ²¿·Ö
 paradigm ·¶Ê½ omit Ê¡ÂÔ postpone ÍÆ³Ù disambiguation Ïû³ıÄ£ÀâÁ½¿ÉÇé¿ö£¬½âÒÉ  incompatible  ²»¼æÈİµÄ hierarchical ·Ö²ã
 orientation ·½Ïò£¬¶¨Ïò unary Ò»ÔªµÄ negation ·ñ¶¨ dummy  ¼ÙµÄ irrelevant ÎŞ¹Ø½ôÒªµÄ primitive »ù±¾µÄ heretofore Æù½ñÎªÖ¹
-spurious  Ğé¼ÙµÄ Eliminating  Ïû³ı proceed ¿ªÊ¼£¬¼ÌĞø½øĞĞ£¬·¢Éú£¬ĞĞ½ø preserve  ±£»¤£¬±£´æ obliged  ±ØĞëµÄ£¬ÓĞÔğÈÎµÄ verbosity Èß³¤
-overhead ¿ªÏú pilfering ÍµÇĞ tremendously ¼«´óµÄ amenable ÓĞÔğÈÎµÄ£¬ÓĞÒåÎñµÄ substantially ÊµÖÊÉÏ£¬´óÌåÉÏ£¬³ä·ÖµØ
-T qobject_cast(QObject* object) terminology ÊõÓï£¬ÓÃ´Ç positioning ¶¨Î» identical ÍêÈ«ÏàÍ¬µÄ respective ¸÷×ÔµÄ£¬·Ö±ğµÄ
-intact ÍêÕûµÄ£¬Ô­·â²»¶¯µÄ conceive »³ÔĞ£»¹¹Ë¼£»ÒÔÎª£»³ÖÓĞ workaround ½â¾ö·½·¨£¬±äÍ¨·½°¸ asynchronously Òì²½ perform Ö´ĞĞ£¬±íÑİ
-·µ»ØobjectÏòÏÂµÄ×ªĞÍT£¬×ªĞÍ³É¹¦·µ»Ø0£¬Èç¹û´«ÈëµÄobject±¾Ê¡¾ÍÊÇ0Ôò·µ»Ø0 denote ±íÊ¾  lexically  ×ÖµäµØ  lexical ´Ê»ãµÄ tokens ´ú±Ò£¬·ûºÅ
+spurious  Ğé¼ÙµÄ eliminating  Ïû³ı proceed ¿ªÊ¼£¬¼ÌĞø½øĞĞ£¬·¢Éú£¬ĞĞ½ø preserve  ±£»¤£¬±£´æ obliged  ±ØĞëµÄ£¬ÓĞÔğÈÎµÄ verbosity Èß³¤
+overhead ¿ªÏú pilfering ÍµÇĞ tremendously ¼«´óµÄ amenable ÓĞÔğÈÎµÄ£¬ÓĞÒåÎñµÄ substantially ÊµÖÊÉÏ£¬´óÌåÉÏ£¬³ä·ÖµØ terminology ÊõÓï£¬ÓÃ´Ç positioning ¶¨Î» identical ÍêÈ«ÏàÍ¬µÄ respective ¸÷×ÔµÄ£¬·Ö±ğµÄ
+intact ÍêÕûµÄ£¬Ô­·â²»¶¯µÄ conceive »³ÔĞ£»¹¹Ë¼£»ÒÔÎª£»³ÖÓĞ workaround ½â¾ö·½·¨£¬±äÍ¨·½°¸ asynchronously Òì²½ perform Ö´ĞĞ£¬±íÑİdenote ±íÊ¾  lexically  ×ÖµäµØ  lexical ´Ê»ãµÄ tokens ´ú±Ò£¬·ûºÅ
 semicolons ·ÖºÅ parenthesis À¨ºÅ commas ¶ººÅ syntactically Óï·¨ÉÏ cyclically ÖÜÆÚµØ£¬Ñ­»·µØ initially ×î³õµØ£¬¿ªÊ¼µØ consistency Ò»ÖÂĞÔ
 indicator Ö¸Ê¾Æ÷ interrogation ÎÊºÅ auxiliary ¸¨ÖúµÄ£¬¸½¼ÓµÄ caveats  ¾¯¸æ ËµÃ÷ compress Ñ¹Ëõ dispatched ÅÉÇ²£¬·¢ËÍ pending ĞĞ½«·¢ÉúµÄ£¬Î´¾ö¶¨µÄ
 routine ³£¹æ,Àı³Ì  program-wide ÓĞĞ§µÄ bypass ºöÊÓ£¬±Ü¿ª fragmented Æ¬¶ÎµÄ£¬³ÉËéÆ¬µÄ incomplete ²»ÍêÕûµÄ  transaction ÊÂÎñ prior Ö®Ç°µÄ£¬ÏÈÇ°µÄ£¬ÓÅÏÈµÄ
@@ -23,7 +22,8 @@ thread affinity(Ïß³Ì¹ØÁªĞÔ;Ïß³ÌÇ×ÔµĞÔ;Ïß³ÌÇ×ºÍĞÔ)  serialization ĞòÁĞ»¯£¬´®ĞĞ»¯
 inspect ¼ì²é capture ·ı»ñ£»¶áµÃ£»²¶×½£¬ÅÄÉã£¬Â¼ÖÆ consistently Ò»ÖÂµØ£¬Ò»¹áµØ
 luaº¯Êıµ÷ÓÃ£º
 v:name(args) <==> v.name(v,args)
-Ê¹ÓÃÊ±µÄÁ½¸öÏŞÖÆ£º
+T qobject_cast(QObject* object) ·µ»ØobjectÏòÏÂµÄ×ªĞÍT£¬×ªĞÍ³É¹¦·µ»Ø0£¬Èç¹û´«ÈëµÄobject±¾Ê¡¾ÍÊÇ0Ôò·µ»Ø0
+qobject_castÊ¹ÓÃÊ±µÄÁ½¸öÏŞÖÆ£º
 1. TÀàĞÍ±ØĞë¼Ì³Ğ×ÔQObject¡£
 2. ÔÚÉùÃ÷Ê±±ØĞëÓĞQ_OBJECTºê
 Q_DECLARE_METATYPE   Q_DECLARE_OPAQUE_POINTER qRegisterMetaType()
@@ -83,7 +83,7 @@ myObject->disconnect(SIGNAL(mySignal()));
 disconnect(myObject, 0, myReceiver, 0);
 myObject->disconnect(myReceiver);
 ¿ÉÒÔÔÚ·¢ÉäĞÅºÅÇ°£¬ÅĞ¶ÏĞÅºÅÊÇ·ñÒÑ¾­ÓĞ½ÓÊÕÕß isSignalConnected(const QMetaMethod &signal)
-QContainer¿ÉÒÔ±»QDataStream¶ÁÈ¡ºÍĞ´ÈëµÄ»ù´¡ÊÇ£¬Æä°üº¬µÄType±ØĞëÌá¹©operator<<(QDaraStream &out, const Type& type)ºÍoperator>>(QDataStream &in, Type type)
+QContainer¿ÉÒÔ±»QDataStream¶ÁÈ¡ºÍĞ´ÈëµÄ»ù´¡ÊÇ£¬Æä°üº¬µÄType±ØĞëÌá¹©operator<<(QDataStream &out, const Type& type)ºÍoperator>>(QDataStream &in, Type type)
 Ê¹ÓÃforeach±éÀúÈİÆ÷Ê±£¬»á·¢Éú¿½±´²Ù×÷£¬Èç¹ûÔÚÑ­»·ÖĞĞŞ¸ÄÊı¾İ£¬²»»áÓ°Ïìµ½Ô­ÈİÆ÷ÖĞµÄÊı¾İ
 Other QContainerS: QVarLengthArray,QCache,QPair,QContigousCache
 
@@ -139,7 +139,7 @@ QRegularExpression:ÓÉÁ½²¿·Ö×é³É
 
 .proÎÄ¼ş½éÉÜ£º
 TEMPLATE = lib Éú³É¶¯Ì¬¿â
-TEMPLATE = lib CONFIG += staticlib Éú³É¶¯Ì¬¿â
+TEMPLATE = lib CONFIG += staticlib Éú³É¾²Ì¬¿â
 CODECFORSRC = GBK Ô´ÎÄ¼ş±àÂë·½Ê½
 
 uicÃüÁî
@@ -170,9 +170,9 @@ priÎÄ¼şµÄÓï·¨ÓëproµÄÓï·¨ÀàËÆ£¬µ«priÎÄ¼şÊÇ×¨ÃÅÓÃÓÚ¸øµÚÈı·½¹¤³ÌÒıÈëÍ·ÎÄ¼ş»ò×ÊÔ´ÎÄ¼
 
 
 complicated ¸´ÔÓµÄ  likelihood ¿ÉÄÜĞÔ  geometry ¼¸ºÎ render äÖÈ¾ exposure ±©Â¶£¬ÆØ¹â  docked Í£¿¿£¬½ø¸Û overlap ÖØµş
-animated ¶¯»­ snap ÃÍÒ§£¬Í»È»ÕÛ¶Ï outline ¸ÅÊö£»ÂÔÊö£»Ãè»­¡­ÂÖÀª composite ¸´ºÏ flicker ÉÁË¸£¬É¾¹â transparency Í¸Ã÷¶È bidirectional Ë«ÏòµÄ
+animated ¶¯»­ snap ÃÍÒ§£¬Í»È»ÕÛ¶Ï outline ¸ÅÊö£»ÂÔÊö£»Ãè»­¡­ÂÖÀª composite ¸´ºÏ flicker ÉÁË¸£¬ÉÁ¹â transparency Í¸Ã÷¶È bidirectional Ë«ÏòµÄ
 translucent °ëÍ¸Ã÷µÄ  accessible Ò×½Ó½üµÄ£»¿É½øÈëµÄ£»¿ÉÀí½âµÄ convey ´«´ï£¬ÔËÊä consise ¼ò½à scribble ÁÊ²İ facilitate ´Ù½ø£»°ïÖú£»Ê¹ÈİÒ×
-intercept À¹½Ø£¬½Ø¶Ï interval ¼ä¸ô£¬¼ä¾à conjunction ½áºÏ directive Ö¸Áîseamless ÎŞ·ìµÄ£¬ÎŞÉËºÛµÄ concurrent ²¢·¢ primitives Ô­±¾ÊÂÎï£¬»ù±¾Ìå
+intercept À¹½Ø£¬½Ø¶Ï interval ¼ä¸ô£¬¼ä¾à conjunction ½áºÏ directive Ö¸Áî seamless ÎŞ·ìµÄ£¬ÎŞÉËºÛµÄ concurrent ²¢·¢ primitives Ô­±¾ÊÂÎï£¬»ù±¾Ìå
 QMutex
 ×÷ÓÃ£ºÌá¹©Ïß³Ì¼äĞòÁĞ»¯·ÃÎÊ£¬±£Ö¤ÔÚÍ¬Ò»Ê±¿ÌÖ»ÓĞÒ»¸öÏß³Ì·ÃÎÊÒ»¸ö¶ÔÏó£¬Ò»¸öÊı¾İ½á¹¹»òÕßÒ»¶Î´úÂë
 
@@ -285,7 +285,6 @@ QOther
    Àà¶ÔÏóµÄÒÆ¶¯²Ù×÷¿ÉÒÔÍ¨¹ıÁ½¸ö³ÉÔ±À´¶¨Òå£ºÒÆ¶¯¹¹Ôìº¯ÊıºÍÒÆ¶¯¸³ÖµÔËËã·û£¬¶øÊµÏÖÕâÁ½¸öº¯ÊıµÄÈë¿Ú²ÎÊı¶¼Ö»ÄÜÊÇ£¨·ÇconstµÄ£©ÓÒÖµÒıÓÃ£¨Ô­Òò²Î¼ûÓÒÖµÒıÓÃµÄ±¾ÖÊº¬Òå£©¡£
    »»¾ä»°Ëµ£¬µ±ÓÒÖµÒıÓÃ±»ÓÃ×÷³õÊ¼Öµ»òÕß¸³Öµ²Ù×÷µÄÓÒ²àÔËËã¶ÔÏóÊ±£¬³ÌĞò½«Ê¹ÓÃÒÆ¶¯²Ù×÷¡£C++11Ö®Ç°£¬µ±ÎÒÃÇ¸øº¯Êı´«µİ¶ÔÏóÊ±£¬¿ÉÒÔÍ¨¹ıÒıÓÃÀàĞÍÀ´¼õÉÙ¿½±´¶ÔÏóµÄ´ú¼Û£¬
    µ«ÊÇÎÒÃÇÎŞ·¨·µ»Ø¾Ö²¿¶ÔÏóµÄÒıÓÃ£¬µ«ÏÖÔÚÓĞÁËÒÆ¶¯¹¹Ôìº¯Êı¾Í¿ÉÒÔÁË£¬±àÒëÆ÷½«Ñ¡ÔñÒÆ¶¯¹¹Ôìº¯ÊıÀ´Ö´ĞĞ´Óº¯ÊıÖĞÒÆ³ö·µ»ØÖµµÄÈÎÎñ¡£
-
 
 
 
