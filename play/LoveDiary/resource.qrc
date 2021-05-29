@@ -16,5 +16,7 @@
         <file>config/table.txt</file>
         <file>config/tcpsocket.txt</file>
         <file>config/learn.txt</file>
+        <file>config/designpatterns.txt</file>
+        <file>config/Effiective C++.txt</file>
     </qresource>
 </RCC>

@@ -5,6 +5,8 @@
 #include <QFileInfo>
 #include <QTextStream>
 #include <QIODevice>
+#include <private/qzipreader_p.h>
+#include <private/qxmlstream_p.h>
 
 AgreementDialog::AgreementDialog(const QSize& argsize, QWidget *parent) :
     BaseDialog(parent),

@@ -1,0 +1,33 @@
+条款04：确定对象被使用前已先初始化。(make sure that objects are initialized before they are used)
+读取未初始化的值会导致不明确的行为。
+对象的成员变量的初始化动作发生在进入构造函数体本体之前。
+条款05：了解c++默默编写并调用那些函数。(Know what functions C++ silently writes and calls)
+编译器产生的析构函数是non-virtual，除非这个class的base class自身声明有virtual析构函数。编译器默认生成的函数都是public inline的
+条款06：若不想使用编译器自动生成的函数，应该明确拒绝。(Explicitly disallow the use of complier-generated functions you do not want)
+条款07：为多态基类声明virtual析构函数。(Declare destructors virtual in polymorphic base classes)
+任何一个带有virtual函数的class都几乎确定有一个virtual析构函数。一个class不含有virtual析构函数，通常表示它并不意图被用做一个base class。
+条款08：别让异常逃离析构函数。(Prevent exceptions from leaving destructors)
+条框09：绝不在构造和析构过程中调用virtual函数。(Never call virtual functions during construction or destruction)
+在构造和析构期间不要调用virtual函数，因为这类调用从不下降至derived class（比起当前执行构造函数金额析构函数的那层）
+条框10：令operator=返回一个reference to *this。(Have assignment operators return a reference to *this)
+为了实现"连锁赋值"，赋值操作必须返回一个reference指向操作符的左侧。
+条款11：在operator=中处理"自我赋值"。(Have assignment operators to self in operator=)
+增加证同条件或者保存源堆内存，赋值结束后再delete掉，后者可以同时解决异常安全问题和自我赋值问题。
+条款12：复制对象时勿忘其每一个成分。(Copy all parts of an object)
+条款13：以对象管理资源。(Use objects to manager resourses)
+条款14：在资源管理类中小心copying行为。(Think carefully about copying behavior in resource-managering classes)
+条款15：在资源管理类中提供对原始资源的访问。(Provide access to raw resources in resources-managing classes)
+条款16：成对使用new和delete时要采取相同形式。(Use the same form in corresponding uses of new and delete)
+条款17：以独立语句将newd对象置入智能指针。(Store newd objects in smart pointers in standalone statements)
+如果不这样做，一旦异常抛出，有可能导致难以察觉的资源泄漏。
+条款18：让接口容易被正确使用，不易被误用。(Make interfaces easy to use correctly and hard to use incorrectly)
+条款19：设计class犹如设计type。(Treat class design as type design)
+条款20：宁以pass-by-reference-to-const替换pass-by-value。(Prefer pass-by-reference-to-const to pass-by-value)
+pass-by-value并不昂贵的唯一对象就是内置类型和STL的迭代器和函数对象。对他们而言，pass-by-value往往比较适当。
+条款21：必须返回对象时，别妄想返回其reference。(Don't try to return a reference when you must return an object)
+任何时候看到一个reference声明式，都应该立刻问自己，它的另一个名称是什么。
+绝不要返回pointer或reference指向一个local stack对象，或返回reference指向一个heap-allocated对象，或返回pointer或reference指向一个local static对象而有可能同时需要多个这样的对象。
+条款22：将成员变量声明为private。(Declare data members private)
+protected并不比public更具封装性。
+条款23：宁以non-member、non-friend替换member函数。(Prefer non-member non-friend functions to member function)
+这样做可以增加封装性、包裹弹性、机能扩充性。

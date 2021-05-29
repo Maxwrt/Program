@@ -34,7 +34,7 @@ QSharedDataPointer这个类帮我们实现数据的隐式共享。qt中大量采用了隐式共享和写时拷
 2. EmployeeData类继承QSharedData包含你想要在Employee中添加的所有是数据成员
    EmployeeData类实现构造函数，拷贝构造函数，析构函数，即可满足一个隐式共享类的条件
    使其显示共享。要求如下：
-1. Employee必须有一个单独的数据成员QExplicitlySharedDataPointer<EmployeeData>.
+3. Employee必须有一个单独的数据成员QExplicitlySharedDataPointer<EmployeeData>.
 
 
 QScopedPointerDeleter  使用delete删除
@@ -44,4 +44,5 @@ QScopedPointerDeleteLater 使用deteterLater()删除
 
 
 QSharedData
+moc(Meta-Object Compiler)
 

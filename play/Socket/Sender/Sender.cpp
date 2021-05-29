@@ -60,7 +60,7 @@ void Sender::sendDatagram()
 {
     statusLabel->setText(tr("Now sending datagram %1").arg(messageNo));
     QByteArray datagram = "Multicast message: " + QByteArray::number(messageNo);
-    udpSocket->writeDatagram(datagram.data(), datagram.size(), groupAddress /*QHostAddress("239.255.43.21")*/, 45454);
+    //udpSocket->writeDatagram(datagram.data(), datagram.size(), groupAddress /*QHostAddress("239.255.43.21")*/, 45454);
     udpSocket->writeDatagram(datagram.data(), datagram.size(), groupAddress /*QHostAddress("239.255.43.21")*/, 45453);
 
     ++messageNo;

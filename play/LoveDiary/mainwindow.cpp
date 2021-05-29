@@ -17,6 +17,7 @@
 #include <QThread>
 #include <QDesktopWidget>
 
+
 MainWindow::MainWindow(QSqlDatabase& db, const QVariantHash& logHash, QWidget *parent) :
     QMainWindow(parent),
     m_numDigits(11),

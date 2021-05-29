@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       +=  gui sql network
+QT       +=  gui sql network gui-private
 
 DEFINES += QT_USE_FAST_OPERATOR_PLUS
 

@@ -92,8 +92,8 @@ bool compareTwoFormula(QString dbformula, QString fformula)
     }
     qSort(dbparse.begin(), dbparse.end(), compare);
     qSort(ffparse.begin(), ffparse.end(), compare);
-//    printList(dbparse, 1);
-//    printList(ffparse, 0);
+    //    printList(dbparse, 1);
+    //    printList(ffparse, 0);
     for (int i=0; i<dbparse.size(); i++)
     {
         QHash<QString, QString>::const_iterator it = dbparse.at(i).begin();
@@ -104,10 +104,10 @@ bool compareTwoFormula(QString dbformula, QString fformula)
     }
     return true;
 }
+#if 0
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-#if 0
     QString content = UtReadTxtFileToQString(QStringLiteral("./config/wfrstartui.ini"), QStringLiteral("gb18030"));
     qDebug() << content;
 
@@ -181,9 +181,9 @@ int main(int argc, char *argv[])
         file.close();
     }
     /****************************************计算两个日期差************************************************/
-//    std::ofstream fread;
-//    fread.open("./heart.txt", std::ios_base::out | std::ios_base::trunc);
-//    fread << "wrt";
+    //    std::ofstream fread;
+    //    fread.open("./heart.txt", std::ios_base::out | std::ios_base::trunc);
+    //    fread << "wrt";
 
     std::vector<int> ivector(10);
     ivector.emplace_back(1);
@@ -325,9 +325,49 @@ int main(int argc, char *argv[])
         }
     }
     OUT << u8"退出";
-#endif
     qDebug() << QString("\xE4\xB8\xA4") << "  size:   " << QString("\xE4\xB8\xA4").size();
     qDebug() << QString("两") << "   size: " << QString("两").size();
 
     return a.exec();
+}
+#endif
+class ZJL
+{
+private:
+    string str;
+public:
+    ZJL(string _str = "a"):str(_str)
+    {}
+    virtual ~ZJL()
+    {
+        cout << str << endl;
+    }
+};
+
+class WRT:public   ZJL
+{
+private:
+    ZJL &r;
+
+public:
+    WRT(ZJL &_r):r(_r)
+    {}
+    ~WRT()
+    {
+        cout << "xx" <<endl;
+    }
+};
+
+int main()
+{
+    QString dir = "/home/wrt/20200315/";
+
+    if (dir.endsWith("/"))
+    {
+        dir.remove(dir.length()-1, 1);
+        qDebug() << dir;
+        dir.remove(dir.lastIndexOf("/"), dir.length() - dir.lastIndexOf("/"));
+        qDebug() << dir;
+    }
+    return 0;
 }

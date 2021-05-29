@@ -26,6 +26,7 @@
 #include <QScrollBar>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
+    mAllTips(NULL),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);

@@ -321,7 +321,7 @@ QSqlDatabase CreateDB(QString dbName)
     return db;
 }
 
-void AppLog(QtMsgType type, const QMessageLogContext & context, const QString &msg)
+void AppLog(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     if(msg.isEmpty())
     {

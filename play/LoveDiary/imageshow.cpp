@@ -17,7 +17,6 @@ ImageShow::~ImageShow()
     }
 }
 
-
 bool ImageShow::LoadImg(const QString &filename)
 {
     if (!m_filename.isEmpty())

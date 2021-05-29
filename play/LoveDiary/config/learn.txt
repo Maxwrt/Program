@@ -1,6 +1,6 @@
 violates Î¥·´ modularity Ä£¿é»¯  scenario ³¡¾° parameterize ²ÎÊı»¯ retain ±£Áô capture ²¶»ñ deprecated ÆúÓÃ
 visualize ¿ÉÊÓ»¯  scrollable ¿É¹ö¶¯µÄ  geometrical ¼¸ºÎ  alternatively ÁíÍâ validate Ö¤Êµ£¬ÑéÖ¤£»È·ÈÏ£»Ê¹ÉúĞ§
-nested Ç¶Ì×µÄ symmetry ¶Ô³Æ
+nested Ç¶Ì×µÄ symmetry ¶Ô³Æ mandatory Ç¿ÖÆĞÔµÄ£¬ÃüÁîµÄ  exhibit Õ¹ÀÀ£¬ÏÔÊ¾£¬Ìá³ö
 viewport ÊÓ´° render äÖÈ¾   ownership ËùÓĞÈ¨   affine ·ÂÉäµÄ  matrix ¾ØÕó intersect Ïà½» resemble ÀàËÆ£¬Ïñ
 scale ¹æÄ£    shear ¼ôÇĞ    typically Í¨³£    toggle ÇĞ»»   anchor Å×Ãª;Ãª mandatory Ç¿ÖÆµÄ£»ÍĞ¹ÜµÄ£»ÃüÁîµÄ
 partial ²¿·Ö  texture ÎÆÀí  gradient Ìİ¶È alpha ¿ª¶Ë£»×î³õ degrade ½µµÍ  retrieve ¼ìË÷ contiguously Á¬Ğø
@@ -18,8 +18,8 @@ semicolons ·ÖºÅ parenthesis À¨ºÅ commas ¶ººÅ syntactically Óï·¨ÉÏ cyclically ÖÜÆ
 indicator Ö¸Ê¾Æ÷ interrogation ÎÊºÅ auxiliary ¸¨ÖúµÄ£¬¸½¼ÓµÄ caveats  ¾¯¸æ ËµÃ÷ compress Ñ¹Ëõ dispatched ÅÉÇ²£¬·¢ËÍ pending ĞĞ½«·¢ÉúµÄ£¬Î´¾ö¶¨µÄ
 routine ³£¹æ,Àı³Ì  program-wide ÓĞĞ§µÄ bypass ºöÊÓ£¬±Ü¿ª fragmented Æ¬¶ÎµÄ£¬³ÉËéÆ¬µÄ incomplete ²»ÍêÕûµÄ  transaction ÊÂÎñ prior Ö®Ç°µÄ£¬ÏÈÇ°µÄ£¬ÓÅÏÈµÄ
 separate µ¥¶ÀµÄ£¬¸÷×ÔµÄ£¬·Ö¿ªµÄ  duplicating ¸´ÖÆ£¬ÖØ¸´£¬¸´Ó¡ conservation ±£´æ£¬±£»¤ affinity  ÃÜÇĞ¹ØÏµ£»ÎüÒıÁ¦£»ÒöÇ×¹ØÏµ£»ÀàÍ¬
-thread affinity(Ïß³Ì¹ØÁªĞÔ;Ïß³ÌÇ×ÔµĞÔ;Ïß³ÌÇ×ºÍĞÔ)  serialization ĞòÁĞ»¯£¬´®ĞĞ»¯
-inspect ¼ì²é capture ·ı»ñ£»¶áµÃ£»²¶×½£¬ÅÄÉã£¬Â¼ÖÆ consistently Ò»ÖÂµØ£¬Ò»¹áµØ
+thread affinity(Ïß³Ì¹ØÁªĞÔ;Ïß³ÌÇ×ÔµĞÔ;Ïß³ÌÇ×ºÍĞÔ)  serialization ĞòÁĞ»¯£¬´®ĞĞ»¯ clipped ¼ô³ı diagnostics Õï¶Ï phase Ê±ÆÚ£¬½×¶Î
+inspect ¼ì²é capture ·ı»ñ£»¶áµÃ£»²¶×½£¬ÅÄÉã£¬Â¼ÖÆ consistently Ò»ÖÂµØ£¬Ò»¹áµØ concrete ¾ßÌåµÄ collaborate ºÏ×÷£¬Í¨µĞ
 luaº¯Êıµ÷ÓÃ£º
 v:name(args) <==> v.name(v,args)
 T qobject_cast(QObject* object) ·µ»ØobjectÏòÏÂµÄ×ªĞÍT£¬×ªĞÍ³É¹¦·µ»Ø0£¬Èç¹û´«ÈëµÄobject±¾Ê¡¾ÍÊÇ0Ôò·µ»Ø0
@@ -287,17 +287,45 @@ QOther
    µ«ÊÇÎÒÃÇÎŞ·¨·µ»Ø¾Ö²¿¶ÔÏóµÄÒıÓÃ£¬µ«ÏÖÔÚÓĞÁËÒÆ¶¯¹¹Ôìº¯Êı¾Í¿ÉÒÔÁË£¬±àÒëÆ÷½«Ñ¡ÔñÒÆ¶¯¹¹Ôìº¯ÊıÀ´Ö´ĞĞ´Óº¯ÊıÖĞÒÆ³ö·µ»ØÖµµÄÈÎÎñ¡£
 
 
+¶¯Ì¬¿â£ºlibwfofflineDB.so libimpcheck-qt4.so
+¿ÉÖ´ĞĞ³ÌĞò£ºwfofflinechecktoolqz
+µÚÈı·½¶¯Ì¬¿â£ºlibxlsxd.so
+wfofflinechecktoolqzÖ±½ÓÒÀÀµÓÚ¶¯Ì¬¿âlibwfofflineDB.so libimpcheck-qt4.so ¼ä½ÓÒÀÀµÓÚlibxlsxd.so£¨¹¤³ÌÖĞÓÃµ½ÁË¿âlibxlsxd.soÖĞµÄÀà£©
+libwfofflineDB.soÖ±½ÓÒÀÀµlibxlsxd.so
+
+±àÒë¶¯Ì¬¿âlibwfofflineDB.soÊ±£¬ÔÚwfofflineDB.proÎÄ¼şÖĞ²»ÒıÈë¶¯Ì¬¿âlibxlsxd.so£¬ÊÇ¿ÉÒÔ±àÒë¹ıµÄ£¬ÔÙ½Ó×Å±àÒëwfofflinechecktoolqz(´ËÊ±ÆäproÎÄ¼şÖĞ
+ÒıÈëÁË¶¯Ì¬¿âlibimpcheck-qt4.so£¬ºóĞø»á¾ÙÀı²»ÒıÈë¶¯Ì¬¿âlibimpcheck-qt4.soµÄÀı×Ó)±¨´í
+"undefined reference to ¡®QXlsx::Document::Document(QString const&, QObject*)¡¯"£»·´Ö®ÔÚwfofflineDB.proÒıÈë¶¯Ì¬¿âlibxlsxd.so£¬¿ÉÒÔ±àÒë¹ı£¬
+ÔÙ½Ó×Å±àÒëwfofflinechecktoolqz¿ÉÒÔ±àÒë¹ı¡£
+·ÖÎö£º¿ÉÄÜÊÇÒ»¸öÊÇ¶¯Ì¬¿â£¬Ã»ÓĞ½øĞĞº¯Êıµ÷ÓÃ£¬Ò»¸öÊÇ¿ÉÖ´ĞĞ³ÌĞò£¬½øĞĞÁËº¯Êıµ÷ÓÃÔ­Òò¡£¶¯Ì¬¿âlibxlsxd.soºÍ¿ÉÖ´ĞĞ³ÌĞòwfofflinechecktoolqz¶¼ÓÃµ½ÁË¶¯Ì¬¿âlibxlsxd.soÖĞµÄÀà
+
+±àÒëwfofflinechecktoolqz(´ËÊ±ÒıÈëÁË¶¯Ì¬¿âlibwfofflineDB.so£¬wfofflineDB.proÎÄ¼şÖĞÒıÈëÁË¶¯Ì¬¿âlibxlsxd.so)Ê±£¬ÔÚwfofflinechecktoolqz.proÎÄ¼şÖĞ
+²»ÒıÈë¶¯Ì¬¿âlibimpcheck-qt4.so¡£»á±¨´íÕÒ²»µ½¶¯Ì¬¿âlibimpcheck-qt4.soÖĞµÄº¯Êı¶¨Òå¡£
+
+×ÛÉÏµÃ³ö½áÂÛ±àÒë¶¯Ì¬¿âºÍ¿ÉÖ´ĞĞ³ÌĞòµÄÇø±ğ£º
+1. ÔÚ¶¯Ì¬¿â(libwfofflineDB.so)ÖĞÖ»Ìí¼ÓµÚÈı·½¿â(libxlsxd.so)µÄÍ·ÎÄ¼ş£¬²»ÔÚÆäproÎÄ¼şÖĞÒıÈëµÚÈı·½¿â(libxlsxd.so)£¬¶¯Ì¬¿â(libwfofflineDB.so)
+¿ÉÒÔ±àÒë¹ı£¬±àÒëÒÀÀµ¶¯Ì¬¿â(libwfofflineDB.so)µÄ¿ÉÖ´ĞĞ³ÌĞò(wfofflinechecktoolqz)Ê±±¨´íÕÒ²»µ½µÚÈı·½¿âµÄÏà¹ØÄÚÈİ£»
+2. ÔÚ¿ÉÖ´ĞĞ³ÌĞò(wfofflinechecktoolqz)ÖĞÖ»Ìí¼Ó¶¯Ì¬¿â(libimpcheck-qt4.so)µÄÍ·ÎÄ¼ş£¬²»ÔÚÆäproÎÄ¼şÖĞÒıÈë¶¯Ì¬¿â(libimpcheck-qt4.so)£¬±àÒë»áÖ±½Ó±¨´íÕÒ²»µ½¶¯Ì¬¿â(libimpcheck-qt4.so)ÖĞµÄÏà¹ØÄÚÈİ¡£
+
+wfofflinechecktoolqz¼ä½ÓÒÀÀµÓÚ¶¯Ì¬¿âlibxlsxd.so£¬ÎŞĞèÔÚÆäproÎÄ¼şÖĞÒıÈë¡£
+Ò»°ã£¨×¢Òâ²»ÊÇ¿Ï¶¨£¬Ö®Ç°²âÊÔ¹ıĞŞ¸ÄÍ·ÎÄ¼şÖ»±àÒë¶¯Ì¬¿â£¬¿ÉÖ´ĞĞ³ÌĞò¿ÉÒÔÕı³£·ÃÎÊ¶¯Ì¬¿âĞÂ¼ÓµÄ¶«Î÷£¬Ôö¼Ó±äÁ¿ÊÇÕâÑùµÄ£»Ôö¼Óº¯Êı»òÕßĞŞ¸Äº¯ÊıÉùÃ÷ÔòĞèÒª±àÒë¿ÉÖ´ĞĞ³ÌĞò£©
+ĞŞ¸ÄÁË¶¯Ì¬¿âÖĞµÄÍ·ÎÄ¼ş±àÒëÍê¶¯Ì¬¿âºó£¬»¹ĞèÒª±àÒëÒÀÀµ¶¯Ì¬¿âµÄ¿ÉÖ´ĞĞ³ÌĞò¡£
+Èç¹ûÖ»ĞŞ¸ÄÁË¶¯Ì¬¿âÖĞµÄcppÎÄ¼şÖ»±àÒë¶¯Ì¬¿â¼´¿É¡£
+
+ÔÚÉè¼ÆÀàÊ±µÄÎÊÌâ£º
+ÀàAÓÃµ½ÁËÀàBÖĞµÄÄÚÈİ£¬ÔÚÀàAÖĞÒıÈëÀàBÓĞÁ½ÖÖ·½Ê½£º1.Ç°ÖÃÉùÃ÷ 2. #include "B.h"
+ÇãÏòÓÚÓÃµÚ1ÖÖ·½Ê½
 
 
+Q_DECLARE_METATYPE×÷ÓÃ£ºÓÃÓÚ½«×Ô¶¨ÒåµÄÀàĞÍÉèÖÃµ½QVariantÖĞ¡£µ±×Ô¶¨ÒåµÄÀàĞÍĞèÒª·Åµ½QVariantÖĞÊ±Ê¹ÓÃ¡£
+qRegisterMetaType×÷ÓÃ£ºµ±ĞÅºÅºÍ²Û´«µİµÄ²ÎÊıÊ¹ÓÃ×Ô¶¨ÒåÀàĞÍµÄÊ±ºòĞèÒªÏÈ½«¸ÃÀàĞÍ×¢²áµ½Ôª¶ÔÏóÏµÍ³ÖĞ¡£
+time(NULL);·µ»Ø´Ó1970ÄêÔªµ©ÎçÒ¹0µãµ½ÏÖÔÚµÄÃëÊı¡£
 
-
-
-
-
-
-
-
-
+DRY(Don't Repeat Yourself)
+½µµÍ¿É¹ÜÀíµ¥ÔªµÄ¸´ÔÓ¶ÈµÄ»ù±¾²ßÂÔÊÇ½«ÏµÍ³·Ö³É¶à¸ö²¿·Ö
+KISS(Keep It Simple Stupid)
+Single Responsibility Principle(µ¥Ò»Ö°ÔğÔ­Ôò)
+Open/Closed Princle(¿ª±ÕÔ­Ôò)£º¶ÔÓÚÀ©Õ¹£¬ÀàÓ¦¸ÃÊÇ¿ª·ÅµÄ£»¶ÔÓÚĞŞ¸Ä£¬ÀàÓ¦¸ÃÊÇ·â±ÕµÄ
 
 
 
