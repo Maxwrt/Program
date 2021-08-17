@@ -6,6 +6,7 @@
 #include <QThread>
 #include <QMetaObject>
 #include <QThreadPool>
+#include <QTextStream>
 
 Runnable::Runnable(QObject * parent):
     m_obj(parent),
@@ -17,11 +18,13 @@ Runnable::Runnable(QObject * parent):
 
 Runnable::~Runnable()
 {
-    OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
+    QTextStream(stdout) << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
+#if 1
     if (m_compare)
     {
         delete m_compare;
     }
+#endif
 }
 
 void Runnable::run()
@@ -29,12 +32,12 @@ void Runnable::run()
     OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
 
     //进行比较处理过程
-
     QMutexLocker ml(&m_mutex);
     if (QRunnableCompare::instance()->giveDatahash().size() > 0)
     {
         m_compare->compareStart(QRunnableCompare::instance()->giveDatahash());
     }
+
     if (0 != m_compare->getData())
     {
         QVariantList datalist = *(m_compare->getData());
@@ -52,7 +55,7 @@ QRunnableCompare::QRunnableCompare(QObject *parent):
 
 QRunnableCompare::~QRunnableCompare()
 {
-    OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
+    QTextStream(stdout) << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
 }
 
 void QRunnableCompare::startCompareSlot(const QVariantHash& hash)

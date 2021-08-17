@@ -3,8 +3,8 @@
 #include "boolresult.h"
 #include "common.h"
 #include "QThreadCompare.h"
-#include "QObjectCompare.h"
 #include "QRunnableCompare.h"
+#include "QObjectCompare.h"
 #include <QMessageBox>
 #include <QFile>
 #include <QFileInfo>
@@ -26,7 +26,6 @@
 #include <QScrollBar>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    mAllTips(NULL),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -69,14 +68,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::startQThreadCompare, m_threadCompare, &QThreadCompare::startCompareSlot);
     connect(m_threadCompare, &QThreadCompare::finish_compare_thread, this, &MainWindow::finish_compare_main);
     connect(m_threadCompare, &QThreadCompare::finished, this, &MainWindow::threadCompare_finish_slot);
-//    connect(m_threadCompare, &QThreadCompare::finished, this, &QThread::deleteLater);//m_threadCompare让界面程序自己释放，这里连接信号槽可能crashed掉程序
     connect(m_threadCompare, &QThreadCompare::sendMsg, this, &MainWindow::show_msg_slot);
 
     //继承QObject实现的比较功能
-    m_objectCompare = QPointer<QObjectCompare>(new QObjectCompare());
+    m_objectCompare = new QObjectCompare();
     connect(this, &MainWindow::startQObjectCompare, m_objectCompare, &QObjectCompare::compareSlot, Qt::QueuedConnection);
     connect(&m_objectCompareThread, &QThread::finished, this, &MainWindow::objectCompare_finish_slot, Qt::QueuedConnection);
-    connect(&m_objectCompareThread, &QThread::finished, m_objectCompare, &QObject::deleteLater, Qt::QueuedConnection);
     connect(m_objectCompare, &QObjectCompare::finishCompareSignal, this, &MainWindow::finish_compare_main, Qt::QueuedConnection);
     connect(m_objectCompare, &QObjectCompare::sendMsg, this, &MainWindow::show_msg_slot, Qt::QueuedConnection);
     m_objectCompare->moveToThread(&m_objectCompareThread);
@@ -131,8 +128,13 @@ void MainWindow::printQMapMarkRecorStatus(const QMapMarkRecorStatus& record)
 MainWindow::~MainWindow()
 {
     stopThread();
-    delete ui;
+    if (m_objectCompare)
+    {
+        delete m_objectCompare;
+        m_objectCompare = 0;
+    }
     OUT << u8"~MainWindow解构";
+    delete ui;
 }
 
 void MainWindow::objectCompare_finish_slot()
@@ -266,6 +268,7 @@ void MainWindow::on_pushButtonCompare_clicked()
 
 bool MainWindow::finish_compare_main(const QVariantList& retlist)
 {
+    bool ret = true;
     if (retlist.size() > 0)
     {
         m_ret_data = retlist;
@@ -278,9 +281,10 @@ bool MainWindow::finish_compare_main(const QVariantList& retlist)
                 ui->progressBar->hide();
             }
             QMessageBox::information(this, u8"提示", errmsg + QString(u8"请检查！"), u8"确定");
-            return false;
+            ret = false;
         }
-        updateTable();
+        if (ret)
+            updateTable();
 
         switch(m_flag)
         {
@@ -295,29 +299,7 @@ bool MainWindow::finish_compare_main(const QVariantList& retlist)
             break;
         default:
             break;
-        }
-
-        if (m_objectCompareThread.isRunning())
-        {
-            m_objectCompareThread.quit();
-            m_objectCompareThread.wait();
-            if (m_objectCompareThread.isFinished())
-            {
-                sendMsg(u8"m_objectCompareThread退出");
-            }
-        }
-
-        if (m_threadCompare->isRunning())
-        {
-            m_threadCompare->stopThread();
-            m_threadCompare->wait();
-            if (m_threadCompare->isFinished())
-            {
-                sendMsg(u8"m_threadCompare退出");
-                OUT << u8"m_threadCompare退出";
-            }
-        }
-
+        }        
     }
     else
     {
@@ -327,16 +309,38 @@ bool MainWindow::finish_compare_main(const QVariantList& retlist)
             ui->progressBar->hide();
         }
         QMessageBox::information(this, u8"提示", u8"比较结果为空", u8"确定");
-        return false;
+        ret = false;
     }
     if(m_timer->isActive())
     {
         m_timer->stop();
         ui->progressBar->hide();
     }
+
+    if (m_objectCompareThread.isRunning())
+    {
+        m_objectCompareThread.quit();
+        m_objectCompareThread.wait();
+        if (m_objectCompareThread.isFinished())
+        {
+            OUT << u8"m_objectCompareThread退出";
+        }
+    }
+
+    if (m_threadCompare->isRunning())
+    {
+        m_threadCompare->stopThread();
+        m_threadCompare->wait();
+
+        if (m_threadCompare->isFinished())
+        {
+            OUT << u8"m_threadCompare退出";
+        }
+    }
+
     m_synchronize = false; //默认先进行比较，在进行比对
     m_flag = 1; //默认使用QObject进行比较
-    return true;
+    return ret;
 }
 
 QString MainWindow::parseCompareResult()

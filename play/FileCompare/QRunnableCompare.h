@@ -36,18 +36,16 @@ class QRunnableCompare: public QObject
 public:
     static QRunnableCompare* instance()
     {
-        static QRunnableCompare* ptr = nullptr;
-        if (ptr == nullptr)
-        {
-            ptr = new QRunnableCompare(0);
-        }
-        return ptr;
+        static QRunnableCompare ptr;
+        return &ptr;
     }
     QVariantHash giveDatahash()
     {
         return m_hash;
     }
+
     Q_INVOKABLE   void getDataList(QVariantList list);
+
 
 public slots:
     void startCompareSlot(const QVariantHash& hash);

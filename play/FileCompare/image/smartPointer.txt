@@ -1,4 +1,4 @@
-智能指针：一个被重写了指针解引用操作operator*()和operator->()的类被称为智能指针
+智能指针：一个重写了指针解引用操作operator*()和operator->()的类被称为智能指针
 QSharedPointer(strong reference) <> std::shared_ptr 可以安全的放到标准容器中
 内部维持着对拥有的内存资源的引用计数。比如5个QSharedPoniter拥有同一个内存资源，
 那么这个引用计数就是5。这时如果一个QSharedPointer离开它的作用域，那么就还剩下
@@ -22,14 +22,14 @@ if (label_ptr)
 {
     label->show();
 }
-QPointer于其他的智能指针有很大的不同。其他只能在指针都是为了自动释放内存资源而设计的。QPointer
-智能用于指向QObject派生类的对象。当一个QObject或派生类对象被删除后，QPointer能自动把其内部的
+QPointer于其他的智能指针有很大的不同。其他智能指针都是为了自动释放内存资源而设计的。QPointer
+指针用于指向QObject派生类的对象。当一个QObject或派生类对象被删除后，QPointer能自动把其内部的
 指针设置为0。这样我们在使用这个QPointer之前就可以判断一下是否有效了。当一个QPointer对象超出
 作用域时，并不会删除它指向的内存对象，这是和其他智能指针不同的地方。
 QSharedDataPointer和QExplicitlySharedDataPointer仅有的区别是当引用计数大于1且非const成员函数修改数据成员时，
 前者会自动调用写时复制操作(detach()函数)，后者不会。
 QSharedDataPointer这个类帮我们实现数据的隐式共享。qt中大量采用了隐式共享和写时拷贝技术。
-加入你想写一个类Employee,使其隐式共享。要求如下：
+假如你想写一个类Employee,使其隐式共享。要求如下：
 1. Employee必须有一个单独的数据成员QSharedDataPointer<EmployeeData>.
 2. EmployeeData类继承QSharedData包含你想要在Employee中添加的所有是数据成员
    EmployeeData类实现构造函数，拷贝构造函数，析构函数，即可满足一个隐式共享类的条件

@@ -15,11 +15,6 @@ QObjectCompare::QObjectCompare()
 QObjectCompare::~QObjectCompare()
 {
     OUT << u8"~QObjectCompare 所在线程 id: "<< QThread::currentThreadId();
-    if (m_compare)
-    {
-        OUT << QString::fromLocal8Bit("在~Compare中释放m_compare");
-        delete m_compare;
-    }
 }
 
 void QObjectCompare::compareSlot(const QVariantHash& hash)

@@ -19,18 +19,21 @@ QThreadCompare::QThreadCompare(QObject *parent)
 QThreadCompare::~QThreadCompare()
 {
     OUT << u8"~QThread 所在线程 id: "<< QThread::currentThreadId();
+#if 0
     if (m_compare)
     {
         delete m_compare;
         m_compare = 0;
     }
+#endif
 }
 
 void QThreadCompare::run()
 {
     OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
-    while (true)
+    while (1)
     {
+        QTextStream(stdout) << "while";
         m_mutex.lock();
         if(m_start_compare)
         {
@@ -45,6 +48,8 @@ void QThreadCompare::run()
         m_mutex.unlock();
         msleep(1000);
     }
+    m_stop = false;
+    OUT << u8"QThreadCompare 退出循环";
 }
 
 void QThreadCompare::compare()
@@ -73,7 +78,6 @@ void QThreadCompare::editStartCompareSlot(const QVariantHash& hash)
 
 void QThreadCompare::startCompareSlot(const QVariantHash& hash)
 {
-    emit sendMsg(u8"Thread线程启动");
     OUT << "file:    " << __FILEW__ <<" function:    " << __FUNCTION__ << " id:   "<< QThread::currentThreadId();
     QMutexLocker lock(&m_mutex);
     m_start_compare = true;
@@ -83,7 +87,6 @@ void QThreadCompare::startCompareSlot(const QVariantHash& hash)
 
 void QThreadCompare::receiveBaseSlot(const QVariantList& retlist)
 {
-    emit sendMsg(u8"Thread线程比较返回");
     emit finish_compare_thread(retlist);
 }
 

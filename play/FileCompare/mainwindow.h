@@ -5,7 +5,7 @@
 ****************************************************************************/
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+//#include "QObjectCompare.h"
 #include <QMainWindow>
 #include <QVariantList>
 #include <QVariantHash>
@@ -65,6 +65,7 @@ signals:
     void startQObjectCompare(const QVariantHash& hash);
     void startQRunnableCompare(const QVariantHash& hash);
     void sendMsg(const QString & msg);
+    void deleteQObject(bool flag);
 
 public slots:
     bool showData(const QVariantList* retdata);
@@ -107,7 +108,7 @@ private:
     QStringList m_table_list;
     QPointer<QTimer> m_timer;
     QThread m_objectCompareThread;
-    QPointer<QObjectCompare> m_objectCompare;
+    QObjectCompare *m_objectCompare;
     bool m_synchronize;
     short unsigned int m_flag;  //最低1位标识QObject,次级一位标识QThread,再次级一位标识QRunnable
     QPointer<QThreadCompare> m_threadCompare;
